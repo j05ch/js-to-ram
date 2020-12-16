@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './tailwind.css';
-import Index from './components/app';
+import App from './components/app';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<Index />
+		<App />
 	</React.StrictMode>,
 	document.getElementById('root')
 );

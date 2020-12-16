@@ -1,22 +1,13 @@
 import * as React from 'react';
 
-const Index:React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/Index.tsx</code> and save to reload.
-        </p>
-        <a
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+	return (
+		<div className="flex justify-center items-center h-screen">
+			<div className="text-9xl bg-blue-50 lg:bg-red-50 hover:text-red-500 p-48 rounded-2xl">
+				Hallo Welt
+			</div>
+		</div>
+	);
+};
 
-export default Index;
+export default App;
