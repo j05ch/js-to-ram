@@ -1,43 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TestComponent from '../test-component';
 
-const TestContainer = () => {
-	const arr = [
-		{
-			section: 1,
-			color: 'red',
-			priority: 1,
-			value: 'Hallo ich bin 1',
-		},
-		{
-			section: 2,
-			color: 'blue',
-			priority: 3,
-			value: 'Hallo ich bin 2',
-		},
-	];
+// @ts-ignore
+const TestContainer = ({ timeOut, c, v }) => {
+	// const [color, setColor] = useState('green');
+	// const [value, setValue] = useState('Bonkour');
+
+	// useEffect(() => {
+	// 	if (timeOut !== 9999) {
+	// 		const timer = setTimeout(() => {
+	// 			console.log('C', c);
+	// 			console.log('TimeOut', timeOut);
+	// 			console.log('V', v);
+	// 			setColor(c);
+	// 			setValue(v);
+	// 		}, timeOut);
+	// 		return () => {
+	// 			clearTimeout(timer);
+	// 		}
+	// 	};
+	// }, [timeOut, c, v]);
 
 	return (
 		<div>
-			{arr.map((o) => {
-				if (o.section === 1) {
-					return (
-						<TestComponent
-							color={o.color}
-							value={o.value}
-							priority={o.priority}
-						/>
-					);
-				} else if (o.section === 2) {
-					return (
-						<TestComponent
-							color={o.color}
-							value={o.value}
-							priority={o.priority}
-						/>
-					);
-				} else return React.Fragment;
-			})}
+			<TestComponent color={c} value={v} priority={1} />
 		</div>
 	);
 };
