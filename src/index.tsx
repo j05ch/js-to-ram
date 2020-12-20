@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './tailwind.css';
-import TestApp from './components/poc/test-app';
+import Counter from './components/poc/counter';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<TestApp />
+		<Counter />
 	</React.StrictMode>,
 	document.getElementById('root')
 );

@@ -44,14 +44,14 @@ const TestApp = () => {
 	];
 
 	useEffect(() => {
-		arr.map((o, index) => {
-			setTimeout(() => {
-				setTimeOut(o.timeOut);
-				setValue(o.value);
-				setColor(o.color);
-			}, o.timeOut * 200);
-			// return () => clearTimeout(timer);
-		});
+		// arr.map((o, index) => {
+		setTimeout(() => {
+			setTimeOut(1000);
+			setValue('hallo');
+			setColor('blue');
+		}, 5000);
+		// return () => clearTimeout(timer);
+		// });
 	}, []);
 
 	return (

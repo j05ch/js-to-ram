@@ -3,27 +3,26 @@ import TestComponent from '../test-component';
 
 // @ts-ignore
 const TestContainer = ({ timeOut, c, v }) => {
-	// const [color, setColor] = useState('green');
-	// const [value, setValue] = useState('Bonkour');
+	const [color, setColor] = useState('green');
 
-	// useEffect(() => {
-	// 	if (timeOut !== 9999) {
-	// 		const timer = setTimeout(() => {
-	// 			console.log('C', c);
-	// 			console.log('TimeOut', timeOut);
-	// 			console.log('V', v);
-	// 			setColor(c);
-	// 			setValue(v);
-	// 		}, timeOut);
-	// 		return () => {
-	// 			clearTimeout(timer);
-	// 		}
-	// 	};
-	// }, [timeOut, c, v]);
+	useEffect(() => {
+		if (timeOut !== 9999) {
+			const timer = setTimeout(() => {
+				console.log('TimeOut', timeOut);
+				setColor('black');
+			}, timeOut * 5);
+			return () => {
+				clearTimeout(timer);
+			};
+		} else {
+		}
+	}, [timeOut]);
 
 	return (
 		<div>
-			<TestComponent color={c} value={v} priority={1} />
+			<TestComponent color={'blue'} value={'111'} priority={1} />
+			<TestComponent color={color} value={'222'} priority={1} />
+			<TestComponent color={'blue'} value={'333'} priority={1} />
 		</div>
 	);
 };
