@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useInterval } from '../../../hooks/useInterval';
+import ProgramInput from '../program-input';
 
 const Counter: React.FC = () => {
 	const [counter, setCounter] = useState(0);
@@ -10,6 +11,7 @@ const Counter: React.FC = () => {
 	const [color1, setColor1] = useState('');
 	const [color2, setColor2] = useState('');
 	const [color3, setColor3] = useState('');
+	const [programString, setProgramString] = useState('');
 
 	const contents = ['Hippie', 'Buch', 'Polizei'];
 
@@ -66,8 +68,13 @@ const Counter: React.FC = () => {
 		setColor3(states[counter % 4].color3);
 	}
 
+	function programStringToArray(s: string) {
+		return s.split('\n').map((l) => l.split(','));
+	}
+
 	return (
 		<div className="flex items-center justify-center flex-col h-screen">
+			<ProgramInput setState={setProgramString} />
 			<h1 className="p-1 m-1 text-3xl">{content}</h1>
 			<h1 className="p-1 m-1 text-3xl">{counter}</h1>
 			<p>Delay:</p>
