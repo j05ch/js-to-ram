@@ -68,10 +68,6 @@ const Counter: React.FC = () => {
 		setColor3(states[counter % 4].color3);
 	}
 
-	function programStringToArray(s: string) {
-		return s.split('\n').map((l) => l.split(','));
-	}
-
 	return (
 		<div className="flex items-center justify-center flex-col h-screen">
 			<ProgramInput setState={setProgramString} />
