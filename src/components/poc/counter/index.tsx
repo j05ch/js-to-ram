@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useInterval } from '../../../hooks/useInterval';
-import ProgramInput from '../program-input';
+import ProgramInput from '../../program-input';
 
 const Counter: React.FC = () => {
 	const [counter, setCounter] = useState(0);

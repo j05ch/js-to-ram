@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { Commands } from '../actions/commands';
 
-export function useMachine(
+export function runMachine(
 	programCounter: number,
 	commandLine: string[],
 	input: number,
@@ -17,6 +16,7 @@ export function useMachine(
 		case Commands.READ:
 			{
 				register[argument] = input;
+				pc++;
 			}
 			break;
 		case Commands.WRITE:
