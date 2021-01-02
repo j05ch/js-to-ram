@@ -3,9 +3,10 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
 	setState: Dispatch<SetStateAction<string>>;
+	value: string;
 }
 
-const ProgramInput: React.FC<Props> = ({ setState }) => {
+const ProgramInput: React.FC<Props> = ({ setState, value }) => {
 	function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
 		setState(String(e.target.value));
 	}
@@ -17,7 +18,7 @@ const ProgramInput: React.FC<Props> = ({ setState }) => {
 				name="program-input"
 				rows={5}
 				cols={33}
-				defaultValue="Input program"
+				defaultValue={value}
 				onChange={handleChange}
 			/>
 		</div>
