@@ -22,36 +22,43 @@ export function runMachine(
 		case Commands.WRITE:
 			{
 				output = register[argument];
+				pc++;
 			}
 			break;
 		case Commands.LOAD:
 			{
 				acc = register[argument];
+				pc++;
 			}
 			break;
 		case Commands.STORE:
 			{
 				register[argument] = acc;
+				pc++;
 			}
 			break;
 		case Commands.ADD:
 			{
 				acc += register[argument];
+				pc++;
 			}
 			break;
 		case Commands.SUB:
 			{
 				acc -= register[argument];
+				pc++;
 			}
 			break;
 		case Commands.MULT:
 			{
 				acc *= register[argument];
+				pc++;
 			}
 			break;
 		case Commands.DIV:
 			{
 				acc /= register[argument];
+				pc++;
 			}
 			break;
 		case Commands.JUMP:
@@ -61,12 +68,12 @@ export function runMachine(
 			break;
 		case Commands.JZERO:
 			{
-				pc = acc === 0 ? argument : pc;
+				pc = acc === 0 ? argument : pc + 1;
 			}
 			break;
 		case Commands.JGTZ:
 			{
-				pc = acc > 0 ? argument : pc;
+				pc = acc > 0 ? argument : pc + 1;
 			}
 			break;
 		case Commands.HALT:

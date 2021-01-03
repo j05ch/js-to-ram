@@ -66,7 +66,9 @@ const AppContainer: React.FC<Props> = () => {
 			<button className="dark:text-blue-50" onClick={loadProgram}>
 				Button LOAD
 			</button>
-			<MachineContainer programArray={programArray} />
+			{programArray.length > 0 && (
+				<MachineContainer programArray={programArray} />
+			)}
 		</div>
 	);
 };

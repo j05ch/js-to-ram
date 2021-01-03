@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Debug from '../debug/debug';
 import ProgramContainer from '../program-container';
 import { useState } from 'react';
 import { useInterval } from '../../hooks/useInterval';
@@ -16,9 +15,22 @@ const MachineContainer: React.FC<Props> = ({ programArray }) => {
 	const [pc, setPc] = useState(0);
 	const [register, setRegister] = useState<number[]>([]);
 
+	useInterval(() => {
+		const commandLine = programArray[pc];
+		const result = runMachine(
+			pc,
+			commandLine,
+			Math.random() * 100,
+			register
+		);
+		setPc(result.programCounter);
+		setRegister(result.register);
+		console.log(result.programCounter);
+		console.log(register);
+	}, 2000);
+
 	return (
 		<div className="dark:text-blue-50">
-			<Debug data={programArray} />
 			<CpuContainer />
 			<ProgramCounterContainer programCounter={pc} />
 			<ProgramContainer programArray={programArray} programCounter={pc} />
