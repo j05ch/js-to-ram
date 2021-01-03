@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { labels } from '../../models/labels';
-import ProgramInput from '../program-input';
-import { useRef, useState } from 'react';
+import InputField from '../input-field';
+import { useEffect, useRef, useState } from 'react';
 import {
 	downloadProgramFile,
 	programStringToArray,
 } from '../../utils/programUtils';
 import MachineContainer from '../machine-container';
+import InputContainer from '../input-container';
 
 interface Props {}
 
@@ -14,6 +15,10 @@ const AppContainer: React.FC<Props> = () => {
 	const [programString, setProgramString] = useState('');
 	const [programArray, setProgramArray] = useState<string[][]>([]);
 	const inputFile = useRef<HTMLInputElement>(null);
+	const [locale, setLocale] = useState('DE');
+	const [inputString, setInputString] = useState<string>('');
+
+	useEffect(() => setLocale('DE'), []);
 
 	function loadProgram() {
 		setProgramArray(programStringToArray(programString));
@@ -44,8 +49,8 @@ const AppContainer: React.FC<Props> = () => {
 	}
 
 	return (
-		<div className="dark:bg-black">
-			<h1 className="dark:text-blue-50">{labels.DE.RAM_HEADER}</h1>
+		<div className="dark:bg-blue-900">
+			<h1 className="dark:text-blue-50">{labels[locale].RAM_HEADER}</h1>
 			<input
 				type="file"
 				id="file"
@@ -54,17 +59,18 @@ const AppContainer: React.FC<Props> = () => {
 				style={{ display: 'none' }}
 			/>
 			<button className="dark:text-blue-50" onClick={onClickOpen}>
-				Button OPEN
+				{labels[locale].OPEN_BTN}
 			</button>
-			<ProgramInput setState={setProgramString} value={programString} />
+			<InputField setState={setProgramString} value={programString} />
 			<button
 				className="dark:text-blue-50"
 				onClick={() => downloadProgramFile(programString)}
 			>
-				Button SAVE
+				{labels[locale].SAVE_BTN}
 			</button>
+			<InputContainer setState={setInputString} state={inputString} />
 			<button className="dark:text-blue-50" onClick={loadProgram}>
-				Button LOAD
+				{labels[locale].LOAD_BTN}
 			</button>
 			{programArray.length > 0 && (
 				<MachineContainer programArray={programArray} />

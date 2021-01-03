@@ -6,7 +6,7 @@ interface Props {
 	value: string;
 }
 
-const ProgramInput: React.FC<Props> = ({ setState, value }) => {
+const InputField: React.FC<Props> = ({ setState, value }) => {
 	function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
 		setState(String(e.target.value));
 	}
@@ -14,15 +14,13 @@ const ProgramInput: React.FC<Props> = ({ setState, value }) => {
 	return (
 		<div>
 			<textarea
-				id="program-input"
-				name="program-input"
 				rows={5}
-				cols={33}
-				defaultValue={value}
+				cols={20}
+				value={value}
 				onChange={handleChange}
 			/>
 		</div>
 	);
 };
 
-export default ProgramInput;
+export default InputField;

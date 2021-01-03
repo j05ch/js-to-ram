@@ -1,10 +1,15 @@
 import * as React from 'react';
 import { labels } from '../../models/labels';
+import { useEffect, useState } from 'react';
 
 const CpuContainer: React.FC = () => {
+	const [locale, setLocale] = useState('DE');
+
+	useEffect(() => setLocale('DE'), []);
+
 	return (
 		<>
-			<div>{labels.DE.CPU_HEADER}</div>
+			<div>{labels[locale].CPU_HEADER}</div>
 		</>
 	);
 };

@@ -6,6 +6,7 @@ import { runMachine } from '../../utils/runMachine';
 import ProgramCounterContainer from '../program-counter-container';
 import CpuContainer from '../cpu-container';
 import RegisterContainer from '../register-container';
+import InputContainer from '../input-container';
 
 interface Props {
 	programArray: string[][];
@@ -31,10 +32,21 @@ const MachineContainer: React.FC<Props> = ({ programArray }) => {
 
 	return (
 		<div className="dark:text-blue-50">
-			<CpuContainer />
-			<ProgramCounterContainer programCounter={pc} />
-			<ProgramContainer programArray={programArray} programCounter={pc} />
-			<RegisterContainer />
+			<div className="dark:bg-pink-500">
+				<CpuContainer />
+			</div>
+			<div className="dark:bg-blue-700">
+				<ProgramCounterContainer programCounter={pc} />
+			</div>
+			<div className="dark:bg-green-700">
+				<ProgramContainer
+					programArray={programArray}
+					programCounter={pc}
+				/>
+			</div>
+			<div className="dark:bg-gray-700">
+				<RegisterContainer register={register} programCounter={pc} />
+			</div>
 		</div>
 	);
 };

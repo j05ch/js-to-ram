@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useInterval } from '../../../hooks/useInterval';
-import ProgramInput from '../../program-input';
+import InputField from '../../input-field';
 
 const Counter: React.FC = () => {
 	const [counter, setCounter] = useState(0);
@@ -70,7 +70,7 @@ const Counter: React.FC = () => {
 
 	return (
 		<div className="flex items-center justify-center flex-col h-screen">
-			<ProgramInput setState={setProgramString} value={programString} />
+			<InputField setState={setProgramString} value={programString} />
 			<h1 className="p-1 m-1 text-3xl">{content}</h1>
 			<h1 className="p-1 m-1 text-3xl">{counter}</h1>
 			<p>Delay:</p>
