@@ -7,6 +7,7 @@ import ProgramCounterContainer from '../program-counter-container';
 import CpuContainer from '../cpu-container';
 import RegisterContainer from '../register-container';
 import InputContainer from '../input-container';
+import './index.css';
 
 interface Props {
 	programArray: string[][];
@@ -31,20 +32,20 @@ const MachineContainer: React.FC<Props> = ({ programArray }) => {
 	}, 2000);
 
 	return (
-		<div className="dark:text-blue-50">
-			<div className="dark:bg-pink-500">
+		<div className="dark:text-blue-50 grid-container">
+			<div className="dark:bg-pink-500 cpu">
 				<CpuContainer />
 			</div>
-			<div className="dark:bg-blue-700">
+			<div className="dark:bg-blue-700 program-counter">
 				<ProgramCounterContainer programCounter={pc} />
 			</div>
-			<div className="dark:bg-green-700">
+			<div className="dark:bg-green-700 program">
 				<ProgramContainer
 					programArray={programArray}
 					programCounter={pc}
 				/>
 			</div>
-			<div className="dark:bg-gray-700">
+			<div className="dark:bg-gray-700 register">
 				<RegisterContainer register={register} programCounter={pc} />
 			</div>
 		</div>
