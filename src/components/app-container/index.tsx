@@ -58,18 +58,24 @@ const AppContainer: React.FC<Props> = () => {
 				ref={inputFile}
 				style={{ display: 'none' }}
 			/>
-			<button className="dark:text-blue-50" onClick={onClickOpen}>
+			<button
+				className="dark:text-blue-50 border-2"
+				onClick={onClickOpen}
+			>
 				{labels[locale].OPEN_BTN}
 			</button>
 			<InputField setState={setProgramString} value={programString} />
 			<button
-				className="dark:text-blue-50"
+				className="dark:text-blue-50 border-2"
 				onClick={() => downloadProgramFile(programString)}
 			>
 				{labels[locale].SAVE_BTN}
 			</button>
 			<InputContainer setState={setInputString} state={inputString} />
-			<button className="dark:text-blue-50" onClick={loadProgram}>
+			<button
+				className="dark:text-blue-50 border-2"
+				onClick={loadProgram}
+			>
 				{labels[locale].LOAD_BTN}
 			</button>
 			{programArray.length > 0 && (
