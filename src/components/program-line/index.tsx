@@ -10,11 +10,13 @@ const ProgramLine: React.FC<Props> = ({ programLine, programCounter }) => {
 		<>
 			<div className="dark:text-blue-50">
 				<div>
-					<div>{programLine[0]}:</div>
-					<div>{programLine[1]}</div>
-					<div>{programLine[2]}</div>
+					<span>{programLine[0]}:</span>
+					<span>{programLine[1]}</span>
+					<span>{programLine[2]}</span>
+					{programCounter === Number(programLine[0]) && (
+						<span>@</span>
+					)}
 				</div>
-				{programCounter === Number(programLine[0]) && <div>@</div>}
 			</div>
 		</>
 	);

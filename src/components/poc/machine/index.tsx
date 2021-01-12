@@ -20,6 +20,7 @@ const Machine: React.FC = (props) => {
 		const commandLine = exampleProg[pc];
 		const result = runMachine(
 			pc,
+			1,
 			commandLine,
 			Math.random() * 100,
 			register

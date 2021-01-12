@@ -1,18 +1,11 @@
 import * as React from 'react';
-import InputField from '../input-field';
-import { Dispatch, SetStateAction } from 'react';
 
-interface Props {
-	state: string;
-	setState: Dispatch<SetStateAction<string>>;
-}
+interface Props {}
 
-const InputContainer: React.FC<Props> = ({ state, setState }) => {
+const InputContainer: React.FC<Props> = () => {
 	return (
 		<>
-			<div>
-				<InputField setState={setState} value={state} />
-			</div>
+			<div>INPUT</div>
 		</>
 	);
 };

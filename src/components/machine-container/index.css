@@ -1,9 +1,15 @@
 .grid-container {
 	display: grid;
 	grid-template-areas:
+		'input input input'
+		'input input input'
+		'input input input'
 		'program cpu register'
 		'program program-counter register'
-		'program . register';
+		'program . register'
+		'output output output'
+		'output output output'
+		'output output output';
 }
 
 .cpu {
@@ -20,4 +26,12 @@
 
 .register {
 	grid-area: register;
+}
+
+.input {
+	grid-area: input;
+}
+
+.output {
+	grid-area: output;
 }

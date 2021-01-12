@@ -2,11 +2,13 @@ import { Commands } from '../actions/commands';
 
 export function runMachine(
 	programCounter: number,
+	inputIndex: number,
 	commandLine: string[],
 	input: number,
 	register: number[]
 ) {
 	let pc = programCounter;
+	let ii = inputIndex;
 	const command = commandLine[1];
 	const argument = Number(commandLine[2]);
 	let output;
@@ -16,6 +18,7 @@ export function runMachine(
 		case Commands.READ:
 			{
 				register[argument] = input;
+				ii++;
 				pc++;
 			}
 			break;
@@ -90,6 +93,7 @@ export function runMachine(
 
 	return {
 		programCounter: pc,
+		inputIndex: ii,
 		register: register,
 		output: output,
 	};

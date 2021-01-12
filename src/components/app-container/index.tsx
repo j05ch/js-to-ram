@@ -7,7 +7,7 @@ import {
 	programStringToArray,
 } from '../../utils/programUtils';
 import MachineContainer from '../machine-container';
-import InputContainer from '../input-container';
+import InputFieldContainer from '../input-field-container';
 
 interface Props {}
 
@@ -17,10 +17,12 @@ const AppContainer: React.FC<Props> = () => {
 	const inputFile = useRef<HTMLInputElement>(null);
 	const [locale, setLocale] = useState('DE');
 	const [inputString, setInputString] = useState<string>('');
+	const [inputArray, setInputArray] = useState<string[]>([]);
 
 	useEffect(() => setLocale('DE'), []);
 
 	function loadProgram() {
+		setInputArray(inputString.split('\n'));
 		setProgramArray(programStringToArray(programString));
 	}
 
@@ -71,7 +73,10 @@ const AppContainer: React.FC<Props> = () => {
 			>
 				{labels[locale].SAVE_BTN}
 			</button>
-			<InputContainer setState={setInputString} state={inputString} />
+			<InputFieldContainer
+				setState={setInputString}
+				state={inputString}
+			/>
 			<button
 				className="dark:text-blue-50 border-2"
 				onClick={loadProgram}
@@ -79,7 +84,10 @@ const AppContainer: React.FC<Props> = () => {
 				{labels[locale].LOAD_BTN}
 			</button>
 			{programArray.length > 0 && (
-				<MachineContainer programArray={programArray} />
+				<MachineContainer
+					programArray={programArray}
+					inputArray={inputArray}
+				/>
 			)}
 		</div>
 	);
