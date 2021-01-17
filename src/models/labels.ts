@@ -9,5 +9,7 @@ export const labels: { [index: string]: any } = {
 		SAVE_BTN: 'HERUNTERLADEN',
 		OPEN_BTN: 'HOCHLADEN',
 		LOAD_BTN: 'LADEN',
+		INPUT_CONTAINER_HEADER: 'EINGABE',
+		OUTPUT_CONTAINER_HEADER: 'AUSGABE',
 	},
 };
