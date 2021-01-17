@@ -8,7 +8,6 @@ import CpuContainer from '../cpu-container';
 import RegisterContainer from '../register-container';
 import './index.css';
 import DisplayContainer from '../display-container';
-import OutputContainer from '../output-container';
 import { labels } from '../../models/labels';
 
 interface Props {
