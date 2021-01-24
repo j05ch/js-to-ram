@@ -11,5 +11,10 @@ export const labels: { [index: string]: any } = {
 		LOAD_BTN: 'LADEN',
 		INPUT_CONTAINER_HEADER: 'EINGABE',
 		OUTPUT_CONTAINER_HEADER: 'AUSGABE',
+		PAUSE: 'PAUSE',
+		PLAY: 'PLAY',
+		STEP: 'SCHRITT',
+		FASTER: 'SCHNELLER',
+		SLOWER: 'LANGSAMER',
 	},
 };

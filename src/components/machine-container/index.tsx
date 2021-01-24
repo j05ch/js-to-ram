@@ -9,6 +9,7 @@ import RegisterContainer from '../register-container';
 import './index.css';
 import DisplayContainer from '../display-container';
 import { labels } from '../../models/labels';
+import MachineControl from '../machine-control';
 
 interface Props {
 	programArray: string[][];
@@ -21,10 +22,14 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 	const [register, setRegister] = useState<number[]>([0]);
 	const [outputArray, setOutputArray] = useState<string[]>([]);
 	const [locale, setLocale] = useState('DE');
+	const [delay, setDelay] = useState(5000);
+	const [isRunning, setIsRunning] = useState(false);
 
-	useEffect(() => setLocale('DE'), []);
+	useEffect(() => setLocale('DE'), [locale]);
 
-	useInterval(() => {
+	useInterval(machineStep, isRunning ? delay : null);
+
+	function machineStep() {
 		const commandLine = programArray[pc];
 		const result = runMachine(
 			pc,
@@ -39,7 +44,7 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 		if (result.output !== undefined) {
 			setOutputArray([...outputArray, String(result.output)]);
 		}
-	}, 500);
+	}
 
 	return (
 		<div className="dark:text-blue-50 grid-container">
@@ -70,6 +75,15 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 					inputArray={outputArray}
 					inputIndex={outputArray.length - 1}
 					headerLabel={labels[locale].OUTPUT_CONTAINER_HEADER}
+				/>
+			</div>
+			<div className="dark:bg-blue-400 control">
+				<MachineControl
+					delay={delay}
+					setDelay={setDelay}
+					isRunning={isRunning}
+					setIsRunning={setIsRunning}
+					doStep={machineStep}
 				/>
 			</div>
 		</div>

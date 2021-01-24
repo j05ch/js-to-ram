@@ -6,7 +6,8 @@
 		'program cpu register'
 		'program program-counter register'
 		'program . register'
-		'output output output';
+		'output output output'
+		'control control control';
 }
 
 .cpu {
@@ -31,4 +32,8 @@
 
 .output {
 	grid-area: output;
+}
+
+.control {
+	grid-area: control;
 }
