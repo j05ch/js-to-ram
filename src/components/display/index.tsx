@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface Props {
 	inputArray: string[];
-	inputIndex: number;
+	inputIndex: number | undefined;
 }
 
 const Display: React.FC<Props> = ({ inputArray, inputIndex }) => {

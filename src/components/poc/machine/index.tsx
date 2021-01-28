@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useInterval } from '../../../hooks/useInterval';
 import { useState } from 'react';
 import { runMachine } from '../../../utils/runMachine';
+import { Step } from '../../../actions/step';
 
 const Machine: React.FC = (props) => {
 	const [pc, setPc] = useState(0);
@@ -22,8 +23,10 @@ const Machine: React.FC = (props) => {
 			pc,
 			1,
 			commandLine,
-			Math.random() * 100,
-			register
+			[],
+			register,
+			Step.REGISTER,
+			[]
 		);
 		setPc(result.programCounter);
 		setRegister(result.register);

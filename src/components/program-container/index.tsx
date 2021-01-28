@@ -5,12 +5,14 @@ import { useEffect, useState } from 'react';
 
 interface Props {
 	programArray: string[][];
-	programCounter: number;
+	programCounter: number | undefined;
+	mark: boolean;
 }
 
 const ProgramContainer: React.FC<Props> = ({
 	programArray,
 	programCounter,
+	mark,
 }) => {
 	const [locale, setLocale] = useState('DE');
 
@@ -22,6 +24,7 @@ const ProgramContainer: React.FC<Props> = ({
 				programLine={l}
 				programCounter={programCounter}
 				key={l[0]}
+				mark={mark}
 			/>
 		));
 	}

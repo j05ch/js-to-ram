@@ -3,10 +3,9 @@ import * as React from 'react';
 interface Props {
 	register: number;
 	index: number;
-	programCounter: number;
 }
 
-const Register: React.FC<Props> = ({ register, index, programCounter }) => {
+const Register: React.FC<Props> = ({ register, index }) => {
 	return (
 		<>
 			<div className="dark:text-blue-50">
@@ -15,7 +14,6 @@ const Register: React.FC<Props> = ({ register, index, programCounter }) => {
 						{index}:{register}
 					</div>
 				</div>
-				{programCounter === index && <div>@</div>}
 			</div>
 		</>
 	);

@@ -5,22 +5,16 @@ import Register from '../register';
 
 interface Props {
 	register: number[];
-	programCounter: number;
 }
 
-const RegisterContainer: React.FC<Props> = ({ register, programCounter }) => {
+const RegisterContainer: React.FC<Props> = ({ register }) => {
 	const [locale, setLocale] = useState('DE');
 
 	useEffect(() => setLocale('DE'), []);
 
 	function getRegisters() {
 		return register.map((r, index) => (
-			<Register
-				register={r}
-				index={index}
-				programCounter={programCounter}
-				key={index}
-			/>
+			<Register register={r} index={index} key={index} />
 		));
 	}
 

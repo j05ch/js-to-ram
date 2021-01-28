@@ -3,7 +3,7 @@ import Display from '../display';
 
 interface Props {
 	inputArray: string[];
-	inputIndex: number;
+	inputIndex: number | undefined;
 	headerLabel: string;
 }
 

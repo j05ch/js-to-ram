@@ -1,0 +1,10 @@
+export enum Step {
+	PROGRAM = 'PROGRAM',
+	INPUT = 'INPUT',
+	REGISTER = 'REGISTER',
+	OUTPUT = 'OUTPUT',
+	NEXT = 'NEXT',
+	PC = 'PC',
+	INITIAL = 'INITIAL',
+	CLEAR = 'CLEAR',
+}
