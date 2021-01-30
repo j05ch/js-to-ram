@@ -118,6 +118,7 @@ export function runMachine(
 				if (step === Step.REGISTER_2) {
 					changedRegister = [...changedRegister, register[argument]];
 					step = Step.OUTPUT;
+					break;
 				}
 				if (step === Step.OUTPUT) {
 					if (mode === Mode.INDIRECT) {
@@ -133,6 +134,7 @@ export function runMachine(
 						output = register[argument];
 					}
 					step = Step.PC;
+					break;
 				}
 				if (step === Step.PC) {
 					programCounter++;
@@ -144,99 +146,377 @@ export function runMachine(
 			break;
 		case Commands.LOAD:
 			{
-				if (mode === Mode.IMMEDIATE) {
-					acc = argument;
-				} else if (mode === Mode.INDIRECT) {
-					acc = register[register[argument]];
-				} else {
-					acc = register[argument];
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					step = Step.REGISTER;
+					break;
 				}
-				changedRegister = [...changedRegister, ACC];
-				programCounter++;
+				if (step === Step.REGISTER) {
+					if (mode === Mode.INDIRECT) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					if (mode === Mode.STANDARD) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.ACC;
+					}
+					if (mode === Mode.IMMEDIATE) {
+						changedRegister = [...changedRegister, ACC];
+						step = Step.ACC;
+					}
+					break;
+				}
+				if (step === Step.ACC) {
+					if (mode === Mode.IMMEDIATE) {
+						acc = argument;
+					}
+					if (mode === Mode.INDIRECT) {
+						acc = register[register[argument]];
+					}
+					if (mode === Mode.STANDARD) {
+						acc = register[argument];
+					}
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter++;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.STORE:
 			{
-				if (mode === Mode.INDIRECT) {
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					step = Step.ACC;
+					break;
+				}
+				if (step === Step.ACC) {
+					if (mode === Mode.INDIRECT) {
+						step = Step.REGISTER;
+					}
+					if (mode === Mode.STANDARD) {
+						step = Step.REGISTER;
+					}
+					changedRegister = [...changedRegister, ACC];
+					break;
+				}
+				if (step === Step.REGISTER) {
+					if (mode === Mode.INDIRECT) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					if (mode === Mode.STANDARD) {
+						register[argument] = acc;
+						changedRegister = [...changedRegister, argument];
+						step = Step.PC;
+					}
+					break;
+				}
+				if (step === Step.REGISTER_2) {
 					register[register[argument]] = acc;
 					changedRegister = [...changedRegister, register[argument]];
-				} else {
-					register[argument] = acc;
-					changedRegister = [...changedRegister, argument];
+					step = Step.PC;
+					break;
 				}
-				programCounter++;
+				if (step === Step.PC) {
+					programCounter++;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.ADD:
 			{
-				if (mode === Mode.IMMEDIATE) {
-					acc += argument;
-				} else if (mode === Mode.INDIRECT) {
-					acc += register[register[argument]];
-				} else {
-					acc += register[argument];
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					if (mode === Mode.IMMEDIATE) {
+						step = Step.ACC;
+					}
+					if (mode === Mode.STANDARD || mode === Mode.INDIRECT) {
+						step = Step.REGISTER;
+					}
+					break;
 				}
-				changedRegister = [...changedRegister, ACC];
-				programCounter++;
+				if (step === Step.REGISTER) {
+					if (mode === Mode.INDIRECT) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					if (mode === Mode.STANDARD) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.ACC;
+					}
+					break;
+				}
+				if (step === Step.REGISTER_2) {
+					changedRegister = [...changedRegister, register[argument]];
+					step = Step.ACC;
+					break;
+				}
+				if (step === Step.ACC) {
+					if (mode === Mode.INDIRECT) {
+						acc += register[register[argument]];
+					}
+					if (mode === Mode.STANDARD) {
+						acc += register[argument];
+					}
+					if (mode === Mode.IMMEDIATE) {
+						acc += argument;
+					}
+					changedRegister = [...changedRegister, ACC];
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter++;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.SUB:
 			{
-				if (mode === Mode.IMMEDIATE) {
-					acc -= argument;
-				} else if (mode === Mode.INDIRECT) {
-					acc -= register[register[argument]];
-				} else {
-					acc -= register[argument];
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					if (mode === Mode.IMMEDIATE) {
+						step = Step.ACC;
+					}
+					if (mode === Mode.STANDARD || mode === Mode.INDIRECT) {
+						step = Step.REGISTER;
+					}
+					break;
 				}
-				changedRegister = [...changedRegister, ACC];
-				programCounter++;
+				if (step === Step.REGISTER) {
+					if (mode === Mode.INDIRECT) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					if (mode === Mode.STANDARD) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.ACC;
+					}
+					break;
+				}
+				if (step === Step.REGISTER_2) {
+					changedRegister = [...changedRegister, register[argument]];
+					step = Step.ACC;
+					break;
+				}
+				if (step === Step.ACC) {
+					if (mode === Mode.INDIRECT) {
+						acc -= register[register[argument]];
+					}
+					if (mode === Mode.STANDARD) {
+						acc -= register[argument];
+					}
+					if (mode === Mode.IMMEDIATE) {
+						acc -= argument;
+					}
+					changedRegister = [...changedRegister, ACC];
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter++;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.MULT:
 			{
-				if (mode === Mode.IMMEDIATE) {
-					acc *= argument;
-				} else if (mode === Mode.INDIRECT) {
-					acc *= register[register[argument]];
-				} else {
-					acc *= register[argument];
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					if (mode === Mode.IMMEDIATE) {
+						step = Step.ACC;
+					}
+					if (mode === Mode.STANDARD || mode === Mode.INDIRECT) {
+						step = Step.REGISTER;
+					}
+					break;
 				}
-				changedRegister = [...changedRegister, ACC];
-				programCounter++;
+				if (step === Step.REGISTER) {
+					if (mode === Mode.INDIRECT) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					if (mode === Mode.STANDARD) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.ACC;
+					}
+					break;
+				}
+				if (step === Step.REGISTER_2) {
+					changedRegister = [...changedRegister, register[argument]];
+					step = Step.ACC;
+					break;
+				}
+				if (step === Step.ACC) {
+					if (mode === Mode.INDIRECT) {
+						acc *= register[register[argument]];
+					}
+					if (mode === Mode.STANDARD) {
+						acc *= register[argument];
+					}
+					if (mode === Mode.IMMEDIATE) {
+						acc *= argument;
+					}
+					changedRegister = [...changedRegister, ACC];
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter++;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.DIV:
 			{
-				if (mode === Mode.IMMEDIATE) {
-					acc /= argument;
-				} else if (mode === Mode.INDIRECT) {
-					acc /= register[register[argument]];
-				} else {
-					acc /= register[argument];
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					if (mode === Mode.IMMEDIATE) {
+						step = Step.ACC;
+					}
+					if (mode === Mode.STANDARD || mode === Mode.INDIRECT) {
+						step = Step.REGISTER;
+					}
+					break;
 				}
-				changedRegister = [...changedRegister, ACC];
-				programCounter++;
+				if (step === Step.REGISTER) {
+					if (mode === Mode.INDIRECT) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					if (mode === Mode.STANDARD) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.ACC;
+					}
+					break;
+				}
+				if (step === Step.REGISTER_2) {
+					changedRegister = [...changedRegister, register[argument]];
+					step = Step.ACC;
+					break;
+				}
+				if (step === Step.ACC) {
+					if (mode === Mode.INDIRECT) {
+						acc /= register[register[argument]];
+					}
+					if (mode === Mode.STANDARD) {
+						acc /= register[argument];
+					}
+					if (mode === Mode.IMMEDIATE) {
+						acc /= argument;
+					}
+					changedRegister = [...changedRegister, ACC];
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter++;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.JUMP:
 			{
-				programCounter = argument;
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter = argument;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.JZERO:
 			{
-				programCounter = acc === 0 ? argument : programCounter + 1;
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					step = Step.ACC;
+					break;
+				}
+				if (step === Step.ACC) {
+					changedRegister = [...changedRegister, ACC];
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter = acc === 0 ? argument : programCounter + 1;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.JGTZ:
 			{
-				programCounter = acc > 0 ? argument : programCounter + 1;
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					step = Step.ACC;
+					break;
+				}
+				if (step === Step.ACC) {
+					changedRegister = [...changedRegister, ACC];
+					step = Step.PC;
+					break;
+				}
+				if (step === Step.PC) {
+					programCounter = acc > 0 ? argument : programCounter + 1;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.HALT:
 			{
-				isHalt = true;
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					step = Step.HALT;
+					break;
+				}
+				if (step === Step.HALT) {
+					isHalt = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		default:

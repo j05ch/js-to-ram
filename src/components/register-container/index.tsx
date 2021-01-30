@@ -15,7 +15,7 @@ const RegisterContainer: React.FC<Props> = ({ register, changed }) => {
 
 	function getRegisters() {
 		return register.map((r, index) =>
-			changed.find((i) => i === index) ? (
+			changed.includes(index) ? (
 				<Register register={r} index={index} key={index} mark />
 			) : (
 				<Register register={r} index={index} key={index} mark={false} />
