@@ -36,7 +36,12 @@ export function runMachine(
 	inputArr: string[],
 	register: number[],
 	step: Step,
-	changedRegister: number[]
+	changedRegister: number[],
+	pcMark: boolean,
+	programMark: boolean,
+	inputMark: boolean,
+	outputMark: boolean,
+	programIndex: number
 ) {
 	let argument: number = 0;
 	let mode = Mode.STANDARD;
@@ -49,46 +54,92 @@ export function runMachine(
 	const ACC = 0;
 	let acc = register[ACC];
 	let isHalt = false;
-	let input =
-		inputIndex !== undefined ? Number(inputArr[inputIndex]) : undefined;
+	const ii = inputIndex === undefined ? 0 : inputIndex;
+	let input = Number(inputArr[ii]);
 
 	switch (command) {
 		case Commands.READ:
 			{
-				if (step === Step.NEXT) {
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					step = Step.INPUT;
+					break;
+				}
+				if (step === Step.INPUT) {
+					inputIndex = inputIndex === undefined ? 0 : ++inputIndex;
+					inputMark = true;
+					step = Step.REGISTER;
+					break;
 				}
 				if (step === Step.REGISTER) {
-					register[argument] = input || -1;
+					register[argument] = input;
 					changedRegister = [...changedRegister, argument];
 					step = Step.PC;
 					break;
-				} else if (step === Step.INPUT) {
-					if (inputIndex === undefined) {
-						inputIndex = 0;
-					} else {
-						inputIndex++;
-					}
-					step = Step.REGISTER;
-					break;
-				} else if (step === Step.PC) {
+				}
+				if (step === Step.PC) {
 					programCounter++;
-					step = Step.NEXT;
+					pcMark = true;
+					step = Step.CLEAR;
 					break;
 				}
 			}
 			break;
 		case Commands.WRITE:
 			{
-				if (mode === Mode.IMMEDIATE) {
-					output = argument;
-				} else if (mode === Mode.INDIRECT) {
-					output = register[register[argument]];
-					changedRegister = [...changedRegister, register[argument]];
-				} else {
-					output = register[argument];
-					changedRegister = [...changedRegister, argument];
+				if (step === Step.PROGRAM || step === Step.NEXT) {
+					programIndex = programCounter;
+					programMark = true;
+					pcMark = false;
+					if (mode === Mode.IMMEDIATE) {
+						step = Step.OUTPUT;
+					}
+					if (mode === Mode.INDIRECT) {
+						step = Step.REGISTER;
+					}
+					if (mode === Mode.STANDARD) {
+						step = Step.REGISTER;
+					}
+					break;
 				}
-				programCounter++;
+				if (step === Step.REGISTER) {
+					if (mode === Mode.INDIRECT) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					if (mode === Mode.STANDARD) {
+						changedRegister = [...changedRegister, argument];
+						step = Step.REGISTER_2;
+					}
+					break;
+				}
+				if (step === Step.REGISTER_2) {
+					changedRegister = [...changedRegister, register[argument]];
+					step = Step.OUTPUT;
+				}
+				if (step === Step.OUTPUT) {
+					if (mode === Mode.INDIRECT) {
+						outputMark = true;
+						output = register[register[argument]];
+					}
+					if (mode === Mode.IMMEDIATE) {
+						outputMark = true;
+						output = argument;
+					}
+					if (mode === Mode.STANDARD) {
+						outputMark = true;
+						output = register[argument];
+					}
+					step = Step.PC;
+				}
+				if (step === Step.PC) {
+					programCounter++;
+					pcMark = true;
+					step = Step.CLEAR;
+					break;
+				}
 			}
 			break;
 		case Commands.LOAD:
@@ -205,6 +256,11 @@ export function runMachine(
 		isHalt,
 		changedRegister,
 		step,
+		programMark,
+		inputMark,
+		outputMark,
+		pcMark,
+		programIndex,
 	};
 }
 

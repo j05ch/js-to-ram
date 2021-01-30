@@ -24,6 +24,9 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 	const [programCounterMark, setProgramCounterMark] = useState(false);
 	const [programMark, setProgramMark] = useState(false);
 	const [inputIndex, setInputIndex] = useState<number | undefined>();
+	const [programIndex, setProgramIndex] = useState<number | undefined>();
+	const [inputMark, setInputMark] = useState(false);
+	const [outputMark, setOutputMark] = useState(false);
 	const [register, setRegister] = useState<number[]>([0]);
 	const [outputArray, setOutputArray] = useState<string[]>([]);
 	const [locale, setLocale] = useState('DE');
@@ -37,24 +40,26 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 	useInterval(machineStep, isRunning ? delay : null);
 
 	function clearMarks() {
-		setProgramCounterMark(false);
 		setProgramMark(false);
+		setInputMark(false);
+		setChangedRegister([]);
 	}
 
 	function machineStep() {
 		if (step === Step.INITIAL) {
 			setProgramCounter(0);
+			setProgramIndex(0);
 			setProgramCounterMark(true);
 			setStep(Step.PROGRAM);
 			return;
 		}
-		if (step === Step.PROGRAM) {
-			setProgramMark(true);
-		}
-		if (step === Step.NEXT) {
+		if (step === Step.CLEAR) {
 			clearMarks();
+			setStep(Step.NEXT);
 			return;
 		}
+		console.log('INPUTINDEX', inputIndex);
+		console.log('PROGRAMINDEX', programIndex);
 		const commandLine = programArray[programCounter || 0];
 		const result = runMachine(
 			programCounter || 0,
@@ -63,11 +68,21 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 			inputArray,
 			register,
 			step,
-			changedRegister
+			changedRegister,
+			programCounterMark,
+			programMark,
+			outputMark,
+			inputMark,
+			programIndex || 0
 		);
+		setProgramMark(result.programMark);
+		setInputMark(result.inputMark);
+		setOutputMark(result.outputMark);
+		setProgramCounterMark(result.pcMark);
 		setProgramCounter(result.programCounter);
 		setRegister(result.register);
 		setInputIndex(result.inputIndex);
+		setProgramIndex(result.programIndex);
 		setStep(result.step);
 		setChangedRegister(result.changedRegister);
 		if (result.output !== undefined) {
@@ -85,6 +100,7 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 					inputArray={inputArray}
 					inputIndex={inputIndex}
 					headerLabel={labels[locale].INPUT_CONTAINER_HEADER}
+					mark={inputMark}
 				/>
 			</div>
 			<div className="dark:bg-pink-500 cpu">
@@ -99,18 +115,22 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 			<div className="dark:bg-green-700 program">
 				<ProgramContainer
 					programArray={programArray}
-					programCounter={programCounter}
+					programCounter={programIndex}
 					mark={programMark}
 				/>
 			</div>
 			<div className="dark:bg-gray-700 register">
-				<RegisterContainer register={register} />
+				<RegisterContainer
+					register={register}
+					changed={changedRegister}
+				/>
 			</div>
 			<div className="dark:bg-red-800 output">
 				<DisplayContainer
 					inputArray={outputArray}
 					inputIndex={outputArray.length - 1}
 					headerLabel={labels[locale].OUTPUT_CONTAINER_HEADER}
+					mark={outputMark}
 				/>
 			</div>
 			<div className="dark:bg-blue-400 control">

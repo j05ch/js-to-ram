@@ -5,23 +5,28 @@ import Register from '../register';
 
 interface Props {
 	register: number[];
+	changed: number[];
 }
 
-const RegisterContainer: React.FC<Props> = ({ register }) => {
+const RegisterContainer: React.FC<Props> = ({ register, changed }) => {
 	const [locale, setLocale] = useState('DE');
 
 	useEffect(() => setLocale('DE'), []);
 
 	function getRegisters() {
-		return register.map((r, index) => (
-			<Register register={r} index={index} key={index} />
-		));
+		return register.map((r, index) =>
+			changed.find((i) => i === index) ? (
+				<Register register={r} index={index} key={index} mark />
+			) : (
+				<Register register={r} index={index} key={index} mark={false} />
+			)
+		);
 	}
 
 	return (
 		<>
 			<div>
-				<h1>{labels[locale].REGISTER_HEADER}</h1>
+				<h1> {labels[locale].REGISTER_HEADER};</h1>
 				<div>{getRegisters()}</div>
 			</div>
 		</>

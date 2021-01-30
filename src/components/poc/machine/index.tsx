@@ -26,7 +26,12 @@ const Machine: React.FC = (props) => {
 			[],
 			register,
 			Step.REGISTER,
-			[]
+			[],
+			true,
+			true,
+			true,
+			true,
+			0
 		);
 		setPc(result.programCounter);
 		setRegister(result.register);
