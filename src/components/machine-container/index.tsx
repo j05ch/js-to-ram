@@ -58,8 +58,6 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 			setStep(Step.NEXT);
 			return;
 		}
-		console.log('INPUTINDEX', inputIndex);
-		console.log('PROGRAMINDEX', programIndex);
 		const commandLine = programArray[programCounter || 0];
 		const result = runMachine(
 			programCounter || 0,

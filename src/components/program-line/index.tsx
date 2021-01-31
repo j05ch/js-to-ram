@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	programLine: string[];
@@ -23,7 +25,9 @@ const ProgramLine: React.FC<Props> = ({
 					<span>{programLine[0]}:</span>
 					<span>{programLine[1]}</span>
 					<span>{programLine[2]}</span>
-					{isCurrentLine && <span>@</span>}
+					{isCurrentLine && (
+						<FontAwesomeIcon icon={faArrowCircleLeft} />
+					)}
 				</div>
 			</div>
 		</>
