@@ -18,4 +18,38 @@ console.log(a);
 /*
  * Ausdrücke auf 2 Operanden beschränken
  *
+ * Wenn Variable gelesen wird: Überprüfen, ob es sie schon gibt und sonst in Mapper-Objekt eintragen und Register-Nr. zuordnen
+ * Keine neuen Variablen in if, for, while Blöcken
+ *
+ *     const markVar = mark[0] ? 'text-red-500' : '';
+ *   const markOperandLeft = mark[1] ? 'text-red-500' : '';
+ *   const markOperandRight = mark[2] ? 'text-red-500' : '';
+ *
  * */
+
+let a = a + b;
+let b = a - 1;
+let c = 1 * a;
+let d = 1 / 1;
+a = a + b;
+b = a - 1;
+c = 1 * a;
+d = 1 / 1;
+if (a > b) {
+}
+if (b < a) {
+}
+if (a >= b) {
+}
+if (b <= a) {
+}
+if (b == a) {
+}
+for (let a = 0; a++; a < 10) {
+}
+for (let a = 0; a++; a < b) {
+}
+while (a > 0) {
+}
+while (a > b) {
+}
