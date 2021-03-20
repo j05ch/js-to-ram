@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { Dispatch } from 'react';
-import {Components, ComponentsKey} from "../../../../actions/components";
 
 interface Props {
-	variations: ComponentsKey[];
-	addVariation: Dispatch<React.SetStateAction<ComponentsKey[]>>;
+	index: number;
+	handleClick: (index: number) => void;
 }
 
-const AddVariation: React.FC<Props> = ({variations, addVariation}) => {
+const AddVariation: React.FC<Props> = ({ index, handleClick }) => {
 	return (
-	    <>
-	        <div onClick={() => addVariation([...variations, Components.VARIATIONS_SELECTOR])}>+</div>
-	    </>
+		<>
+			<p>{index}</p>
+			<div onClick={() => handleClick(index)}>+</div>
+		</>
 	);
 };
 
