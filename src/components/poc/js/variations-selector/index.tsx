@@ -29,7 +29,6 @@ const VariationsSelector: React.FC<Props> = ({
 
 	return (
 		<>
-			<p>{index}</p>
 			<div>
 				<select
 					onFocus={(e) => {

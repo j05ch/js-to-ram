@@ -7,10 +7,10 @@ interface Props {
 
 const AddVariation: React.FC<Props> = ({ index, handleClick }) => {
 	return (
-		<>
-			<p>{index}</p>
+		<div className="flex items-center">
+			<div className="text-red-600">{index}</div>
 			<div onClick={() => handleClick(index)}>+</div>
-		</>
+		</div>
 	);
 };
 

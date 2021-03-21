@@ -7,7 +7,8 @@ interface Props {
 
 const Variation: React.FC<Props> = ({ index, children, removeVariation }) => {
 	return (
-		<div>
+		<div className="flex items-center">
+			<div className="text-red-600">{index}</div>
 			<>{children}</>
 			<div onClick={() => removeVariation(index)}>-</div>
 		</div>
