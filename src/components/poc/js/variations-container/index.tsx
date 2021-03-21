@@ -91,16 +91,13 @@ const VariationsContainer: React.FC<Props> = () => {
 		let tempArr = [...variations];
 		tempArr.splice(index, 1, variation, Components.ADD_VARIATION);
 		tempArr = cleanUpAddVariation(tempArr);
-		console.log('Select Variation', tempArr);
 		setVariations(tempArr);
 	};
 
 	const addVariationsSelector = (index: number) => {
-		console.log('INDEX', index);
-		console.log('VARIATIONS', variations);
-		const tempArr = [...variations];
+		let tempArr = [...variations];
 		tempArr.splice(index + 1, 0, Components.VARIATIONS_SELECTOR);
-		console.log('TEMP', tempArr);
+		tempArr = cleanUpAddVariation(tempArr);
 		setVariations(tempArr);
 	};
 

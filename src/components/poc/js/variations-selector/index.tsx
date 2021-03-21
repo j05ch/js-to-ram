@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { variations } from '../variations';
 import { Groups } from '../../../../actions/groups';
 import { Components, ComponentsKey } from '../../../../actions/components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
 	index: number;
@@ -29,7 +31,7 @@ const VariationsSelector: React.FC<Props> = ({
 
 	return (
 		<>
-			<div>
+			<div className="flex items-center">
 				<select
 					onFocus={(e) => {
 						console.log('E', e, e.target.value);
@@ -48,9 +50,12 @@ const VariationsSelector: React.FC<Props> = ({
 						))}
 				</select>
 				{selected && (
-					<button onClick={() => selectVariation(selected, index)}>
-						+
-					</button>
+					<div
+						className="cursor-pointer"
+						onClick={() => selectVariation(selected, index)}
+					>
+						<FontAwesomeIcon color={'green'} icon={faCheckCircle} />
+					</div>
 				)}
 			</div>
 		</>
