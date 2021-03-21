@@ -7,7 +7,11 @@ interface Props {
 	removeVariation: (index: number) => void;
 }
 
-const Variation: React.FC<Props> = ({ index, children, removeVariation }) => {
+const VariationWrapper: React.FC<Props> = ({
+	index,
+	children,
+	removeVariation,
+}) => {
 	return (
 		<div className="flex items-center">
 			<div className="text-red-600">{index}</div>
@@ -22,4 +26,4 @@ const Variation: React.FC<Props> = ({ index, children, removeVariation }) => {
 	);
 };
 
-export default Variation;
+export default VariationWrapper;

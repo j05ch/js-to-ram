@@ -5,7 +5,7 @@ import VariationsSelector from '../variations-selector';
 import { Components, ComponentsKey } from '../../../../actions/components';
 import { Groups } from '../../../../actions/groups';
 import LetArithmeticVarVar from '../variations/let-arithmetic-var-var';
-import Variation from '../variation';
+import VariationWrapper from '../variation-wrapper';
 import LetArithmeticNumNum from '../variations/let-arithmetic-num-num';
 
 interface Props {}
@@ -20,10 +20,10 @@ const VariationsContainer: React.FC<Props> = () => {
 	useEffect(() => {
 		setComponents(
 			variations.map((v, index) => {
-				let selected: JSX.Element;
+				let variation: JSX.Element;
 				switch (v) {
 					case Components.VARIATIONS_SELECTOR: {
-						selected = (
+						variation = (
 							<VariationsSelector
 								index={index}
 								selectVariation={selectVariation}
@@ -33,7 +33,7 @@ const VariationsContainer: React.FC<Props> = () => {
 						break;
 					}
 					case Components.LET_ARITHMETIC_VAR_VAR: {
-						selected = (
+						variation = (
 							<LetArithmeticVarVar
 								index={index}
 								state={state}
@@ -43,7 +43,7 @@ const VariationsContainer: React.FC<Props> = () => {
 						break;
 					}
 					case Components.LET_ARITHMETIC_NUM_NUM: {
-						selected = (
+						variation = (
 							<LetArithmeticNumNum
 								index={index}
 								state={state}
@@ -62,13 +62,13 @@ const VariationsContainer: React.FC<Props> = () => {
 						);
 				}
 				return (
-					<Variation
+					<VariationWrapper
 						key={index + v}
 						index={index}
 						removeVariation={removeVariation}
 					>
-						{selected}
-					</Variation>
+						{variation}
+					</VariationWrapper>
 				);
 			})
 		);
