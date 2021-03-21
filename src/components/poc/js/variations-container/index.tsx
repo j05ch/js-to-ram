@@ -5,6 +5,7 @@ import VariationsSelector from '../variations-selector';
 import { Components, ComponentsKey } from '../../../../actions/components';
 import { Groups } from '../../../../actions/groups';
 import LetArithmeticVarVar from '../variations/let-arithmetic-var-var';
+import Variation from '../variation';
 
 interface Props {}
 
@@ -18,31 +19,46 @@ const VariationsContainer: React.FC<Props> = () => {
 	useEffect(() => {
 		setComponents(
 			variations.map((v, index) => {
+				let selected: JSX.Element;
 				switch (v) {
-					case Components.VARIATIONS_SELECTOR:
-						return (
+					case Components.VARIATIONS_SELECTOR: {
+						selected = (
 							<VariationsSelector
 								index={index}
 								selectVariation={selectVariation}
 								group={Groups.A}
 							/>
 						);
-					case Components.LET_ARITHMETIC_VAR_VAR:
-						return (
+						break;
+					}
+					case Components.LET_ARITHMETIC_VAR_VAR: {
+						selected = (
 							<LetArithmeticVarVar
 								index={index}
 								state={state}
 								setState={setState}
 							/>
 						);
+						break;
+					}
 					default:
 						return (
 							<AddVariation
+								key={index + v}
 								index={index}
 								handleClick={addVariationsSelector}
 							/>
 						);
 				}
+				return (
+					<Variation
+						key={index + v}
+						index={index}
+						removeVariation={removeVariation}
+					>
+						{selected}
+					</Variation>
+				);
 			})
 		);
 	}, [variations]);
@@ -74,6 +90,13 @@ const VariationsContainer: React.FC<Props> = () => {
 		const tempArr = [...variations];
 		tempArr.splice(index + 1, 0, Components.VARIATIONS_SELECTOR);
 		console.log('TEMP', tempArr);
+		setVariations(tempArr);
+	};
+
+	const removeVariation = (index: number) => {
+		let tempArr = [...variations];
+		tempArr.splice(index, 1);
+		tempArr = cleanUpAddVariation(tempArr);
 		setVariations(tempArr);
 	};
 
