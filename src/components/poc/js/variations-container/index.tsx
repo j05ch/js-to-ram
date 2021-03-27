@@ -72,7 +72,7 @@ const VariationsContainer: React.FC<Props> = () => {
 				);
 			})
 		);
-	}, [variations]);
+	}, [variations, state]);
 
 	const cleanUpAddVariation = (tempArr: ComponentsKey[]) => {
 		for (let i = 0; i < tempArr.length; i++) {
@@ -94,17 +94,64 @@ const VariationsContainer: React.FC<Props> = () => {
 		setVariations(tempArr);
 	};
 
+	const cleanUpStateOnAdd = (index: number, variationsLength: number) => {
+		console.log('variationsLength', variationsLength);
+		console.log('state', state);
+		let tempState: any = { ...state };
+		let calculatedState = {};
+		for (let i = index + 1; i < variationsLength; i = i + 2) {
+			console.log('tempstate at', i, tempState);
+			if (tempState[i]) {
+				const temp = tempState[i];
+				delete tempState[i];
+				console.log('tempstate after delete at', i, tempState);
+				calculatedState = { ...calculatedState, [i + 2]: { ...temp } };
+				console.log('calculatedstate at', i, calculatedState);
+			}
+		}
+		calculatedState = { ...tempState, ...calculatedState };
+		console.log('calculatedstate', calculatedState);
+		setState(calculatedState);
+	};
+
+	const cleanUpStateOnRemove = (index: number, variationsLength: number) => {
+		console.log('variationsLength', variationsLength);
+		console.log('state', state);
+		let tempState: any = { ...state };
+		let calculatedState = {};
+		for (let i = index; i < variationsLength; i = i + 2) {
+			console.log('tempstate at', i, tempState);
+			if (tempState[i]) {
+				const temp = tempState[i];
+				delete tempState[i];
+				console.log('tempstate after delete at', i, tempState);
+				calculatedState =
+					i > 2 && i != index
+						? { ...calculatedState, [i - 2]: { ...temp } }
+						: { ...calculatedState };
+				console.log('calculatedstate at', i, calculatedState);
+			}
+		}
+		calculatedState = { ...tempState, ...calculatedState };
+		console.log('calculatedstate', calculatedState);
+		setState(calculatedState);
+	};
+
 	const addVariationsSelector = (index: number) => {
 		let tempArr = [...variations];
 		tempArr.splice(index + 1, 0, Components.VARIATIONS_SELECTOR);
 		tempArr = cleanUpAddVariation(tempArr);
+		const variationsLength = variations.length;
 		setVariations(tempArr);
+		cleanUpStateOnAdd(index, variationsLength);
 	};
 
 	const removeVariation = (index: number) => {
 		let tempArr = [...variations];
 		tempArr.splice(index, 1);
 		tempArr = cleanUpAddVariation(tempArr);
+		const variationsLength = variations.length;
+		cleanUpStateOnRemove(index, variationsLength);
 		setVariations(tempArr);
 	};
 

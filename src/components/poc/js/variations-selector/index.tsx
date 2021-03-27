@@ -34,11 +34,9 @@ const VariationsSelector: React.FC<Props> = ({
 			<div className="flex items-center">
 				<select
 					onFocus={(e) => {
-						console.log('E', e, e.target.value);
 						setSelected(e.target.value as ComponentsKey);
 					}}
 					onChange={(e) => {
-						console.log('E', e, e.target.value);
 						setSelected(e.target.value as ComponentsKey);
 					}}
 				>

@@ -4,7 +4,7 @@ import InputText from '../input-text';
 
 interface Props {
 	index: number;
-	state: Object;
+	state: any;
 	setState: Dispatch<React.SetStateAction<{}>>;
 }
 
@@ -14,6 +14,7 @@ const LetArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
 			<div className="flex justify-around p-4 m-2 w-96 border rounded font-mono text-base">
 				<div className="">let</div>
 				<InputText
+					index={index}
 					state={state}
 					setState={setState}
 					placeHolder={'a'}
@@ -21,6 +22,7 @@ const LetArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
 				/>
 				<div className="">=</div>
 				<InputText
+					index={index}
 					state={state}
 					setState={setState}
 					placeHolder={'b'}
@@ -29,16 +31,28 @@ const LetArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
 				<select
 					className="text-center"
 					onChange={(e) =>
-						setState({ ...state, operator: e.target.value })
+						setState({
+							...state,
+							[index]: {
+								...state[index],
+								operator: e.target.value,
+							},
+						})
+					}
+					value={
+						state[index] && state[index].operator
+							? state[index].operator
+							: 'initial'
 					}
 				>
-					<option>...</option>
-					<option>+</option>
-					<option>-</option>
-					<option>*</option>
-					<option>/</option>
+					<option value={'initial'}>...</option>
+					<option value={'+'}>+</option>
+					<option value={'-'}>-</option>
+					<option value={'*'}>*</option>
+					<option value={'/'}>/</option>
 				</select>
 				<InputText
+					index={index}
 					state={state}
 					setState={setState}
 					placeHolder={'c'}
