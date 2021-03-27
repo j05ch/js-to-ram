@@ -30,8 +30,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "yarn install && yarn build"
+    "eject": "react-scripts eject"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [

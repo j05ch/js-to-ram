@@ -1,8 +1,0 @@
-language: node_js
-node_js:
-- 15.11.0
-deploy:
-  provider: heroku
-  api_key:
-    secure: kBPHyqzdMZHAt/rel4ba1LqxbBRPovuJ0I2GSL6ZEZB+yWQ9tE8MEkHDXqjjfPELJyZ9m3/7LL7G6IiFZu62G7IlLJ71+WdKhJ2Vkg2vtuNgPGaadhqeZoS/UJYHsCoF2mmjN4psh9W+w6ihLGKr99fsTMXErVRgcjx6eCdRxj+USoAoZU9bMucjsB829sCKKyqiZGJTBA/8jG/1Yx36aODd0xCfhbyy6+qKsHlJAB2AdFojS6+iSZuQoMVkcp/JvcNLlomIGsJZdfQ2wfntq/+3fDK1d/CBCOzfOVTQrrt9c9YnQWV3Aney31OwWr+lz1cHqanIds6I5tEp6RV6vIrXZTzdfRL8baGFIbotzuPIatWS5oCDe0mHdoTgmIOeDg3Oe026F4aC8koYGa38U/BKjjZCNw+6iOuMA/xbCrQx+1AZ19IWXG1B4zb4WbTC4knULgi8iiBGeldJh/NEk6/ScQz53uSLYt1XLVe4dfe6RB2hobbUA5sexv4MAwtjJj6fyo5mRONlTOkQSPd8ptB/O45wf9Ve8AjRGzhCmnlBIMCR0/TSWNYz/veB8k/IU+HZPDQdazMEMLmqoLs3hZ1V6fiCFmO/9cC/IWw8ku/0+3I3HwwJNFquVNZP8Mk9nKZFPoKe1NQLwCry3Kx4nyx1HhisNdUvX3+DZzV9794=
-  on: development
