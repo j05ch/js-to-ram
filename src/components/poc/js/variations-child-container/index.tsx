@@ -19,7 +19,11 @@ const VariationsChildContainer: React.FC<Props> = ({
 	setState,
 	index,
 }) => {
-	const [localState, setLocalState] = useState(state[index]);
+	const [localState, setLocalState] = useState(
+		state[index] && state[index]['children']
+			? { ...state[index]['children'] }
+			: {}
+	);
 
 	const [variations, setVariations] = useState<ComponentsKey[]>(
 		state[index] && state[index].variations
@@ -29,13 +33,21 @@ const VariationsChildContainer: React.FC<Props> = ({
 	const [components, setComponents] = useState<JSX.Element[]>([]);
 
 	useEffect(() => {
-		setLocalState({ ...state[index] });
+		setLocalState(
+			state[index] && state[index]['children']
+				? { ...state[index]['children'] }
+				: {}
+		);
 	}, [index]);
 
 	useEffect(() => {
 		setState({
 			...state,
-			[index]: { ...state[index], ...localState, variations },
+			[index]: {
+				...state[index],
+				children: { ...localState },
+				variations,
+			},
 		});
 	}, [localState, index, variations]);
 
@@ -127,6 +139,7 @@ const VariationsChildContainer: React.FC<Props> = ({
 			}
 		}
 		calculatedState = { ...tempState, ...calculatedState };
+		console.log('Calculated State On Add', calculatedState);
 		setLocalState(calculatedState);
 	};
 

@@ -35,16 +35,17 @@ const LetArithmeticNumNum: React.FC<Props> = ({
 	return (
 		<>
 			<div className="flex justify-around p-4 m-2 w-96 border rounded font-mono text-base">
+				{console.log('Local State in Num Num', localState)}
 				<div className="">let</div>
 				<InputText
-					state={localState}
+					state={state[index]}
 					setState={setLocalState}
 					placeHolder={'a'}
 					name={'varField'}
 				/>
 				<div className="">=</div>
 				<InputText
-					state={localState}
+					state={state[index]}
 					setState={setLocalState}
 					placeHolder={'123'}
 					name={'operandLeft'}
@@ -57,16 +58,16 @@ const LetArithmeticNumNum: React.FC<Props> = ({
 							operator: e.target.value,
 						})
 					}
-					// value={
-					// 	state[index] && state[index].operator
-					// 		? state[index].operator
-					// 		: 'initial'
-					// }
 					value={
-						localState && localState.operator
-							? localState.operator
+						state[index] && state[index].operator
+							? state[index].operator
 							: 'initial'
 					}
+					// value={
+					// 	localState && localState.operator
+					// 		? localState.operator
+					// 		: 'initial'
+					// }
 				>
 					<option value={'initial'}>...</option>
 					<option value={'+'}>+</option>
@@ -75,7 +76,7 @@ const LetArithmeticNumNum: React.FC<Props> = ({
 					<option value={'/'}>/</option>
 				</select>
 				<InputText
-					state={localState}
+					state={state[index]}
 					setState={setLocalState}
 					placeHolder={'456'}
 					name={'operandRight'}
