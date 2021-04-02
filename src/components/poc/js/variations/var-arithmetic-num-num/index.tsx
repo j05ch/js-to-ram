@@ -8,11 +8,10 @@ interface Props {
 	setState: Dispatch<React.SetStateAction<{}>>;
 }
 
-const LetArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
+const VarArithmeticNumNum: React.FC<Props> = ({ index, state, setState }) => {
 	return (
 		<>
 			<div className="flex justify-around p-4 m-2 w-96 border rounded font-mono text-base">
-				<div className="">let</div>
 				<InputText
 					state={state}
 					setState={setState}
@@ -23,7 +22,7 @@ const LetArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
 				<InputText
 					state={state}
 					setState={setState}
-					placeHolder={'b'}
+					placeHolder={'123'}
 					name={'operandLeft'}
 				/>
 				<select
@@ -52,7 +51,7 @@ const LetArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
 				<InputText
 					state={state}
 					setState={setState}
-					placeHolder={'c'}
+					placeHolder={'456'}
 					name={'operandRight'}
 				/>
 				<div>;</div>
@@ -61,4 +60,4 @@ const LetArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
 	);
 };
 
-export default LetArithmeticVarVar;
+export default VarArithmeticNumNum;

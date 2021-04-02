@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import AddVariation from '../add-variation';
 import VariationsSelector from '../variations-selector';
 import { Components, ComponentsKey } from '../../../../actions/components';
@@ -7,28 +7,47 @@ import { Groups } from '../../../../actions/groups';
 import LetArithmeticVarVar from '../variations/let-arithmetic-var-var';
 import VariationWrapper from '../variation-wrapper';
 import LetArithmeticNumNum from '../variations/let-arithmetic-num-num';
-import VariationsChildContainer from '../variations-child-container';
-import If from '../variations/if';
-import For from '../variations/for';
 
-interface Props {}
+interface Props {
+	state: any;
+	setState: Dispatch<React.SetStateAction<{}>>;
+	index: number;
+}
 
-const VariationsContainer: React.FC<Props> = () => {
-	const [variations, setVariations] = useState<ComponentsKey[]>([
-		Components.ADD_VARIATION,
-	]);
+const VariationsChildContainer: React.FC<Props> = ({
+	state,
+	setState,
+	index,
+}) => {
+	const [localState, setLocalState] = useState(state[index]);
+
+	const [variations, setVariations] = useState<ComponentsKey[]>(
+		state[index] && state[index].variations
+			? [...state[index].variations]
+			: [Components.ADD_VARIATION]
+	);
 	const [components, setComponents] = useState<JSX.Element[]>([]);
-	const [state, setState] = useState({});
+
+	useEffect(() => {
+		setLocalState({ ...state[index] });
+	}, [index]);
+
+	useEffect(() => {
+		setState({
+			...state,
+			[index]: { ...state[index], ...localState, variations },
+		});
+	}, [localState, index, variations]);
 
 	useEffect(() => {
 		setComponents(
-			variations.map((v, index) => {
+			variations.map((v, i) => {
 				let variation: JSX.Element;
 				switch (v) {
 					case Components.VARIATIONS_SELECTOR: {
 						variation = (
 							<VariationsSelector
-								index={index}
+								index={i}
 								selectVariation={selectVariation}
 								group={Groups.A}
 							/>
@@ -38,9 +57,9 @@ const VariationsContainer: React.FC<Props> = () => {
 					case Components.LET_ARITHMETIC_VAR_VAR: {
 						variation = (
 							<LetArithmeticVarVar
-								index={index}
-								state={state}
-								setState={setState}
+								index={i}
+								state={localState}
+								setState={setLocalState}
 							/>
 						);
 						break;
@@ -48,31 +67,10 @@ const VariationsContainer: React.FC<Props> = () => {
 					case Components.LET_ARITHMETIC_NUM_NUM: {
 						variation = (
 							<LetArithmeticNumNum
-								index={index}
+								index={i}
 								type={Components.LET_ARITHMETIC_NUM_NUM}
-								state={state}
-								setState={setState}
-							/>
-						);
-						break;
-					}
-					case Components.IF: {
-						variation = (
-							<If
-								index={index}
-								state={state}
-								setState={setState}
-								type={Components.IF}
-							/>
-						);
-						break;
-					}
-					case Components.FOR: {
-						variation = (
-							<For
-								index={index}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 							/>
 						);
 						break;
@@ -80,16 +78,15 @@ const VariationsContainer: React.FC<Props> = () => {
 					default:
 						return (
 							<AddVariation
-								key={index + v}
-								index={index}
+								key={i + v}
+								index={i}
 								handleClick={addVariationsSelector}
 							/>
 						);
 				}
 				return (
 					<VariationWrapper
-						key={index + v}
-						index={index}
+						index={i}
 						removeVariation={removeVariation}
 					>
 						{variation}
@@ -97,11 +94,7 @@ const VariationsContainer: React.FC<Props> = () => {
 				);
 			})
 		);
-	}, [variations, state]);
-
-	useEffect(() => {
-		console.log('STATE', state);
-	}, [state]);
+	}, [variations, localState]);
 
 	const cleanUpAddVariation = (tempArr: ComponentsKey[]) => {
 		for (let i = 0; i < tempArr.length; i++) {
@@ -124,7 +117,7 @@ const VariationsContainer: React.FC<Props> = () => {
 	};
 
 	const cleanUpStateOnAdd = (index: number, variationsLength: number) => {
-		let tempState: any = { ...state };
+		let tempState: any = { ...localState };
 		let calculatedState = {};
 		for (let i = index + 1; i < variationsLength; i = i + 2) {
 			if (tempState[i]) {
@@ -134,11 +127,11 @@ const VariationsContainer: React.FC<Props> = () => {
 			}
 		}
 		calculatedState = { ...tempState, ...calculatedState };
-		setState(calculatedState);
+		setLocalState(calculatedState);
 	};
 
 	const cleanUpStateOnRemove = (index: number, variationsLength: number) => {
-		let tempState: any = { ...state };
+		let tempState: any = { ...localState };
 		let calculatedState = {};
 		for (let i = index; i < variationsLength; i = i + 2) {
 			if (tempState[i]) {
@@ -151,7 +144,7 @@ const VariationsContainer: React.FC<Props> = () => {
 			}
 		}
 		calculatedState = { ...tempState, ...calculatedState };
-		setState(calculatedState);
+		setLocalState(calculatedState);
 	};
 
 	const addVariationsSelector = (index: number) => {
@@ -174,9 +167,14 @@ const VariationsContainer: React.FC<Props> = () => {
 
 	return (
 		<>
-			<div className="bg-red-200">{components}</div>
+			{console.log(
+				'State in child container and localState',
+				state,
+				localState
+			)}
+			<div>{components}</div>
 		</>
 	);
 };
 
-export default VariationsContainer;
+export default VariationsChildContainer;

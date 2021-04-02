@@ -2,22 +2,17 @@ import * as React from 'react';
 import { Dispatch } from 'react';
 
 interface Props {
-	index: number;
 	state: any;
 	setState: Dispatch<React.SetStateAction<{}>>;
 	placeHolder: string;
 	name: string;
 }
 
-const InputText: React.FC<Props> = ({
-	index,
-	state,
-	setState,
-	placeHolder,
-	name,
-}) => {
+const InputText: React.FC<Props> = ({ state, setState, placeHolder, name }) => {
 	return (
 		<>
+			{console.log('State in input', state)}
+
 			<input
 				className="bg-blue-100 text-center"
 				type="text"
@@ -26,12 +21,10 @@ const InputText: React.FC<Props> = ({
 				onChange={(e) =>
 					setState({
 						...state,
-						[index]: { ...state[index], [name]: e.target.value },
+						[name]: e.target.value,
 					})
 				}
-				value={
-					state[index] && state[index][name] ? state[index][name] : ''
-				}
+				value={state && state[name] ? state[name] : ''}
 			/>
 		</>
 	);

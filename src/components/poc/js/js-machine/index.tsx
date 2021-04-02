@@ -1,22 +1,17 @@
 import * as React from 'react';
-import LetArithmeticVarVar from "../variations/let-arithmetic-var-var";
-import {useEffect, useState} from "react";
-import VariationsContainer from "../variations-container";
+import LetArithmeticVarVar from '../variations/let-arithmetic-var-var';
+import { useEffect, useState } from 'react';
+import VariationsContainer from '../variations-container';
 
 interface Props {}
 
 const JSMachine: React.FC<Props> = () => {
-
-    const [state, setState] = useState({});
-
-    useEffect(() => {
-        console.log(state);
-    }, [state]);
+	const [state, setState] = useState({});
 
 	return (
-	    <>
-	        <VariationsContainer />
-	    </>
+		<>
+			<VariationsContainer />
+		</>
 	);
 };
 
