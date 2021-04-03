@@ -19,6 +19,7 @@ const JSInputParser: React.FC<Props> = ({ inputModel }) => {
 			if (i.type === Components.LET_ARITHMETIC_NUM_NUM) {
 				return (
 					<>
+						{console.log(mapVariables(inputModel))}
 						<LetArithmeticNumNumOutput
 							varField={i.varField}
 							numLeft={i.operandLeft}
