@@ -1,10 +1,10 @@
+const FIRST_REGISTER = 1;
 const HIGHEST_USED_REGISTER = 0;
 
 export const mapVariables = (object: any) => {
 	const mappedVariables: any = {};
-	let keyCounter = 1;
-	const keys = Object.keys(object);
-	keys.forEach((k) => {
+	let keyCounter = FIRST_REGISTER;
+	Object.keys(object).forEach((k) => {
 		if (object[k].varField) {
 			const varField = object[k].varField;
 			if (!getKeyByValue(mappedVariables, varField)) {
@@ -14,8 +14,7 @@ export const mapVariables = (object: any) => {
 		}
 		if (object[k].children) {
 			const childrenObject = object[k].children;
-			const childrenKeys = Object.keys(childrenObject);
-			childrenKeys.forEach((k) => {
+			Object.keys(childrenObject).forEach((k) => {
 				if (childrenObject[k].varField) {
 					const varField = childrenObject[k].varField;
 					if (!getKeyByValue(mappedVariables, varField)) {
