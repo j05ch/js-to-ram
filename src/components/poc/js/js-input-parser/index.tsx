@@ -5,6 +5,7 @@ import { parseJsInput } from '../../../../utils/parseJsInput';
 import { Components } from '../../../../actions/components';
 import LetArithmeticNumNumOutput from '../js-output/variations/let-arithmetic-num-num-output';
 import { mapVariables } from '../../../../utils/mapVariables';
+import Debug from '../../../debug/debug';
 
 interface Props {
 	inputModel: any;
@@ -19,7 +20,6 @@ const JSInputParser: React.FC<Props> = ({ inputModel }) => {
 			if (i.type === Components.LET_ARITHMETIC_NUM_NUM) {
 				return (
 					<>
-						{console.log(mapVariables(inputModel))}
 						<LetArithmeticNumNumOutput
 							varField={i.varField}
 							numLeft={i.operandLeft}
@@ -36,6 +36,7 @@ const JSInputParser: React.FC<Props> = ({ inputModel }) => {
 	return (
 		<>
 			<div>{componentsArr}</div>
+			<Debug data={parseJsInput(inputModel)} />
 		</>
 	);
 };
