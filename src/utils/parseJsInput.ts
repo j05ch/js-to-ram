@@ -29,6 +29,7 @@ export const parseJsInput = (input: any) => {
 					code2: '',
 					code3: '',
 					code4: '',
+					lastStep: false,
 				};
 				const step2 = {
 					...step1,
@@ -53,6 +54,7 @@ export const parseJsInput = (input: any) => {
 					...step4,
 					mark3: false,
 					code4: 'LOAD =0',
+					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;

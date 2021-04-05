@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import AddVariation from '../add-variation';
 import VariationsSelector from '../variations-selector';
 import { Components, ComponentsKey } from '../../../../actions/components';
@@ -7,18 +7,20 @@ import { Groups } from '../../../../actions/groups';
 import LetArithmeticVarVar from '../variations/let-arithmetic-var-var';
 import VariationWrapper from '../variation-wrapper';
 import LetArithmeticNumNum from '../variations/let-arithmetic-num-num';
-import VariationsChildContainer from '../variations-child-container';
 import If from '../variations/if';
 import For from '../variations/for';
 
-interface Props {}
+interface Props {
+	state: any;
+	setState: Dispatch<React.SetStateAction<{}>>;
+}
 
-const VariationsContainer: React.FC<Props> = () => {
+const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 	const [variations, setVariations] = useState<ComponentsKey[]>([
 		Components.ADD_VARIATION,
 	]);
 	const [components, setComponents] = useState<JSX.Element[]>([]);
-	const [state, setState] = useState({});
+	// const [state, setState] = useState({});
 
 	useEffect(() => {
 		setComponents(
