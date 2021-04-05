@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import VariationsContainer from '../variations-container';
+import VariationsContainer from '../../../java-script/variations-container';
 
 interface Props {}
 

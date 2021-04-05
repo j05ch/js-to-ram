@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useInterval } from '../../../hooks/useInterval';
-import InputField from '../../input-field';
+import InputField from '../../common/input-field';
 
 const Counter: React.FC = () => {
 	const [counter, setCounter] = useState(0);

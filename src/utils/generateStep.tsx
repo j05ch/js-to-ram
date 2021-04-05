@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Components } from '../actions/components';
-import LetArithmeticNumNumOutput from '../components/poc/js/js-output/variations/let-arithmetic-num-num-output';
-import AssemblerLine from '../components/poc/js/js-output/assembler-line';
+import LetArithmeticNumNumOutput from '../components/java-script/js-output/variations/let-arithmetic-num-num-output';
+import AssemblerLine from '../components/java-script/js-output/assembler-line';
 
 export const generateStep = (data: any, lineNo: number) => {
 	if (!data || !data.type) return { arr: [], lineNo, lastStep: true };
