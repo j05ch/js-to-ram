@@ -21,7 +21,7 @@ const JsContainer: React.FC<Props> = () => {
 		const program = arr.map((s) => s.split(' '));
 		console.log('PROGRAM', program);
 		setProgramArray(program);
-		setShow({ jsInput: false, jsOutput: false, showBtn: false, ram: true });
+		setShow({ jsInput: false, jsOutput: true, showBtn: false, ram: true });
 	};
 
 	const loadJs = () => {
@@ -29,7 +29,7 @@ const JsContainer: React.FC<Props> = () => {
 			jsInput: false,
 			jsOutput: true,
 			showBtn: false,
-			ram: false,
+			ram: true,
 		});
 	};
 
@@ -37,6 +37,9 @@ const JsContainer: React.FC<Props> = () => {
 		<>
 			{show.jsInput && (
 				<VariationsContainer state={state} setState={setState} />
+			)}
+			{show.ram && programArray.length > 0 && (
+				<MachineContainer programArray={programArray} inputArray={[]} />
 			)}
 			{show.jsOutput && (
 				<JSInputParser
@@ -48,9 +51,6 @@ const JsContainer: React.FC<Props> = () => {
 				<div className="flex justify-center p-2">
 					<Button onClick={loadJs} label={'LOAD'} primary />
 				</div>
-			)}
-			{show.ram && programArray.length > 0 && (
-				<MachineContainer programArray={programArray} inputArray={[]} />
 			)}
 		</>
 	);

@@ -13,11 +13,11 @@ const VariationWrapper: React.FC<Props> = ({
 	removeVariation,
 }) => {
 	return (
-		<div className="flex items-center">
-			<div className="text-red-600">{index}</div>
+		<div className="flex items-center ml-2">
+			{/*<div className="text-red-600">{index}</div>*/}
 			<>{children}</>
 			<div
-				className="cursor-pointer"
+				className="cursor-pointer ml-1 mr-1"
 				onClick={() => removeVariation(index)}
 			>
 				<FontAwesomeIcon color={'red'} icon={faMinusCircle} />

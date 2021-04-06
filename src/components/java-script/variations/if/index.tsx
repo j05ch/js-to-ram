@@ -27,13 +27,8 @@ const If: React.FC<Props> = ({ state, setState, index, type }) => {
 
 	return (
 		<>
-			{console.log(
-				'State in container and localState',
-				state,
-				localState
-			)}
-			<div className="bg-blue-300">
-				<div className="flex justify-around p-4 m-2 w-96 border rounded font-mono text-base">
+			<div className="ml-8 bg-blue-300 rounded">
+				<div className="flex justify-around p-4 m-2 w-96 font-bold font-mono text-base">
 					<div className="">if (</div>
 					<InputText
 						state={state[index]}
@@ -73,7 +68,9 @@ const If: React.FC<Props> = ({ state, setState, index, type }) => {
 					setState={setState}
 					index={index}
 				/>
-				<div>{'}'}</div>
+				<div className="p-4 m-2 w-96 font-bold font-mono text-base">
+					{'}'}
+				</div>
 			</div>
 		</>
 	);

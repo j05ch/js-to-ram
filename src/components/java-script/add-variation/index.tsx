@@ -10,8 +10,11 @@ interface Props {
 const AddVariation: React.FC<Props> = ({ index, handleClick }) => {
 	return (
 		<div className="flex items-center">
-			<div className="text-red-600">{index}</div>
-			<div className="cursor-pointer" onClick={() => handleClick(index)}>
+			{/*<div className="text-red-600">{index}</div>*/}
+			<div
+				className="cursor-pointer ml-2"
+				onClick={() => handleClick(index)}
+			>
 				<FontAwesomeIcon color={'blue'} icon={faPlusCircle} />
 			</div>
 		</div>
