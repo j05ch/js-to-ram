@@ -6,6 +6,7 @@ import AssemblerLine from '../components/java-script/js-output/assembler-line';
 export const generateStep = (data: any, lineNo: number) => {
 	if (!data || !data.type) return { arr: [], lineNo, lastStep: true };
 	const outputArr = [];
+	const program: Array<string> = [];
 	const type = data.type;
 	switch (type) {
 		case Components.LET_ARITHMETIC_NUM_NUM:
@@ -22,6 +23,7 @@ export const generateStep = (data: any, lineNo: number) => {
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
 				if (data[c] != '') {
+					program.push(`${lineNo} ${data[c]}`);
 					outputArr.push(
 						<AssemblerLine
 							code={data[c]}
@@ -35,5 +37,5 @@ export const generateStep = (data: any, lineNo: number) => {
 
 	const { lastStep } = data;
 
-	return { arr: outputArr, lineNo, lastStep };
+	return { arr: outputArr, program, lineNo, lastStep };
 };
