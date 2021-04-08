@@ -7,7 +7,10 @@ export const generateStep = (data: any, lineNo: number) => {
 	if (!data || !data.type) return { arr: [], lineNo, lastStep: true };
 	const outputArr = [];
 	const program: Array<string> = [];
-	const type = data.type;
+	const { type } = data;
+	let lineComplete = false;
+	let pc = 0;
+	let breakPc = 0;
 	switch (type) {
 		case Components.LET_ARITHMETIC_NUM_NUM:
 			outputArr.push(
@@ -23,6 +26,8 @@ export const generateStep = (data: any, lineNo: number) => {
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
 				if (data[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code4') breakPc = lineNo;
 					program.push(`${lineNo} ${data[c]}`);
 					outputArr.push(
 						<AssemblerLine
@@ -31,11 +36,20 @@ export const generateStep = (data: any, lineNo: number) => {
 						/>
 					);
 					lineNo++;
+					lineComplete = true;
 				}
 			});
 	}
 
 	const { lastStep } = data;
 
-	return { arr: outputArr, program, lineNo, lastStep };
+	return {
+		arr: outputArr,
+		program,
+		lineNo,
+		lastStep,
+		lineComplete,
+		pc,
+		breakPc,
+	};
 };

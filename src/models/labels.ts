@@ -16,5 +16,6 @@ export const labels: { [index: string]: any } = {
 		STEP: 'SCHRITT',
 		FASTER: 'SCHNELLER',
 		SLOWER: 'LANGSAMER',
+		LOAD_RAM: 'RAM LADEN',
 	},
 };

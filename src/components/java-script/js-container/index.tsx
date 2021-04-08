@@ -16,6 +16,10 @@ const JsContainer: React.FC<Props> = () => {
 	});
 	const [state, setState] = useState({});
 	const [programArray, setProgramArray] = useState<string[][]>([[]]);
+	const [isRamRunning, setIsRamRunning] = useState(false);
+	const [isJsRunning, setIsJsRunning] = useState(false);
+	const [pc, setPc] = useState<number>();
+	const [breakPc, setBreakPc] = useState<number>();
 
 	const buildProgramArray = (arr: Array<string>) => {
 		const program = arr.map((s) => s.split(' '));
@@ -35,16 +39,31 @@ const JsContainer: React.FC<Props> = () => {
 
 	return (
 		<>
+			{console.log('PROGRAM IN CONTAINER', programArray)}
 			{show.jsInput && (
 				<VariationsContainer state={state} setState={setState} />
 			)}
 			{show.ram && programArray.length > 0 && (
-				<MachineContainer programArray={programArray} inputArray={[]} />
+				<MachineContainer
+					programArray={programArray}
+					inputArray={[]}
+					isRamRunning={isRamRunning}
+					setIsRamRunning={setIsRamRunning}
+					setIsJsRunning={setIsJsRunning}
+					extended
+					pc={pc || 0}
+					breakPc={breakPc || -1}
+				/>
 			)}
 			{show.jsOutput && (
 				<JSInputParser
 					inputModel={state}
 					buildProgram={buildProgramArray}
+					isJsRunning={isJsRunning}
+					setIsJsRunning={setIsJsRunning}
+					setIsRamRunning={setIsRamRunning}
+					setPc={setPc}
+					setBreakPc={setBreakPc}
 				/>
 			)}
 			{show.showBtn && (

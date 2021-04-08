@@ -26,11 +26,12 @@ console.log(a);
  *   const markOperandRight = mark[2] ? 'text-red-500' : '';
  *
  * */
-
+let a = 12;
 let a = a + b;
 let b = a - 1;
 let c = 1 * a;
 let d = 1 / 1;
+a = b;
 a = a + b;
 b = a - 1;
 c = 1 * a;
@@ -45,11 +46,7 @@ if (b <= a) {
 }
 if (b == a) {
 }
-for (let a = 0; a++; a < 10) {
-}
-for (let a = 0; a++; a < b) {
-}
-while (a > 0) {
-}
-while (a > b) {
-}
+for (let a = 0; a++; a < 10) {}
+for (let a = 0; a++; a < b) {}
+while (a > 0) {}
+while (a > b) {}

@@ -15,11 +15,26 @@ import { Step } from '../../../actions/step';
 interface Props {
 	programArray: string[][];
 	inputArray: string[];
+	isRamRunning: boolean;
+	setIsRamRunning: React.Dispatch<React.SetStateAction<boolean>>;
+	setIsJsRunning: React.Dispatch<React.SetStateAction<boolean>>;
+	extended?: boolean;
+	pc: number;
+	breakPc: number;
 }
 
-const INITIAL_DELAY = 5000;
+const INITIAL_DELAY = 2000;
 
-const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
+const MachineContainer: React.FC<Props> = ({
+	programArray,
+	inputArray,
+	isRamRunning,
+	setIsRamRunning,
+	setIsJsRunning,
+	extended,
+	pc,
+	breakPc,
+}) => {
 	const [programCounter, setProgramCounter] = useState<number | undefined>();
 	const [programCounterMark, setProgramCounterMark] = useState(false);
 	const [programMark, setProgramMark] = useState(false);
@@ -31,13 +46,12 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 	const [outputArray, setOutputArray] = useState<string[]>([]);
 	const [locale, setLocale] = useState('DE');
 	const [delay, setDelay] = useState(INITIAL_DELAY);
-	const [isRunning, setIsRunning] = useState(false);
 	const [step, setStep] = useState(Step.INITIAL);
 	const [changedRegister, setChangedRegister] = useState<number[]>([]);
 
 	useEffect(() => setLocale('DE'), [locale]);
 
-	useInterval(machineStep, isRunning ? delay : null);
+	useInterval(machineStep, isRamRunning ? delay : null);
 
 	function clearMarks() {
 		setProgramMark(false);
@@ -46,9 +60,10 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 	}
 
 	function machineStep() {
+		console.log('PROGRAM IN RAM', programArray);
 		if (step === Step.INITIAL) {
-			setProgramCounter(0);
-			setProgramIndex(0);
+			setProgramCounter(pc);
+			setProgramIndex(pc);
 			setProgramCounterMark(true);
 			setStep(Step.PROGRAM);
 			return;
@@ -56,6 +71,10 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 		if (step === Step.CLEAR) {
 			clearMarks();
 			setStep(Step.NEXT);
+			if (programCounter === breakPc + 1) {
+				setIsRamRunning(false);
+				setIsJsRunning(true);
+			}
 			return;
 		}
 		const commandLine = programArray[programCounter || 0];
@@ -87,7 +106,7 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 			setOutputArray([...outputArray, String(result.output)]);
 		}
 		if (result.isHalt) {
-			setIsRunning(false);
+			setIsRamRunning(false);
 		}
 	}
 
@@ -135,8 +154,8 @@ const MachineContainer: React.FC<Props> = ({ programArray, inputArray }) => {
 				<MachineControl
 					delay={delay}
 					setDelay={setDelay}
-					isRunning={isRunning}
-					setIsRunning={setIsRunning}
+					isRunning={isRamRunning}
+					setIsRunning={setIsRamRunning}
 					doStep={machineStep}
 				/>
 			</div>

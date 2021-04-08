@@ -18,6 +18,8 @@ const AppContainer: React.FC<Props> = () => {
 	const [locale, setLocale] = useState('DE');
 	const [inputString, setInputString] = useState<string>('');
 	const [inputArray, setInputArray] = useState<string[]>([]);
+	const [isRamRunning, setIsRamRunning] = useState(false);
+	const [isJsRunning, setIsJsRunning] = useState(false);
 
 	useEffect(() => setLocale('DE'), []);
 
@@ -87,6 +89,11 @@ const AppContainer: React.FC<Props> = () => {
 				<MachineContainer
 					programArray={programArray}
 					inputArray={inputArray}
+					isRamRunning={isRamRunning}
+					setIsRamRunning={setIsRamRunning}
+					setIsJsRunning={setIsJsRunning}
+					pc={0}
+					breakPc={-1}
 				/>
 			)}
 		</div>
