@@ -7,6 +7,7 @@ import { Groups } from '../../../actions/groups';
 import LetArithmeticVarVar from '../variations/let-arithmetic-var-var';
 import VariationWrapper from '../variation-wrapper';
 import LetArithmeticNumNum from '../variations/let-arithmetic-num-num';
+import Let from '../variations/let';
 
 interface Props {
 	state: any;
@@ -84,6 +85,17 @@ const VariationsChildContainer: React.FC<Props> = ({
 								type={Components.LET_ARITHMETIC_NUM_NUM}
 								state={localState}
 								setState={setLocalState}
+							/>
+						);
+						break;
+					}
+					case Components.LET: {
+						variation = (
+							<Let
+								index={i}
+								type={Components.LET}
+								state={state}
+								setState={setState}
 							/>
 						);
 						break;

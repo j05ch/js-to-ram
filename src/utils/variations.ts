@@ -13,4 +13,5 @@ export const variations: Variations = [
 	{ variation: Components.LET_ARITHMETIC_NUM_NUM, group: Groups.A },
 	{ variation: Components.IF, group: Groups.A },
 	{ variation: Components.FOR, group: Groups.A },
+	{ variation: Components.LET, group: Groups.A },
 ];

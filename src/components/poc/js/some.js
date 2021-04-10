@@ -27,7 +27,7 @@ console.log(a);
  *
  * */
 // let d = 1 / 1;
-let a = a + b;
+// let a = a + b;
 let a = 12;
 let b = a - 1;
 let c = 1 * a;

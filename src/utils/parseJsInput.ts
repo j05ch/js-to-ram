@@ -103,6 +103,38 @@ export const parseJsInput = (input: any) => {
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
 			}
+			case Components.LET: {
+				const step1 = {
+					type: Components.LET,
+					varField: element.varField,
+					value: element.value,
+					mark1: false,
+					mark2: false,
+					code1: '',
+					code2: '',
+					code3: '',
+					lastStep: false,
+				};
+				const step2 = {
+					...step1,
+					mark1: true,
+					code1: `LOAD =${element.value}`,
+				};
+				const step3 = {
+					...step2,
+					mark1: false,
+					mark2: true,
+					code2: `STORE ${variables.indexOf(element.varField)}`,
+				};
+				const step4 = {
+					...step3,
+					mark3: false,
+					code3: 'LOAD =0',
+					lastStep: true,
+				};
+				parsedArr.push(step1, step2, step3, step4);
+				break;
+			}
 			default:
 				parsedArr.push({ hallo: 'hallo' });
 		}
