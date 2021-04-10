@@ -70,7 +70,11 @@ const Counter: React.FC = () => {
 
 	return (
 		<div className="flex items-center justify-center flex-col h-screen">
-			<InputField setState={setProgramString} value={programString} />
+			<InputField
+				setState={setProgramString}
+				value={programString}
+				placeholder={''}
+			/>
 			<h1 className="p-1 m-1 text-3xl">{content}</h1>
 			<h1 className="p-1 m-1 text-3xl">{counter}</h1>
 			<p>Delay:</p>

@@ -8,10 +8,11 @@ import {
 } from '../../../utils/programUtils';
 import MachineContainer from '../machine-container';
 import InputFieldContainer from '../input-field-container';
+import Button from '../../common/Button';
 
 interface Props {}
 
-const AppContainer: React.FC<Props> = () => {
+const MachineAppContainer: React.FC<Props> = () => {
 	const [programString, setProgramString] = useState('');
 	const [programArray, setProgramArray] = useState<string[][]>([]);
 	const inputFile = useRef<HTMLInputElement>(null);
@@ -20,11 +21,13 @@ const AppContainer: React.FC<Props> = () => {
 	const [inputArray, setInputArray] = useState<string[]>([]);
 	const [isRamRunning, setIsRamRunning] = useState(false);
 	const [isJsRunning, setIsJsRunning] = useState(false);
+	const [show, setShow] = useState(true);
 
 	useEffect(() => setLocale('DE'), []);
 
-	function loadProgram() {
+	function loadRAM() {
 		setInputArray(inputString.split('\n'));
+		setShow(false);
 		setProgramArray(programStringToArray(programString));
 	}
 
@@ -53,38 +56,55 @@ const AppContainer: React.FC<Props> = () => {
 	}
 
 	return (
-		<div className="dark:bg-blue-900">
-			<h1 className="dark:text-blue-50">{labels[locale].RAM_HEADER}</h1>
-			<input
-				type="file"
-				id="file"
-				onChange={(e) => fileChange(e)}
-				ref={inputFile}
-				style={{ display: 'none' }}
-			/>
-			<button
-				className="dark:text-blue-50 border-2"
-				onClick={onClickOpen}
-			>
-				{labels[locale].OPEN_BTN}
-			</button>
-			<InputField setState={setProgramString} value={programString} />
-			<button
-				className="dark:text-blue-50 border-2"
-				onClick={() => downloadProgramFile(programString)}
-			>
-				{labels[locale].SAVE_BTN}
-			</button>
-			<InputFieldContainer
-				setState={setInputString}
-				state={inputString}
-			/>
-			<button
-				className="dark:text-blue-50 border-2"
-				onClick={loadProgram}
-			>
-				{labels[locale].LOAD_BTN}
-			</button>
+		<>
+			{show && (
+				<div className="flex flex-col justify-center items-center">
+					<h1 className="text-2xl p-4">
+						{labels[locale].RAM_HEADER}
+					</h1>
+					<input
+						type="file"
+						id="file"
+						onChange={(e) => fileChange(e)}
+						ref={inputFile}
+						style={{ display: 'none' }}
+					/>
+					<InputField
+						setState={setProgramString}
+						value={programString}
+						placeholder={labels[locale].PROGRAM_HEADER}
+					/>
+					<div className="p-2 flex justify-evenly items-center">
+						<div className="pr-2">
+							<Button
+								onClick={() =>
+									downloadProgramFile(programString)
+								}
+								label={labels[locale].SAVE_BTN}
+								secondary
+							/>
+						</div>
+						<div className="pl-2">
+							<Button
+								onClick={onClickOpen}
+								label={labels[locale].OPEN_BTN}
+							/>
+						</div>
+					</div>
+					<InputFieldContainer
+						setState={setInputString}
+						state={inputString}
+						placeholder={labels[locale].INPUT_CONTAINER_HEADER}
+					/>
+					<div className="p-2">
+						<Button
+							onClick={loadRAM}
+							label={labels[locale].LOAD_BTN}
+							primary
+						/>
+					</div>
+				</div>
+			)}{' '}
 			{programArray.length > 0 && (
 				<MachineContainer
 					programArray={programArray}
@@ -96,8 +116,8 @@ const AppContainer: React.FC<Props> = () => {
 					breakPc={-1}
 				/>
 			)}
-		</div>
+		</>
 	);
 };
 
-export default AppContainer;
+export default MachineAppContainer;
