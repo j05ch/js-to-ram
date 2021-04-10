@@ -41,6 +41,7 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 						variation = (
 							<LetArithmeticVarVar
 								index={index}
+								type={Components.LET_ARITHMETIC_VAR_VAR}
 								state={state}
 								setState={setState}
 							/>

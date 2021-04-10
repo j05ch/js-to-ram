@@ -70,8 +70,9 @@ const VariationsChildContainer: React.FC<Props> = ({
 						variation = (
 							<LetArithmeticVarVar
 								index={i}
-								state={localState}
-								setState={setLocalState}
+								type={Components.LET_ARITHMETIC_VAR_VAR}
+								state={state}
+								setState={setState}
 							/>
 						);
 						break;

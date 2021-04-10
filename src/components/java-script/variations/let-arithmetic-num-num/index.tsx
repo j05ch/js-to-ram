@@ -2,14 +2,12 @@ import * as React from 'react';
 import { Dispatch, useEffect, useState } from 'react';
 import InputText from '../input-text';
 import { ComponentsKey } from '../../../../actions/components';
-import { Groups } from '../../../../actions/groups';
 
 interface Props {
 	index: number;
 	state: any;
 	setState: Dispatch<React.SetStateAction<{}>>;
 	type: ComponentsKey;
-	// group: Groups;
 }
 
 const LetArithmeticNumNum: React.FC<Props> = ({
@@ -17,7 +15,6 @@ const LetArithmeticNumNum: React.FC<Props> = ({
 	state,
 	setState,
 	type,
-	// group,
 }) => {
 	const [localState, setLocalState] = useState(state[index]);
 

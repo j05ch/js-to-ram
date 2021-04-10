@@ -2,7 +2,7 @@
 let a = 2 + 3;
 // ADD 1, ADD =5, STORE 2, LOAD =0
 let b = a + 5;
-// ADD 1, ADD 2, STORE 3, LOAD =0
+// LOAD 1, ADD 2, STORE 3, LOAD =0
 let c = a + b;
 // ADD 2, SUB 1, JGTZ <PC ELSE>, LOAD =0
 if (a > b) {
@@ -26,11 +26,11 @@ console.log(a);
  *   const markOperandRight = mark[2] ? 'text-red-500' : '';
  *
  * */
-let a = 12;
+// let d = 1 / 1;
 let a = a + b;
+let a = 12;
 let b = a - 1;
 let c = 1 * a;
-let d = 1 / 1;
 a = b;
 a = a + b;
 b = a - 1;
