@@ -28,10 +28,11 @@ console.log(a);
  * */
 // let d = 1 / 1;
 // let a = a + b;
-let a = 12;
+// let a = 12;
+// let a = b;
+a = b;
 let b = a - 1;
 let c = 1 * a;
-a = b;
 a = a + b;
 b = a - 1;
 c = 1 * a;

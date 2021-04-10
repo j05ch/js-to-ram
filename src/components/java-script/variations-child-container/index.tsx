@@ -100,6 +100,17 @@ const VariationsChildContainer: React.FC<Props> = ({
 						);
 						break;
 					}
+					case Components.LET_VAR: {
+						variation = (
+							<Let
+								index={i}
+								type={Components.LET_VAR}
+								state={state}
+								setState={setState}
+							/>
+						);
+						break;
+					}
 					default:
 						return (
 							<AddVariation
