@@ -11,6 +11,7 @@ import If from '../variations/if';
 import For from '../variations/for';
 import Let from '../variations/let';
 import LetVar from '../variations/let-var';
+import VarVar from '../variations/var-var';
 
 interface Props {
 	state: any;
@@ -77,6 +78,17 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 							<LetVar
 								index={index}
 								type={Components.LET_VAR}
+								state={state}
+								setState={setState}
+							/>
+						);
+						break;
+					}
+					case Components.VAR_VAR: {
+						variation = (
+							<VarVar
+								index={index}
+								type={Components.VAR_VAR}
 								state={state}
 								setState={setState}
 							/>

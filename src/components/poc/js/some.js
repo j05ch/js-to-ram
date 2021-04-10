@@ -30,7 +30,7 @@ console.log(a);
 // let a = a + b;
 // let a = 12;
 // let a = b;
-a = b;
+// a = b;
 let b = a - 1;
 let c = 1 * a;
 a = a + b;

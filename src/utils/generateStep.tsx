@@ -4,6 +4,8 @@ import LetArithmeticNumNumOutput from '../components/java-script/js-output/varia
 import LetOutput from '../components/java-script/js-output/variations/let-output';
 import AssemblerLine from '../components/java-script/js-output/assembler-line';
 import LetVarOutput from '../components/java-script/js-output/variations/let-var-output';
+import VarVar from '../components/java-script/variations/var-var';
+import VarVarOutput from '../components/java-script/js-output/variations/var-var-output';
 
 export const generateStep = (data: any, lineNo: number) => {
 	if (!data || !data.type) return { arr: [], lineNo, lastStep: true };
@@ -99,6 +101,31 @@ export const generateStep = (data: any, lineNo: number) => {
 		case Components.LET_VAR:
 			outputArr.push(
 				<LetVarOutput
+					varField={data.varField}
+					varValue={data.varValue}
+					mark1={data.mark1}
+					mark2={data.mark2}
+				/>
+			);
+			['code1', 'code2', 'code3'].forEach((c) => {
+				if (data[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code3') breakPc = lineNo;
+					program.push(`${lineNo} ${data[c]}`);
+					outputArr.push(
+						<AssemblerLine
+							code={data[c]}
+							lineNo={lineNo.toString()}
+						/>
+					);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.VAR_VAR:
+			outputArr.push(
+				<VarVarOutput
 					varField={data.varField}
 					varValue={data.varValue}
 					mark1={data.mark1}

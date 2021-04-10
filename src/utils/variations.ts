@@ -15,4 +15,5 @@ export const variations: Variations = [
 	{ variation: Components.FOR, group: Groups.A },
 	{ variation: Components.LET, group: Groups.A },
 	{ variation: Components.LET_VAR, group: Groups.A },
+	{ variation: Components.VAR_VAR, group: Groups.A },
 ];
