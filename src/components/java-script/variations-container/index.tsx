@@ -12,6 +12,7 @@ import For from '../variations/for';
 import Let from '../variations/let';
 import LetVar from '../variations/let-var';
 import VarVar from '../variations/var-var';
+import LetArithmeticVarNum from '../variations/let-arithmetic-var-num';
 
 interface Props {
 	state: any;
@@ -56,6 +57,17 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 							<LetArithmeticNumNum
 								index={index}
 								type={Components.LET_ARITHMETIC_NUM_NUM}
+								state={state}
+								setState={setState}
+							/>
+						);
+						break;
+					}
+					case Components.LET_ARITHMETIC_VAR_NUM: {
+						variation = (
+							<LetArithmeticVarNum
+								index={index}
+								type={Components.LET_ARITHMETIC_VAR_NUM}
 								state={state}
 								setState={setState}
 							/>

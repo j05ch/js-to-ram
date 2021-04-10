@@ -3,6 +3,7 @@ export const Components = {
 	ADD_VARIATION: '+',
 	LET_ARITHMETIC_VAR_VAR: 'let a = b + c',
 	LET_ARITHMETIC_NUM_NUM: 'let a = 123 + 456',
+	LET_ARITHMETIC_VAR_NUM: 'let a = b + 456',
 	LET: 'let a = 5',
 	LET_VAR: 'let a = b',
 	VAR_VAR: 'a = b',
