@@ -8,6 +8,7 @@ interface Props {
 	state: any;
 	setState: Dispatch<React.SetStateAction<{}>>;
 	type: ComponentsKey;
+	isLet: boolean;
 }
 
 const LetArithmeticVarVar: React.FC<Props> = ({
@@ -15,6 +16,7 @@ const LetArithmeticVarVar: React.FC<Props> = ({
 	state,
 	setState,
 	type,
+	isLet,
 }) => {
 	const [localState, setLocalState] = useState(state[index]);
 
@@ -32,8 +34,7 @@ const LetArithmeticVarVar: React.FC<Props> = ({
 	return (
 		<>
 			<div className="flex justify-around p-4 m-2 w-96 border rounded font-mono text-base">
-				{console.log('Local State in Num Num', localState)}
-				<div className="">let</div>
+				{isLet && <div className="">let</div>}
 				<InputText
 					state={state[index]}
 					setState={setLocalState}

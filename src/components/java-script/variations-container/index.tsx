@@ -49,6 +49,7 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 								type={Components.LET_ARITHMETIC_VAR_VAR}
 								state={state}
 								setState={setState}
+								isLet
 							/>
 						);
 						break;
@@ -60,6 +61,7 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 								type={Components.LET_ARITHMETIC_NUM_NUM}
 								state={state}
 								setState={setState}
+								isLet
 							/>
 						);
 						break;
@@ -71,6 +73,7 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 								type={Components.LET_ARITHMETIC_VAR_NUM}
 								state={state}
 								setState={setState}
+								isLet
 							/>
 						);
 						break;
@@ -82,6 +85,7 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 								type={Components.LET_ARITHMETIC_NUM_VAR}
 								state={state}
 								setState={setState}
+								isLet
 							/>
 						);
 						break;
