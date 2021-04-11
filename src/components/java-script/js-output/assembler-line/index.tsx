@@ -8,7 +8,7 @@ interface Props {
 const AssemblerLine: React.FC<Props> = ({ code, lineNo }) => {
 	return (
 		<div className="flex text-lg">
-			<div>{lineNo}:</div>
+			<div>{lineNo}: </div>
 			<div>{code}</div>
 		</div>
 	);

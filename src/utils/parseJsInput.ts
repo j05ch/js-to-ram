@@ -8,7 +8,7 @@ const operators: any = {
 	'/': 'DIV',
 };
 
-export const parseJsInput = (input: any) => {
+export const parseJsInput = (input: any, lineNo: number) => {
 	const variables = mapVariables(input);
 	const parsedArr: Array<any> = [];
 	const keys = Object.keys(input);
@@ -17,6 +17,7 @@ export const parseJsInput = (input: any) => {
 		switch (element.type) {
 			case Components.LET_ARITHMETIC_NUM_NUM: {
 				const step1 = {
+					lineNo,
 					type: Components.LET_ARITHMETIC_NUM_NUM,
 					varField: element.varField,
 					operandLeft: element.operandLeft,
@@ -34,26 +35,33 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `${operators['+']} =${element.operandLeft}`,
+					code1: `${lineNo++} ${operators['+']} =${
+						element.operandLeft
+					}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} =${
+					code2: `${lineNo++} ${operators[element.operator]} =${
 						element.operandRight
 					}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -61,6 +69,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.LET_ARITHMETIC_VAR_VAR: {
 				const step1 = {
+					lineNo,
 					type: Components.LET_ARITHMETIC_VAR_VAR,
 					varField: element.varField,
 					varLeft: element.varLeft,
@@ -78,26 +87,33 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD ${variables.indexOf(element.varLeft)}`,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varLeft
+					)}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} ${variables.indexOf(
-						element.varRight
-					)}`,
+					code2: `${lineNo++} ${
+						operators[element.operator]
+					} ${variables.indexOf(element.varRight)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -105,6 +121,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.LET_ARITHMETIC_VAR_NUM: {
 				const step1 = {
+					lineNo,
 					type: Components.LET_ARITHMETIC_VAR_NUM,
 					varField: element.varField,
 					varLeft: element.varLeft,
@@ -122,26 +139,33 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD ${variables.indexOf(element.varLeft)}`,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varLeft
+					)}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} =${
+					code2: `${lineNo++} ${operators[element.operator]} =${
 						element.numRight
 					}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -149,6 +173,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.LET_ARITHMETIC_NUM_VAR: {
 				const step1 = {
+					lineNo,
 					type: Components.LET_ARITHMETIC_NUM_VAR,
 					varField: element.varField,
 					numLeft: element.numLeft,
@@ -166,26 +191,31 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD =${element.numLeft}`,
+					code1: `${lineNo++} LOAD =${element.numLeft}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} =${variables.indexOf(
-						element.varRight
-					)}`,
+					code2: `${lineNo++} ${
+						operators[element.operator]
+					} =${variables.indexOf(element.varRight)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -193,6 +223,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.ARITHMETIC_NUM_NUM: {
 				const step1 = {
+					lineNo,
 					type: Components.ARITHMETIC_NUM_NUM,
 					varField: element.varField,
 					operandLeft: element.operandLeft,
@@ -210,26 +241,33 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `${operators['+']} =${element.operandLeft}`,
+					code1: `${lineNo++} ${operators['+']} =${
+						element.operandLeft
+					}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} =${
+					code2: `${lineNo++} ${operators[element.operator]} =${
 						element.operandRight
 					}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -237,6 +275,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.ARITHMETIC_VAR_VAR: {
 				const step1 = {
+					lineNo,
 					type: Components.ARITHMETIC_VAR_VAR,
 					varField: element.varField,
 					varLeft: element.varLeft,
@@ -254,26 +293,33 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD ${variables.indexOf(element.varLeft)}`,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varLeft
+					)}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} ${variables.indexOf(
-						element.varRight
-					)}`,
+					code2: `${lineNo++} ${
+						operators[element.operator]
+					} ${variables.indexOf(element.varRight)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -281,6 +327,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.ARITHMETIC_VAR_NUM: {
 				const step1 = {
+					lineNo,
 					type: Components.ARITHMETIC_VAR_NUM,
 					varField: element.varField,
 					varLeft: element.varLeft,
@@ -298,26 +345,33 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD ${variables.indexOf(element.varLeft)}`,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varLeft
+					)}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} =${
+					code2: `${lineNo++} ${operators[element.operator]} =${
 						element.numRight
 					}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -325,6 +379,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.ARITHMETIC_NUM_VAR: {
 				const step1 = {
+					lineNo,
 					type: Components.ARITHMETIC_NUM_VAR,
 					varField: element.varField,
 					numLeft: element.numLeft,
@@ -342,26 +397,31 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD =${element.numLeft}`,
+					code1: `${lineNo++} LOAD =${element.numLeft}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `${operators[element.operator]} =${variables.indexOf(
-						element.varRight
-					)}`,
+					code2: `${lineNo++} ${
+						operators[element.operator]
+					} =${variables.indexOf(element.varRight)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark2: false,
 					mark3: true,
-					code3: `STORE ${variables.indexOf(element.varField)}`,
+					code3: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step5 = {
 					...step4,
+					lineNo,
 					mark3: false,
-					code4: 'LOAD =0',
+					code4: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
@@ -369,6 +429,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.LET: {
 				const step1 = {
+					lineNo,
 					type: Components.LET,
 					varField: element.varField,
 					value: element.value,
@@ -381,19 +442,24 @@ export const parseJsInput = (input: any) => {
 				};
 				const step2 = {
 					...step1,
+					lineNo,
 					mark1: true,
-					code1: `LOAD =${element.value}`,
+					code1: `${lineNo++} LOAD =${element.value}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `STORE ${variables.indexOf(element.varField)}`,
+					code2: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark3: false,
-					code3: 'LOAD =0',
+					code3: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4);
@@ -401,6 +467,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.LET_VAR: {
 				const step1 = {
+					lineNo,
 					type: Components.LET_VAR,
 					varField: element.varField,
 					varValue: element.varValue,
@@ -414,18 +481,24 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD ${variables.indexOf(element.varValue)}`,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varValue
+					)}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `STORE ${variables.indexOf(element.varField)}`,
+					code2: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark3: false,
-					code3: 'LOAD =0',
+					code3: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4);
@@ -433,6 +506,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.VAR_VAR: {
 				const step1 = {
+					lineNo,
 					type: Components.VAR_VAR,
 					varField: element.varField,
 					varValue: element.varValue,
@@ -446,18 +520,24 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD ${variables.indexOf(element.varValue)}`,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varValue
+					)}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `STORE ${variables.indexOf(element.varField)}`,
+					code2: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark3: false,
-					code3: 'LOAD =0',
+					code3: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4);
@@ -465,6 +545,7 @@ export const parseJsInput = (input: any) => {
 			}
 			case Components.VAR_NUM: {
 				const step1 = {
+					lineNo,
 					type: Components.VAR_NUM,
 					varField: element.varField,
 					value: element.value,
@@ -478,26 +559,30 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD =${element.value}`,
+					code1: `${lineNo++} LOAD =${element.value}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `STORE ${variables.indexOf(element.varField)}`,
+					code2: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark3: false,
-					code3: 'LOAD =0',
+					code3: `${lineNo++} LOAD =0`,
 					lastStep: true,
 				};
 				parsedArr.push(step1, step2, step3, step4);
 				break;
 			}
 			case Components.IF: {
-				const children = parseJsInput(element.children);
 				const step1 = {
+					lineNo,
 					type: Components.IF,
 					varLeft: element.varLeft,
 					varRight: element.varRight,
@@ -512,36 +597,47 @@ export const parseJsInput = (input: any) => {
 				const step2 = {
 					...step1,
 					mark1: true,
-					code1: `LOAD ${variables.indexOf(element.varRight)}`,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varRight
+					)}`,
 				};
 				const step3 = {
 					...step2,
+					lineNo,
 					mark1: false,
 					mark2: true,
-					code2: `SUB ${variables.indexOf(element.varLeft)}`,
+					code2: `${lineNo++} SUB ${variables.indexOf(
+						element.varLeft
+					)}`,
 				};
 				const step4 = {
 					...step3,
+					lineNo,
 					mark3: false,
 					code3:
 						element.operator === '>'
-							? `JUMPGTZ LINE_NO`
-							: `JZERO LINE_NO`,
+							? `${lineNo++} JUMPGTZ LINE_NO`
+							: `${lineNo++} JZERO LINE_NO`,
 					lastStep: true,
 				};
 
+				const children = parseJsInput(element.children, lineNo);
+				lineNo = children.lineNo;
+
 				const endIf = {
 					...step4,
+					lineNo,
 					type: Components.END_IF,
-					childrenLength: children.length,
 				};
+
 				parsedArr.push(step1, step2, step3, step4);
-				parsedArr.push(...children, endIf);
+				parsedArr.push(...children.parsedArr, endIf);
 				break;
 			}
 			default:
 				parsedArr.push({ hallo: 'hallo' });
 		}
 	});
-	return parsedArr;
+
+	return { parsedArr, lineNo };
 };

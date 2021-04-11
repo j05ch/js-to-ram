@@ -8,7 +8,6 @@ import VarVarOutput from '../components/java-script/js-output/variations/var-var
 
 export const generateStep = (data: any, lineNo: number) => {
 	if (!data || !data.type) return { arr: [], lineNo, lastStep: true };
-	console.log('Data', data);
 	const outputArr = [];
 	const program: Array<string> = [];
 	const { type } = data;
@@ -33,12 +32,11 @@ export const generateStep = (data: any, lineNo: number) => {
 				if (data[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
+					// program.push(`${lineNo} ${data[c]}`);
+					program.push(`${data[c]}`);
+					const [line, ...code] = data[c].split(' ');
 					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
+						<AssemblerLine code={code.join(' ')} lineNo={line} />
 					);
 					lineNo++;
 					lineComplete = true;
@@ -261,7 +259,8 @@ export const generateStep = (data: any, lineNo: number) => {
 				if (data[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code3') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
+					// program.push(`${lineNo} ${data[c]}`);
+					program.push(`${data[c]}`);
 					outputArr.push(
 						<AssemblerLine
 							code={data[c]}
