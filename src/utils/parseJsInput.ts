@@ -147,6 +147,50 @@ export const parseJsInput = (input: any) => {
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
 			}
+			case Components.LET_ARITHMETIC_NUM_VAR: {
+				const step1 = {
+					type: Components.LET_ARITHMETIC_NUM_VAR,
+					varField: element.varField,
+					numLeft: element.numLeft,
+					operator: element.operator,
+					varRight: element.varRight,
+					mark1: false,
+					mark2: false,
+					mark3: false,
+					code1: '',
+					code2: '',
+					code3: '',
+					code4: '',
+					lastStep: false,
+				};
+				const step2 = {
+					...step1,
+					mark1: true,
+					code1: `LOAD =${element.numLeft}`,
+				};
+				const step3 = {
+					...step2,
+					mark1: false,
+					mark2: true,
+					code2: `${operators[element.operator]} =${variables.indexOf(
+						element.varRight
+					)}`,
+				};
+				const step4 = {
+					...step3,
+					mark2: false,
+					mark3: true,
+					code3: `STORE ${variables.indexOf(element.varField)}`,
+				};
+				const step5 = {
+					...step4,
+					mark3: false,
+					code4: 'LOAD =0',
+					lastStep: true,
+				};
+				parsedArr.push(step1, step2, step3, step4, step5);
+				break;
+			}
 			case Components.LET: {
 				const step1 = {
 					type: Components.LET,

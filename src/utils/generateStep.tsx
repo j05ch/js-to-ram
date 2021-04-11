@@ -101,6 +101,34 @@ export const generateStep = (data: any, lineNo: number) => {
 				}
 			});
 			break;
+		case Components.LET_ARITHMETIC_NUM_VAR:
+			outputArr.push(
+				<LetArithmeticNumNumOutput
+					varField={data.varField}
+					numLeft={data.numLeft}
+					operator={data.operator}
+					numRight={data.varRight}
+					mark1={data.mark1}
+					mark2={data.mark2}
+					mark3={data.mark3}
+				/>
+			);
+			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
+				if (data[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code4') breakPc = lineNo;
+					program.push(`${lineNo} ${data[c]}`);
+					outputArr.push(
+						<AssemblerLine
+							code={data[c]}
+							lineNo={lineNo.toString()}
+						/>
+					);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
 		case Components.LET:
 			outputArr.push(
 				<LetOutput
