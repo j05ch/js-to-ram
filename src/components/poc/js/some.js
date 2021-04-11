@@ -40,13 +40,9 @@ console.log(a);
 // a = 5;
 if (a > b) {
 }
-if (b < a) {
-}
 if (a >= b) {
 }
-if (b <= a) {
-}
-if (b == a) {
+if (a == b) {
 }
 for (let a = 0; a++; a < 10) {}
 for (let a = 0; a++; a < b) {}

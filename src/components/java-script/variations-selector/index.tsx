@@ -21,12 +21,8 @@ const VariationsSelector: React.FC<Props> = ({
 	const [selected, setSelected] = useState<ComponentsKey>();
 
 	useEffect(() => {
-		setOptions(
-			variations.map((v) => {
-				if (v.group === group) return v.variation;
-				else return Components.NONE;
-			})
-		);
+		const selected = variations.filter((v) => v.group.includes(group));
+		setOptions(selected.map((s) => s.variation));
 	}, [group]);
 
 	return (

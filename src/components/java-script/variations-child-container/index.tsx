@@ -66,7 +66,7 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<VariationsSelector
 								index={i}
 								selectVariation={selectVariation}
-								group={Groups.A}
+								group={Groups.B}
 							/>
 						);
 						break;
