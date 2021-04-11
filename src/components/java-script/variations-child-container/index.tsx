@@ -76,8 +76,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<LetArithmeticVarVar
 								index={i}
 								type={Components.LET_ARITHMETIC_VAR_VAR}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 								isLet
 							/>
 						);
@@ -100,8 +100,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<LetArithmeticVarNum
 								index={i}
 								type={Components.LET_ARITHMETIC_VAR_NUM}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 								isLet
 							/>
 						);
@@ -112,8 +112,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<LetArithmeticNumVar
 								index={i}
 								type={Components.LET_ARITHMETIC_NUM_VAR}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 								isLet
 							/>
 						);
@@ -124,8 +124,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<LetArithmeticVarVar
 								index={i}
 								type={Components.ARITHMETIC_VAR_VAR}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 								isLet={false}
 							/>
 						);
@@ -136,8 +136,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<VarNum
 								index={i}
 								type={Components.VAR_NUM}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 							/>
 						);
 						break;
@@ -147,8 +147,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<LetArithmeticNumNum
 								index={i}
 								type={Components.ARITHMETIC_NUM_NUM}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 								isLet={false}
 							/>
 						);
@@ -159,8 +159,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<LetArithmeticVarNum
 								index={i}
 								type={Components.ARITHMETIC_VAR_NUM}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 								isLet={false}
 							/>
 						);
@@ -171,8 +171,8 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<LetArithmeticNumVar
 								index={i}
 								type={Components.ARITHMETIC_NUM_VAR}
-								state={state}
-								setState={setState}
+								state={localState}
+								setState={setLocalState}
 								isLet={false}
 							/>
 						);
@@ -183,7 +183,7 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<Let
 								index={i}
 								type={Components.LET}
-								state={state}
+								state={localState}
 								setState={setState}
 							/>
 						);
@@ -194,7 +194,7 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<Let
 								index={i}
 								type={Components.LET_VAR}
-								state={state}
+								state={localState}
 								setState={setState}
 							/>
 						);
@@ -205,7 +205,7 @@ const VariationsChildContainer: React.FC<Props> = ({
 							<VarVar
 								index={i}
 								type={Components.VAR_VAR}
-								state={state}
+								state={localState}
 								setState={setState}
 							/>
 						);
