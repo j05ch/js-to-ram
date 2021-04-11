@@ -33,10 +33,11 @@ console.log(a);
 // a = b;
 // let b = a - 1;
 // let c = 1 * a;
-a = a + b;
-b = a - 1;
-c = 1 * a;
-d = 1 / 1;
+// d = 1 / 1;
+// c = 1 * a;
+// b = a - 1;
+// a = a + b;
+a = 5;
 if (a > b) {
 }
 if (b < a) {

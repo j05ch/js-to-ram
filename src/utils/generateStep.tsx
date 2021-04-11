@@ -4,7 +4,6 @@ import LetArithmeticNumNumOutput from '../components/java-script/js-output/varia
 import LetOutput from '../components/java-script/js-output/variations/let-output';
 import AssemblerLine from '../components/java-script/js-output/assembler-line';
 import LetVarOutput from '../components/java-script/js-output/variations/let-var-output';
-import VarVar from '../components/java-script/variations/var-var';
 import VarVarOutput from '../components/java-script/js-output/variations/var-var-output';
 
 export const generateStep = (data: any, lineNo: number) => {
@@ -20,6 +19,7 @@ export const generateStep = (data: any, lineNo: number) => {
 		case Components.LET_ARITHMETIC_NUM_NUM:
 			outputArr.push(
 				<LetArithmeticNumNumOutput
+					isLet
 					varField={data.varField}
 					numLeft={data.operandLeft}
 					operator={data.operator}
@@ -48,6 +48,7 @@ export const generateStep = (data: any, lineNo: number) => {
 		case Components.LET_ARITHMETIC_VAR_VAR:
 			outputArr.push(
 				<LetArithmeticNumNumOutput
+					isLet
 					varField={data.varField}
 					numLeft={data.varLeft}
 					operator={data.operator}
@@ -76,6 +77,7 @@ export const generateStep = (data: any, lineNo: number) => {
 		case Components.LET_ARITHMETIC_VAR_NUM:
 			outputArr.push(
 				<LetArithmeticNumNumOutput
+					isLet
 					varField={data.varField}
 					numLeft={data.varLeft}
 					operator={data.operator}
@@ -104,6 +106,123 @@ export const generateStep = (data: any, lineNo: number) => {
 		case Components.LET_ARITHMETIC_NUM_VAR:
 			outputArr.push(
 				<LetArithmeticNumNumOutput
+					isLet
+					varField={data.varField}
+					numLeft={data.numLeft}
+					operator={data.operator}
+					numRight={data.varRight}
+					mark1={data.mark1}
+					mark2={data.mark2}
+					mark3={data.mark3}
+				/>
+			);
+			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
+				if (data[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code4') breakPc = lineNo;
+					program.push(`${lineNo} ${data[c]}`);
+					outputArr.push(
+						<AssemblerLine
+							code={data[c]}
+							lineNo={lineNo.toString()}
+						/>
+					);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.ARITHMETIC_NUM_NUM:
+			outputArr.push(
+				<LetArithmeticNumNumOutput
+					isLet={false}
+					varField={data.varField}
+					numLeft={data.operandLeft}
+					operator={data.operator}
+					numRight={data.operandRight}
+					mark1={data.mark1}
+					mark2={data.mark2}
+					mark3={data.mark3}
+				/>
+			);
+			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
+				if (data[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code4') breakPc = lineNo;
+					program.push(`${lineNo} ${data[c]}`);
+					outputArr.push(
+						<AssemblerLine
+							code={data[c]}
+							lineNo={lineNo.toString()}
+						/>
+					);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.ARITHMETIC_VAR_VAR:
+			outputArr.push(
+				<LetArithmeticNumNumOutput
+					isLet={false}
+					varField={data.varField}
+					numLeft={data.varLeft}
+					operator={data.operator}
+					numRight={data.varRight}
+					mark1={data.mark1}
+					mark2={data.mark2}
+					mark3={data.mark3}
+				/>
+			);
+			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
+				if (data[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code4') breakPc = lineNo;
+					program.push(`${lineNo} ${data[c]}`);
+					outputArr.push(
+						<AssemblerLine
+							code={data[c]}
+							lineNo={lineNo.toString()}
+						/>
+					);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.ARITHMETIC_VAR_NUM:
+			outputArr.push(
+				<LetArithmeticNumNumOutput
+					isLet={false}
+					varField={data.varField}
+					numLeft={data.varLeft}
+					operator={data.operator}
+					numRight={data.numRight}
+					mark1={data.mark1}
+					mark2={data.mark2}
+					mark3={data.mark3}
+				/>
+			);
+			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
+				if (data[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code4') breakPc = lineNo;
+					program.push(`${lineNo} ${data[c]}`);
+					outputArr.push(
+						<AssemblerLine
+							code={data[c]}
+							lineNo={lineNo.toString()}
+						/>
+					);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.ARITHMETIC_NUM_VAR:
+			outputArr.push(
+				<LetArithmeticNumNumOutput
+					isLet={false}
 					varField={data.varField}
 					numLeft={data.numLeft}
 					operator={data.operator}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 interface Props {
+	isLet: boolean;
 	varField: string;
 	numLeft: string;
 	operator: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const LetArithmeticNumNumOutput: React.FC<Props> = ({
+	isLet,
 	varField,
 	numLeft,
 	operator,
@@ -25,7 +27,7 @@ const LetArithmeticNumNumOutput: React.FC<Props> = ({
 
 	return (
 		<div className="flex">
-			<div className={styles3}>let</div>
+			{isLet && <div className={styles3}>let</div>}
 			<div className={styles3}>{varField}</div>
 			<div className={styles3}>=</div>
 			<div className={styles1}>{numLeft}</div>

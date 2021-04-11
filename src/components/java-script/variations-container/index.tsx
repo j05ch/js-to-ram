@@ -90,6 +90,54 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 						);
 						break;
 					}
+					case Components.ARITHMETIC_VAR_VAR: {
+						variation = (
+							<LetArithmeticVarVar
+								index={index}
+								type={Components.ARITHMETIC_VAR_VAR}
+								state={state}
+								setState={setState}
+								isLet={false}
+							/>
+						);
+						break;
+					}
+					case Components.ARITHMETIC_NUM_NUM: {
+						variation = (
+							<LetArithmeticNumNum
+								index={index}
+								type={Components.ARITHMETIC_NUM_NUM}
+								state={state}
+								setState={setState}
+								isLet={false}
+							/>
+						);
+						break;
+					}
+					case Components.ARITHMETIC_VAR_NUM: {
+						variation = (
+							<LetArithmeticVarNum
+								index={index}
+								type={Components.ARITHMETIC_VAR_NUM}
+								state={state}
+								setState={setState}
+								isLet={false}
+							/>
+						);
+						break;
+					}
+					case Components.ARITHMETIC_NUM_VAR: {
+						variation = (
+							<LetArithmeticNumVar
+								index={index}
+								type={Components.ARITHMETIC_NUM_VAR}
+								state={state}
+								setState={setState}
+								isLet={false}
+							/>
+						);
+						break;
+					}
 					case Components.LET: {
 						variation = (
 							<Let
