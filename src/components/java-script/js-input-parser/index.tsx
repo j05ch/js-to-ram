@@ -32,6 +32,7 @@ const JSInputParser: React.FC<Props> = ({
 	const [lineNo, setLineNo] = useState(0);
 	useInterval(jsStep, isJsRunning ? 2000 : null);
 	const inputArr = parseJsInput(inputModel);
+
 	const [locale, setLocale] = useState('DE');
 	useEffect(() => setLocale('DE'), [locale]);
 
@@ -73,7 +74,10 @@ const JSInputParser: React.FC<Props> = ({
 		<>
 			<div className="flex justify-center p-2">
 				<Button
-					onClick={() => setIsJsRunning(true)}
+					onClick={() => {
+						setIsJsRunning(true);
+						console.log(inputArr);
+					}}
 					label={labels[locale].PLAY}
 					primary
 				/>

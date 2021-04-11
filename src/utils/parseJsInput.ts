@@ -495,6 +495,50 @@ export const parseJsInput = (input: any) => {
 				parsedArr.push(step1, step2, step3, step4);
 				break;
 			}
+			case Components.IF: {
+				const children = parseJsInput(element.children);
+				const step1 = {
+					type: Components.IF,
+					varLeft: element.varLeft,
+					varRight: element.varRight,
+					operator: element.operator,
+					mark1: false,
+					mark2: false,
+					code1: '',
+					code2: '',
+					code3: '',
+					lastStep: false,
+				};
+				const step2 = {
+					...step1,
+					mark1: true,
+					code1: `LOAD ${variables.indexOf(element.varRight)}`,
+				};
+				const step3 = {
+					...step2,
+					mark1: false,
+					mark2: true,
+					code2: `SUB ${variables.indexOf(element.varLeft)}`,
+				};
+				const step4 = {
+					...step3,
+					mark3: false,
+					code3:
+						element.operator === '>'
+							? `JUMPGTZ LINE_NO`
+							: `JZERO LINE_NO`,
+					lastStep: true,
+				};
+
+				const endIf = {
+					...step4,
+					type: Components.END_IF,
+					childrenLength: children.length,
+				};
+				parsedArr.push(step1, step2, step3, step4);
+				parsedArr.push(...children, endIf);
+				break;
+			}
 			default:
 				parsedArr.push({ hallo: 'hallo' });
 		}

@@ -15,6 +15,7 @@ export const Components = {
 	VAR_VAR: 'a = b',
 	VARIATIONS_SELECTOR: 'Select',
 	IF: 'if',
+	END_IF: 'end if',
 	FOR: 'for',
 } as const;
 
