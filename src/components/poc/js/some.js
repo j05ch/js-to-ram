@@ -37,7 +37,7 @@ console.log(a);
 // c = 1 * a;
 // b = a - 1;
 // a = a + b;
-a = 5;
+// a = 5;
 if (a > b) {
 }
 if (b < a) {

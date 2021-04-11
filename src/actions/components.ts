@@ -10,6 +10,7 @@ export const Components = {
 	ARITHMETIC_VAR_NUM: 'a = b + 456',
 	ARITHMETIC_NUM_VAR: 'a = 456 + b',
 	LET: 'let a = 5',
+	VAR_NUM: 'a = 42',
 	LET_VAR: 'let a = b',
 	VAR_VAR: 'a = b',
 	VARIATIONS_SELECTOR: 'Select',
