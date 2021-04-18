@@ -71,30 +71,30 @@ const MachineControl: React.FC<Props> = ({
 		<>
 			<div>
 				<button
-					className="dark:text-black bg-blue-50 p-1 m-1 rounded border-2"
+					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
 					onClick={() => handleSpeed(labels[locale].PAUSE)}
 				>
 					{isRunning ? labels[locale].PAUSE : labels[locale].PLAY}
 				</button>
 				<button
-					className="dark:text-black bg-blue-50 p-1 m-1 rounded border-2"
+					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
 					onClick={() => handleSpeed(labels[locale].STEP)}
 				>
 					{labels[locale].STEP}
 				</button>
 				<button
-					className="dark:text-black bg-blue-50 p-1 m-1 rounded border-2"
+					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
 					onClick={() => handleSpeed(labels[locale].SLOWER)}
 				>
 					{labels[locale].SLOWER}
 				</button>
 				<button
-					className="dark:text-black bg-blue-50 p-1 m-1 rounded border-2"
+					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
 					onClick={() => handleSpeed(labels[locale].FASTER)}
 				>
 					{labels[locale].FASTER}
 				</button>
-				<p className="dark:text-black font-bold">{delay}</p>
+				<p className="text-black font-bold">{delay}</p>
 			</div>
 		</>
 	);

@@ -8,7 +8,7 @@ const operators: any = {
 	'/': 'DIV',
 };
 
-export const parseJsInput = (input: any, lineNo: number) => {
+export const parseJsInput = (input: any, lineNo: number, child = false) => {
 	const variables = mapVariables(input);
 	const parsedArr: Array<any> = [];
 	const keys = Object.keys(input);
@@ -31,6 +31,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -62,7 +63,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -83,6 +85,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -114,7 +117,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -135,6 +139,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -166,7 +171,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -187,6 +193,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -216,7 +223,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -237,6 +245,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -268,7 +277,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -289,6 +299,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -320,7 +331,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -341,6 +353,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -372,7 +385,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -393,6 +407,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code3: '',
 					code4: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -422,7 +437,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code4: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4, step5);
 				break;
@@ -439,6 +455,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code2: '',
 					code3: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -460,7 +477,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code3: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4);
 				break;
@@ -477,6 +495,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code2: '',
 					code3: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -499,7 +518,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code3: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4);
 				break;
@@ -516,6 +536,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code2: '',
 					code3: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -538,7 +559,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code3: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4);
 				break;
@@ -555,6 +577,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code2: '',
 					code3: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -575,7 +598,8 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					lineNo,
 					mark3: false,
 					code3: `${lineNo++} LOAD =0`,
-					lastStep: true,
+					lastStep: !child,
+					insideBlock: child,
 				};
 				parsedArr.push(step1, step2, step3, step4);
 				break;
@@ -593,6 +617,7 @@ export const parseJsInput = (input: any, lineNo: number) => {
 					code2: '',
 					code3: '',
 					lastStep: false,
+					insideBlock: false,
 				};
 				const step2 = {
 					...step1,
@@ -613,21 +638,23 @@ export const parseJsInput = (input: any, lineNo: number) => {
 				const step4 = {
 					...step3,
 					lineNo,
-					mark3: false,
+					mark3: true,
 					code3:
 						element.operator === '>'
-							? `${lineNo++} JUMPGTZ LINE_NO`
+							? `${lineNo++} JGTZ LINE_NO`
 							: `${lineNo++} JZERO LINE_NO`,
-					lastStep: true,
+					insideBlock: true,
 				};
 
-				const children = parseJsInput(element.children, lineNo);
+				const children = parseJsInput(element.children, lineNo, true);
 				lineNo = children.lineNo;
 
 				const endIf = {
 					...step4,
 					lineNo,
 					type: Components.END_IF,
+					insideBlock: false,
+					lastStep: true,
 				};
 
 				parsedArr.push(step1, step2, step3, step4);

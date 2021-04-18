@@ -10,11 +10,11 @@ const Display: React.FC<Props> = ({ inputArray, inputIndex, mark }) => {
 	function getDisplay() {
 		return inputArray.map((s, index) => {
 			return mark && index === inputIndex ? (
-				<div key={String(index)} className="dark:text-green-400 pr-1.5">
+				<div key={String(index)} className="text-green-400 pr-1.5">
 					{s}
 				</div>
 			) : (
-				<div className="dark:text-white pr-1.5">{s}</div>
+				<div className="text-white pr-1.5">{s}</div>
 			);
 		});
 	}

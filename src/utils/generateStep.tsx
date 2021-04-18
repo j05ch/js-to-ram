@@ -5,357 +5,343 @@ import LetOutput from '../components/java-script/js-output/variations/let-output
 import AssemblerLine from '../components/java-script/js-output/assembler-line';
 import LetVarOutput from '../components/java-script/js-output/variations/let-var-output';
 import VarVarOutput from '../components/java-script/js-output/variations/var-var-output';
+import IfOutput from '../components/java-script/js-output/variations/if-output';
 
-export const generateStep = (data: any, lineNo: number) => {
-	if (!data || !data.type) return { arr: [], lineNo, lastStep: true };
-	const outputArr = [];
-	const program: Array<string> = [];
-	const { type } = data;
+export const generateStep = (
+	element: any,
+	lineNo: number,
+	blockStart: number,
+	jumpTarget: number
+) => {
+	if (!element || !element.type) return { arr: [], lineNo, lastStep: true };
+	const codeOutput = [];
+	const ramProgram: Array<string> = [];
+	const { type } = element;
 	let lineComplete = false;
 	let pc = 0;
 	let breakPc = 0;
+
+	function pushAssemblerLine(c: string) {
+		const [line, ...code] = element[c].split(' ');
+		codeOutput.push(<AssemblerLine code={code.join(' ')} lineNo={line} />);
+	}
+
 	switch (type) {
 		case Components.LET_ARITHMETIC_NUM_NUM:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet
-					varField={data.varField}
-					numLeft={data.operandLeft}
-					operator={data.operator}
-					numRight={data.operandRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.operandLeft}
+					operator={element.operator}
+					numRight={element.operandRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
 					// program.push(`${lineNo} ${data[c]}`);
-					program.push(`${data[c]}`);
-					const [line, ...code] = data[c].split(' ');
-					outputArr.push(
-						<AssemblerLine code={code.join(' ')} lineNo={line} />
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.LET_ARITHMETIC_VAR_VAR:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet
-					varField={data.varField}
-					numLeft={data.varLeft}
-					operator={data.operator}
-					numRight={data.varRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.varLeft}
+					operator={element.operator}
+					numRight={element.varRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.LET_ARITHMETIC_VAR_NUM:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet
-					varField={data.varField}
-					numLeft={data.varLeft}
-					operator={data.operator}
-					numRight={data.numRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.varLeft}
+					operator={element.operator}
+					numRight={element.numRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.LET_ARITHMETIC_NUM_VAR:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet
-					varField={data.varField}
-					numLeft={data.numLeft}
-					operator={data.operator}
-					numRight={data.varRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.numLeft}
+					operator={element.operator}
+					numRight={element.varRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.ARITHMETIC_NUM_NUM:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet={false}
-					varField={data.varField}
-					numLeft={data.operandLeft}
-					operator={data.operator}
-					numRight={data.operandRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.operandLeft}
+					operator={element.operator}
+					numRight={element.operandRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.ARITHMETIC_VAR_VAR:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet={false}
-					varField={data.varField}
-					numLeft={data.varLeft}
-					operator={data.operator}
-					numRight={data.varRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.varLeft}
+					operator={element.operator}
+					numRight={element.varRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.ARITHMETIC_VAR_NUM:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet={false}
-					varField={data.varField}
-					numLeft={data.varLeft}
-					operator={data.operator}
-					numRight={data.numRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.varLeft}
+					operator={element.operator}
+					numRight={element.numRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.ARITHMETIC_NUM_VAR:
-			outputArr.push(
+			codeOutput.push(
 				<LetArithmeticNumNumOutput
 					isLet={false}
-					varField={data.varField}
-					numLeft={data.numLeft}
-					operator={data.operator}
-					numRight={data.varRight}
-					mark1={data.mark1}
-					mark2={data.mark2}
-					mark3={data.mark3}
+					varField={element.varField}
+					numLeft={element.numLeft}
+					operator={element.operator}
+					numRight={element.varRight}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
 				/>
 			);
 			['code1', 'code2', 'code3', 'code4'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code4') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.LET:
-			outputArr.push(
+			codeOutput.push(
 				<LetOutput
-					varField={data.varField}
-					value={data.value}
-					mark1={data.mark1}
-					mark2={data.mark2}
+					varField={element.varField}
+					value={element.value}
+					mark1={element.mark1}
+					mark2={element.mark2}
 				/>
 			);
 			['code1', 'code2', 'code3'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code3') breakPc = lineNo;
 					// program.push(`${lineNo} ${data[c]}`);
-					program.push(`${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.LET_VAR:
-			outputArr.push(
+			codeOutput.push(
 				<LetVarOutput
-					varField={data.varField}
-					varValue={data.varValue}
-					mark1={data.mark1}
-					mark2={data.mark2}
+					varField={element.varField}
+					varValue={element.varValue}
+					mark1={element.mark1}
+					mark2={element.mark2}
 				/>
 			);
 			['code1', 'code2', 'code3'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code3') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.VAR_VAR:
-			outputArr.push(
+			codeOutput.push(
 				<VarVarOutput
-					varField={data.varField}
-					varValue={data.varValue}
-					mark1={data.mark1}
-					mark2={data.mark2}
+					varField={element.varField}
+					varValue={element.varValue}
+					mark1={element.mark1}
+					mark2={element.mark2}
 				/>
 			);
 			['code1', 'code2', 'code3'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code3') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
 		case Components.VAR_NUM:
-			outputArr.push(
+			codeOutput.push(
 				<VarVarOutput
-					varField={data.varField}
-					varValue={data.value}
-					mark1={data.mark1}
-					mark2={data.mark2}
+					varField={element.varField}
+					varValue={element.value}
+					mark1={element.mark1}
+					mark2={element.mark2}
 				/>
 			);
 			['code1', 'code2', 'code3'].forEach((c) => {
-				if (data[c] != '') {
+				if (element[c] != '') {
 					if (c === 'code1') pc = lineNo;
 					if (c === 'code3') breakPc = lineNo;
-					program.push(`${lineNo} ${data[c]}`);
-					outputArr.push(
-						<AssemblerLine
-							code={data[c]}
-							lineNo={lineNo.toString()}
-						/>
-					);
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
 					lineNo++;
 					lineComplete = true;
 				}
 			});
 			break;
+		case Components.IF:
+			codeOutput.push(
+				<IfOutput
+					varLeft={element.varLeft}
+					varRight={element.varRight}
+					operator={element.operator}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
+				/>
+			);
+			['code1', 'code2', 'code3'].forEach((c) => {
+				if (element[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code3') breakPc = lineNo;
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.END_IF:
+			codeOutput.push(<div>{'}'}</div>);
+			// 6
+			pc = blockStart;
+			// 12
+			breakPc = jumpTarget;
+			// 13
+			lineNo = jumpTarget + 1;
+			break;
 	}
 
-	const { lastStep } = data;
+	const { lastStep, insideBlock } = element;
 
 	return {
-		arr: outputArr,
-		program,
+		codeOutput,
+		ramProgram,
 		lineNo,
 		lastStep,
+		insideBlock,
 		lineComplete,
 		pc,
 		breakPc,

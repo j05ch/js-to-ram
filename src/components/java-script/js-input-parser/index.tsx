@@ -6,22 +6,26 @@ import { generateStep } from '../../../utils/generateStep';
 import Button from '../../common/Button';
 import { labels } from '../../../models/labels';
 import { Components } from '../../../actions/components';
+import MachineControl from '../../random-access-machine/machine-control';
+import JsOutputCard from '../js-output/js-output-card';
 
 type InputType = (
 	| {
-			arr: never[];
+			codeOutput: never[];
 			lineNo: number;
 			lastStep: boolean;
-			program?: undefined;
+			insideBlock: boolean;
+			ramProgram?: undefined;
 			lineComplete?: undefined;
 			pc?: undefined;
 			breakPc?: undefined;
 	  }
 	| {
-			arr: JSX.Element[];
-			program: string[];
+			codeOutput: JSX.Element[];
+			ramProgram: string[];
 			lineNo: number;
 			lastStep: any;
+			insideBlock: boolean;
 			lineComplete: boolean;
 			pc: number;
 			breakPc: number;
@@ -30,7 +34,7 @@ type InputType = (
 
 interface Props {
 	inputModel: any;
-	buildProgram: (arr: Array<string>) => void;
+	buildRamProgram: (arr: Array<string>) => void;
 	isJsRunning: boolean;
 	setIsJsRunning: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsRamRunning: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,42 +44,44 @@ interface Props {
 
 const JSInputParser: React.FC<Props> = ({
 	inputModel,
-	buildProgram,
+	buildRamProgram,
 	isJsRunning,
 	setIsJsRunning,
 	setIsRamRunning,
 	setPc,
 	setBreakPc,
 }) => {
-	const [componentsArr, setComponentsArr] = useState<any>([]);
+	const [codeLines, setCodeLines] = useState<JSX.Element[]>([]);
 	const [completeDisplay, setCompleteDisplay] = useState<any>([]);
-	const [programArray, setProgramArray] = useState<Array<string>>([]);
-	const [counter, setCounter] = useState(0);
+	const [ramProgram, setRamProgram] = useState<Array<string>>([]);
+	const [stepCounter, setStepCounter] = useState(0);
 	const [lineNo, setLineNo] = useState(0);
 	const [preparedInput, setPreparedInput] = useState<InputType>([]);
-	useInterval(jsStep, isJsRunning ? 2000 : null);
 
 	const [locale, setLocale] = useState('DE');
 	useEffect(() => setLocale('DE'), [locale]);
 
+	const [delay, setDelay] = useState(2000);
+	useInterval(jsStep, isJsRunning ? delay : null);
+
 	useEffect(() => {
 		const inputArr = parseJsInput(inputModel, 0);
-		const reorderedArr = findAndReplaceJumpTargets(inputArr.parsedArr);
-		console.log('Reordered Arr', reorderedArr);
-		setPreparedInput(prepareInput(reorderedArr));
+		const reorderedInputArr = findAndReplaceJumpTargets(inputArr.parsedArr);
+		// @ts-ignore
+		setPreparedInput(prepareInput(reorderedInputArr));
 	}, []);
 
 	function findAndReplaceJumpTargets(arr: any) {
 		const reversed = arr.reverse();
-		let lineNo = 0;
+		let lineNolocal = 0;
 		reversed.forEach((r: any, index: number) => {
 			if (r.type === Components.END_IF) {
-				lineNo = reversed[index + 1].lineNo + 1;
+				lineNolocal = reversed[index + 1].lineNo + 1;
 			}
-			if (r.type === Components.IF && r.lastStep) {
+			if (r.type === Components.IF && r['code3'] !== '') {
 				const jumpCode = r['code3'];
 				const jcArr = jumpCode.split(' ');
-				jcArr[2] = lineNo.toString();
+				jcArr[2] = lineNolocal.toString();
 				r['code3'] = jcArr.join(' ');
 			}
 		});
@@ -85,81 +91,70 @@ const JSInputParser: React.FC<Props> = ({
 
 	function prepareInput(input: any[]) {
 		let lineNoLocal = 0;
-		const preparedInput = input.map((i) => {
-			const temp = generateStep(i, lineNoLocal);
-			lineNoLocal = temp.lastStep ? temp.lineNo : lineNoLocal;
-			return temp;
+		let blockStart = 0;
+		let jumpTarget = 0;
+		const preparedInput = input.map((e) => {
+			blockStart =
+				e.type === Components.IF && e.code1 === ''
+					? e.lineNo
+					: blockStart;
+			jumpTarget =
+				e.type === Components.END_IF ? e.lineNo - 1 : jumpTarget;
+			const step = generateStep(e, lineNoLocal, blockStart, jumpTarget);
+			lineNoLocal = step.lastStep ? step.lineNo : lineNoLocal;
+			return step;
 		});
 		setLineNo(lineNoLocal);
 		return preparedInput;
 	}
 
-	// function jsStep() {
-	// 	if (counter > inputArr.length - 1) {
-	// 		buildProgram([...programArray, `${lineNo} HALT`]);
-	// 		setPc(lineNo);
-	// 		setBreakPc(lineNo + 1);
-	// 		setIsJsRunning(false);
-	// 		setIsRamRunning(true);
-	// 		return;
-	// 	}
-	// 	const output = generateStep(inputArr[counter], lineNo);
-	// 	if (output.lastStep) {
-	// 		setLineNo(output.lineNo);
-	// 		setComponentsArr([]);
-	// 		setCompleteDisplay([...completeDisplay, ...output.arr]);
-	// 		setProgramArray(
-	// 			output.program
-	// 				? [...programArray, ...output.program]
-	// 				: programArray
-	// 		);
-	// 		buildProgram(
-	// 			output.program
-	// 				? [...programArray, ...output.program]
-	// 				: programArray
-	// 		);
-	// 		setPc(output.pc);
-	// 		setBreakPc(output.breakPc);
-	// 		setIsJsRunning(false);
-	// 		setIsRamRunning(true);
-	// 	} else {
-	// 		setComponentsArr(output.arr);
-	// 	}
-	// 	setCounter(counter + 1);
-	// }
-
 	function jsStep() {
-		if (counter > preparedInput.length - 1) {
-			buildProgram([...programArray, `${lineNo} HALT`]);
+		if (stepCounter > preparedInput.length - 1) {
+			buildRamProgram([...ramProgram, `${lineNo} HALT`]);
 			setPc(lineNo);
 			setBreakPc(lineNo + 1);
 			setIsJsRunning(false);
 			setIsRamRunning(true);
 			return;
 		}
-		const output = preparedInput[counter];
-		if (output.lastStep) {
+		const step = preparedInput[stepCounter];
+		console.log('JS STEP PC, BREAK', step.pc, step.breakPc);
+		if (step.insideBlock) {
+			setCodeLines([]);
+			setCompleteDisplay([...completeDisplay, ...step.codeOutput]);
+			setRamProgram(
+				step.ramProgram
+					? [...ramProgram, ...step.ramProgram]
+					: ramProgram
+			);
+			buildRamProgram(
+				step.ramProgram
+					? [...ramProgram, ...step.ramProgram]
+					: ramProgram
+			);
+		} else if (step.lastStep) {
 			// setLineNo(output.lineNo);
-			setComponentsArr([]);
-			setCompleteDisplay([...completeDisplay, ...output.arr]);
-			setProgramArray(
-				output.program
-					? [...programArray, ...output.program]
-					: programArray
+			setCodeLines([]);
+			const codeCard = <JsOutputCard>{step.codeOutput}</JsOutputCard>;
+			setCompleteDisplay([...completeDisplay, codeCard]);
+			setRamProgram(
+				step.ramProgram
+					? [...ramProgram, ...step.ramProgram]
+					: ramProgram
 			);
-			buildProgram(
-				output.program
-					? [...programArray, ...output.program]
-					: programArray
+			buildRamProgram(
+				step.ramProgram
+					? [...ramProgram, ...step.ramProgram]
+					: ramProgram
 			);
-			setPc(output.pc);
-			setBreakPc(output.breakPc);
+			setPc(step.pc);
+			setBreakPc(step.breakPc);
 			setIsJsRunning(false);
 			setIsRamRunning(true);
 		} else {
-			setComponentsArr(output.arr);
+			setCodeLines(step.codeOutput);
 		}
-		setCounter(counter + 1);
+		setStepCounter(stepCounter + 1);
 	}
 
 	return (
@@ -173,14 +168,21 @@ const JSInputParser: React.FC<Props> = ({
 					primary
 				/>
 			</div>
-			<div>{completeDisplay}</div>
-			<div>{componentsArr}</div>
-			<div className="flex justify-center p-2">
-				<Button
-					onClick={() => buildProgram(programArray)}
-					label={labels[locale].LOAD_RAM}
-				/>
+			<div className="flex flex-row gap-1 flex-wrap ml-2">
+				{completeDisplay}
+				{codeLines.length > 0 && (
+					<div>
+						<JsOutputCard>{codeLines}</JsOutputCard>
+					</div>
+				)}
 			</div>
+			<MachineControl
+				doStep={jsStep}
+				delay={delay}
+				setDelay={setDelay}
+				isRunning={isJsRunning}
+				setIsRunning={setIsJsRunning}
+			/>
 		</>
 	);
 };

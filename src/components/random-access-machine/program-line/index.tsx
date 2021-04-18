@@ -16,11 +16,11 @@ const ProgramLine: React.FC<Props> = ({
 	const lineNo = Number(programLine[0]);
 	const isCurrentLine =
 		programCounter !== undefined && programCounter === lineNo;
-	const colorMark = mark && isCurrentLine ? 'dark:bg-red-700' : '';
+	const colorMark = mark && isCurrentLine ? 'bg-red-700' : '';
 
 	return (
 		<>
-			<div className={`dark:text-blue-50 ${colorMark}`}>
+			<div className={`text-blue-50 ${colorMark}`}>
 				<div>
 					<span>{programLine[0]}:</span>
 					<span>{programLine[1]}</span>

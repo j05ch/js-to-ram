@@ -12,15 +12,15 @@ const ProgramCounterContainer: React.FC<Props> = ({ programCounter, mark }) => {
 
 	useEffect(() => setLocale('DE'), []);
 
-	const colorMark = mark ? 'dark:bg-red-700' : 'dark:text-blue-50';
+	const colorMark = mark ? 'bg-red-700' : 'text-blue-50';
 
 	return (
 		<>
 			<div className={colorMark}>
-				<div className="dark:text-blue-50">
+				<div className="text-blue-50">
 					{labels[locale].PROGRAM_COUNTER_HEADER}
 				</div>
-				<div className="dark:text-blue-50">
+				<div className="text-blue-50">
 					{programCounter !== undefined ? programCounter : '-'}
 				</div>
 			</div>

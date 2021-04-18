@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VariationsContainer from '../variations-container';
 import JSInputParser from '../js-input-parser';
 import MachineContainer from '../../random-access-machine/machine-container';
@@ -23,7 +23,6 @@ const JsContainer: React.FC<Props> = () => {
 
 	const buildProgramArray = (arr: Array<string>) => {
 		const program = arr.map((s) => s.split(' '));
-		console.log('PROGRAM', program);
 		setProgramArray(program);
 		setShow({ jsInput: false, jsOutput: true, showBtn: false, ram: true });
 	};
@@ -37,9 +36,12 @@ const JsContainer: React.FC<Props> = () => {
 		});
 	};
 
+	useEffect(() => {
+		console.log('PC and Break', pc, breakPc);
+	}, [pc, breakPc]);
+
 	return (
 		<>
-			{console.log('PROGRAM IN CONTAINER', programArray)}
 			{show.jsInput && (
 				<VariationsContainer state={state} setState={setState} />
 			)}
@@ -58,7 +60,7 @@ const JsContainer: React.FC<Props> = () => {
 			{show.jsOutput && (
 				<JSInputParser
 					inputModel={state}
-					buildProgram={buildProgramArray}
+					buildRamProgram={buildProgramArray}
 					isJsRunning={isJsRunning}
 					setIsJsRunning={setIsJsRunning}
 					setIsRamRunning={setIsRamRunning}

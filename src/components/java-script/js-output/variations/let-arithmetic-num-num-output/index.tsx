@@ -26,7 +26,7 @@ const LetArithmeticNumNumOutput: React.FC<Props> = ({
 	const styles3 = mark3 ? 'text-red-500' : '';
 
 	return (
-		<div className="flex">
+		<div className="flex gap-1 text-xl">
 			{isLet && <div className={styles3}>let</div>}
 			<div className={styles3}>{varField}</div>
 			<div className={styles3}>=</div>

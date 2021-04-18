@@ -111,8 +111,8 @@ const MachineContainer: React.FC<Props> = ({
 	}
 
 	return (
-		<div className="dark:text-blue-50 grid-container">
-			<div className="dark:bg-red-800 input">
+		<div className="text-blue-50 grid-container">
+			<div className="bg-red-800 input">
 				<DisplayContainer
 					inputArray={inputArray}
 					inputIndex={inputIndex}
@@ -120,29 +120,29 @@ const MachineContainer: React.FC<Props> = ({
 					mark={inputMark}
 				/>
 			</div>
-			<div className="dark:bg-pink-500 cpu">
+			<div className="bg-pink-500 cpu">
 				<CpuContainer />
 			</div>
-			<div className="dark:bg-blue-700 program-counter">
+			<div className="bg-blue-700 program-counter">
 				<ProgramCounterContainer
 					programCounter={programCounter}
 					mark={programCounterMark}
 				/>
 			</div>
-			<div className="dark:bg-green-700 program">
+			<div className="bg-green-700 program">
 				<ProgramContainer
 					programArray={programArray}
 					programCounter={programIndex}
 					mark={programMark}
 				/>
 			</div>
-			<div className="dark:bg-gray-700 register">
+			<div className="bg-gray-700 register">
 				<RegisterContainer
 					register={register}
 					changed={changedRegister}
 				/>
 			</div>
-			<div className="dark:bg-red-800 output">
+			<div className="bg-red-800 output">
 				<DisplayContainer
 					inputArray={outputArray}
 					inputIndex={outputArray.length - 1}
@@ -150,7 +150,7 @@ const MachineContainer: React.FC<Props> = ({
 					mark={outputMark}
 				/>
 			</div>
-			<div className="dark:bg-blue-400 control">
+			<div className="bg-blue-400 control">
 				<MachineControl
 					delay={delay}
 					setDelay={setDelay}

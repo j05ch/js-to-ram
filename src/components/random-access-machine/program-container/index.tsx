@@ -33,7 +33,7 @@ const ProgramContainer: React.FC<Props> = ({
 		<>
 			<div>
 				<h1>{labels[locale].PROGRAM_HEADER}</h1>
-				<div className="dark:text-blue-50">{getProgramLines()}</div>
+				<div className="text-blue-50">{getProgramLines()}</div>
 			</div>
 		</>
 	);

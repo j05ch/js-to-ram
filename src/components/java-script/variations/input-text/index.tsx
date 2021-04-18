@@ -11,8 +11,6 @@ interface Props {
 const InputText: React.FC<Props> = ({ state, setState, placeHolder, name }) => {
 	return (
 		<>
-			{console.log('State in input', state)}
-
 			<input
 				className="bg-blue-100 text-center"
 				type="text"

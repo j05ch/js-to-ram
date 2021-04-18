@@ -263,7 +263,6 @@ const VariationsChildContainer: React.FC<Props> = ({
 			}
 		}
 		calculatedState = { ...tempState, ...calculatedState };
-		console.log('Calculated State On Add', calculatedState);
 		setLocalState(calculatedState);
 	};
 
@@ -304,11 +303,6 @@ const VariationsChildContainer: React.FC<Props> = ({
 
 	return (
 		<>
-			{console.log(
-				'State in child container and localState',
-				state,
-				localState
-			)}
 			<div>{components}</div>
 		</>
 	);
