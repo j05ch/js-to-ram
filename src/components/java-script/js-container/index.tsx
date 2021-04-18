@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import VariationsContainer from '../variations-container';
 import JSInputParser from '../js-input-parser';
 import MachineContainer from '../../random-access-machine/machine-container';
 import Button from '../../common/button';
 import { downloadProgramJson } from '../../../utils/programUtils';
+import { labels } from '../../../models/labels';
 
 interface Props {}
 
@@ -21,6 +22,7 @@ const JsContainer: React.FC<Props> = () => {
 	const [isJsRunning, setIsJsRunning] = useState(false);
 	const [pc, setPc] = useState<number>();
 	const [breakPc, setBreakPc] = useState<number>();
+	const inputFile = useRef<HTMLInputElement>(null);
 
 	const buildProgramArray = (arr: Array<string>) => {
 		const program = arr.map((s) => s.split(' '));
@@ -41,6 +43,31 @@ const JsContainer: React.FC<Props> = () => {
 		console.log('PC and Break', pc, breakPc);
 	}, [pc, breakPc]);
 
+	async function onClickOpen() {
+		if (inputFile.current) {
+			await inputFile.current.click();
+		}
+	}
+
+	function fileChange(e: React.ChangeEvent<HTMLInputElement>) {
+		if (e.target && e.target.files) {
+			const file = e.target.files[0];
+			const reader = new FileReader();
+			reader.onload = function (e) {
+				if (
+					e.target &&
+					e.target.result &&
+					typeof e.target.result == 'string'
+				) {
+					const json = JSON.parse(e.target.result);
+					setState(json);
+				}
+			};
+
+			reader.readAsText(file);
+		}
+	}
+
 	return (
 		<>
 			{show.jsInput && (
@@ -51,6 +78,16 @@ const JsContainer: React.FC<Props> = () => {
 							onClick={() => downloadProgramJson(state)}
 							label={'Speichern'}
 						/>
+						<input
+							type="file"
+							id="file"
+							onChange={(e) => fileChange(e)}
+							ref={inputFile}
+							style={{ display: 'none' }}
+						/>
+						<div className="pl-2">
+							<Button onClick={onClickOpen} label="Öffnen" />
+						</div>
 					</div>
 				</div>
 			)}
