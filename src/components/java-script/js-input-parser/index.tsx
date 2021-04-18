@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { parseJsInput } from '../../../utils/parseJsInput';
 import { useInterval } from '../../../hooks/useInterval';
 import { generateStep } from '../../../utils/generateStep';
-import Button from '../../common/Button';
+import Button from '../../common/button';
 import { labels } from '../../../models/labels';
 import { Components } from '../../../actions/components';
 import MachineControl from '../../random-access-machine/machine-control';

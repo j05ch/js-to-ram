@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Button from '../common/Button';
+import Button from '../common/button';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { labels } from '../../models/labels';

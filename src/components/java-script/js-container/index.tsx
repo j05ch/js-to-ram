@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import VariationsContainer from '../variations-container';
 import JSInputParser from '../js-input-parser';
 import MachineContainer from '../../random-access-machine/machine-container';
-import Button from '../../common/Button';
+import Button from '../../common/button';
+import { downloadProgramJson } from '../../../utils/programUtils';
 
 interface Props {}
 
@@ -43,7 +44,15 @@ const JsContainer: React.FC<Props> = () => {
 	return (
 		<>
 			{show.jsInput && (
-				<VariationsContainer state={state} setState={setState} />
+				<div>
+					<VariationsContainer state={state} setState={setState} />
+					<div className="flex justify-end pt-2 pr-2">
+						<Button
+							onClick={() => downloadProgramJson(state)}
+							label={'Speichern'}
+						/>
+					</div>
+				</div>
 			)}
 			{show.ram && programArray.length > 0 && (
 				<MachineContainer

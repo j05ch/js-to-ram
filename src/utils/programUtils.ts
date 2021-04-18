@@ -23,3 +23,15 @@ export function downloadProgramFile(s: string) {
 	document.body.appendChild(tempElement);
 	tempElement.click();
 }
+
+export function downloadProgramJson(data: any) {
+	const tempElement = document.createElement('a');
+	const file = new Blob(
+		[decodeURIComponent(encodeURI(JSON.stringify(data, null, 2)))],
+		{ type: 'application/json;charset=utf-8;' }
+	);
+	tempElement.href = URL.createObjectURL(file);
+	tempElement.download = 'js-program.json';
+	document.body.appendChild(tempElement);
+	tempElement.click();
+}

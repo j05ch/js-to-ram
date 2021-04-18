@@ -8,7 +8,7 @@ import {
 } from '../../../utils/programUtils';
 import MachineContainer from '../machine-container';
 import InputFieldContainer from '../input-field-container';
-import Button from '../../common/Button';
+import Button from '../../common/button';
 
 interface Props {}
 
