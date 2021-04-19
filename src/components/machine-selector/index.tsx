@@ -3,6 +3,8 @@ import Button from '../common/button';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { labels } from '../../models/labels';
+import InfoPopup from '../common/info-popup/info-popup';
+import { machineSelectorInfo } from '../../models/info-texts';
 
 const MachineSelector: React.FC = () => {
 	let history = useHistory();
@@ -15,8 +17,14 @@ const MachineSelector: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col justify-center items-center h-screen">
-			<div className="m-4">{labels[locale].CHOOSE}</div>
+		<div className="flex flex-col items-center h-screen mt-4">
+			<div className="flex">
+				<div className="m-4">{labels[locale].CHOOSE}</div>
+				<InfoPopup
+					header={machineSelectorInfo[locale].header}
+					content={machineSelectorInfo[locale].content}
+				/>
+			</div>
 			<div className="m-4">
 				<Button
 					label={'Random Access Machine'}

@@ -9,6 +9,8 @@ import {
 import MachineContainer from '../machine-container';
 import InputFieldContainer from '../input-field-container';
 import Button from '../../common/button';
+import InfoPopup from '../../common/info-popup/info-popup';
+import { ramAppInfo } from '../../../models/info-texts';
 
 interface Props {}
 
@@ -58,10 +60,16 @@ const MachineAppContainer: React.FC<Props> = () => {
 	return (
 		<>
 			{show && (
-				<div className="flex flex-col justify-center items-center">
-					<h1 className="text-2xl p-4">
-						{labels[locale].RAM_HEADER}
-					</h1>
+				<div className="flex flex-col justify-center items-center mt-4">
+					<div className="flex mb-2">
+						<h1 className="text-2xl p-4">
+							{labels[locale].RAM_HEADER}
+						</h1>
+						<InfoPopup
+							header={ramAppInfo[locale].header}
+							content={ramAppInfo[locale].content}
+						/>
+					</div>
 					<input
 						type="file"
 						id="file"
@@ -74,7 +82,7 @@ const MachineAppContainer: React.FC<Props> = () => {
 						value={programString}
 						placeholder={labels[locale].PROGRAM_HEADER}
 					/>
-					<div className="p-2 flex justify-evenly items-center">
+					<div className="p-2 mb-4 flex justify-evenly items-center">
 						<div className="pr-2">
 							<Button
 								onClick={() =>
