@@ -29,6 +29,7 @@ const VariationsSelector: React.FC<Props> = ({
 		<>
 			<div className="flex items-center">
 				<select
+					className="m-1 p-1 rounded"
 					onFocus={(e) => {
 						setSelected(e.target.value as ComponentsKey);
 					}}

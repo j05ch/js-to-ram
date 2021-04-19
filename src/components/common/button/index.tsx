@@ -11,7 +11,7 @@ const Button: React.FC<Props> = ({ onClick, primary, secondary, label }) => {
 	const btnStyles = primary
 		? 'bg-blue-700 text-white hover:bg-blue-900'
 		: secondary
-		? 'bg-yellow-400 text-white hover:bg-yellow-500'
+		? 'bg-gray-700 text-white hover:bg-white hover:text-gray-700 border border-gray-700'
 		: 'border border-gray-700 bg-white text-gray-700 hover:bg-gray-700 hover:text-white';
 
 	return (

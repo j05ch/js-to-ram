@@ -85,9 +85,12 @@ const JsContainer: React.FC<Props> = () => {
 							ref={inputFile}
 							style={{ display: 'none' }}
 						/>
-						<div className="pl-2">
+						<div className="pl-2 pr-2">
 							<Button onClick={onClickOpen} label="Öffnen" />
 						</div>
+						{show.showBtn && (
+							<Button onClick={loadJs} label={'LOAD'} primary />
+						)}
 					</div>
 				</div>
 			)}
@@ -113,11 +116,6 @@ const JsContainer: React.FC<Props> = () => {
 					setPc={setPc}
 					setBreakPc={setBreakPc}
 				/>
-			)}
-			{show.showBtn && (
-				<div className="flex justify-center p-2">
-					<Button onClick={loadJs} label={'LOAD'} primary />
-				</div>
 			)}
 		</>
 	);
