@@ -661,6 +661,36 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 				parsedArr.push(...children.parsedArr, endIf);
 				break;
 			}
+			case Components.LOG: {
+				const step1 = {
+					lineNo,
+					type: Components.LOG,
+					varField: element.varField,
+					mark1: false,
+					code1: '',
+					lastStep: false,
+					insideBlock: false,
+				};
+				const step2 = {
+					...step1,
+					mark1: true,
+					code1: `${lineNo++} WRITE ${variables.indexOf(
+						element.varField
+					)}`,
+				};
+				const step3 = {
+					...step2,
+					lineNo,
+					mark1: false,
+					code2: `${lineNo++} STORE ${variables.indexOf(
+						element.varField
+					)}`,
+					lastStep: !child,
+					insideBlock: child,
+				};
+				parsedArr.push(step1, step2, step3);
+				break;
+			}
 			default:
 				parsedArr.push({ hallo: 'hallo' });
 		}

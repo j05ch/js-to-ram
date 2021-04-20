@@ -17,6 +17,7 @@ export const Components = {
 	IF: 'if',
 	END_IF: 'end if',
 	FOR: 'for',
+	LOG: 'console.log(a)',
 } as const;
 
 export type ComponentsKey = typeof Components[keyof typeof Components];

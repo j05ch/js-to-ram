@@ -6,6 +6,7 @@ import AssemblerLine from '../components/java-script/js-output/assembler-line';
 import LetVarOutput from '../components/java-script/js-output/variations/let-var-output';
 import VarVarOutput from '../components/java-script/js-output/variations/var-var-output';
 import IfOutput from '../components/java-script/js-output/variations/if-output';
+import ConsoleLogOutput from '../components/java-script/js-output/variations/console-log-output';
 
 export const generateStep = (
 	element: any,
@@ -331,6 +332,24 @@ export const generateStep = (
 			breakPc = jumpTarget;
 			// 13
 			lineNo = jumpTarget + 1;
+			break;
+		case Components.LOG:
+			codeOutput.push(
+				<ConsoleLogOutput
+					varField={element.varField}
+					mark1={element.mark1}
+				/>
+			);
+			['code1'].forEach((c) => {
+				if (element[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code1') breakPc = lineNo;
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
 			break;
 	}
 

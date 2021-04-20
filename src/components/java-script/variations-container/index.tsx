@@ -15,6 +15,7 @@ import VarVar from '../variations/var-var';
 import LetArithmeticVarNum from '../variations/let-arithmetic-var-num';
 import LetArithmeticNumVar from '../variations/let-arithmetic-num-var';
 import VarNum from '../variations/var-num';
+import ConsoleLog from '../variations/console-log';
 
 interface Props {
 	state: any;
@@ -198,6 +199,17 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 						variation = (
 							<For
 								index={index}
+								state={state}
+								setState={setState}
+							/>
+						);
+						break;
+					}
+					case Components.LOG: {
+						variation = (
+							<ConsoleLog
+								index={index}
+								type={Components.LOG}
 								state={state}
 								setState={setState}
 							/>
