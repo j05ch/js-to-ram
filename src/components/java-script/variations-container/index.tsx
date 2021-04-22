@@ -313,7 +313,9 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 
 	return (
 		<>
-			<div className="rounded bg-red-200 m-1 pl-2">{components}</div>
+			<div className="rounded bg-red-200 m-1 pl-2 w-3/4">
+				{components}
+			</div>
 		</>
 	);
 };

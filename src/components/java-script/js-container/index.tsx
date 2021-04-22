@@ -6,6 +6,8 @@ import MachineContainer from '../../random-access-machine/machine-container';
 import Button from '../../common/button';
 import { downloadProgramJson } from '../../../utils/programUtils';
 import { labels } from '../../../models/labels';
+import InfoPopup from '../../common/info-popup/info-popup';
+import { jsAppInfo, ramAppInfo } from '../../../models/info-texts';
 
 interface Props {}
 
@@ -23,6 +25,9 @@ const JsContainer: React.FC<Props> = () => {
 	const [pc, setPc] = useState<number>();
 	const [breakPc, setBreakPc] = useState<number>();
 	const inputFile = useRef<HTMLInputElement>(null);
+	const [locale, setLocale] = useState('DE');
+
+	useEffect(() => setLocale('DE'), []);
 
 	const buildProgramArray = (arr: Array<string>) => {
 		const program = arr.map((s) => s.split(' '));
@@ -71,12 +76,21 @@ const JsContainer: React.FC<Props> = () => {
 	return (
 		<>
 			{show.jsInput && (
-				<div>
+				<div className="flex flex-col justify-center items-center mt-4">
+					<div className="flex mb-2">
+						<h1 className="text-2xl p-4">
+							{labels[locale].JS_HEADER}
+						</h1>
+						<InfoPopup
+							header={jsAppInfo[locale].header}
+							content={jsAppInfo[locale].content}
+						/>
+					</div>
 					<VariationsContainer state={state} setState={setState} />
 					<div className="flex justify-end pt-2 pr-2">
 						<Button
 							onClick={() => downloadProgramJson(state)}
-							label={'Speichern'}
+							label={labels[locale].SAVE_BTN}
 						/>
 						<input
 							type="file"
@@ -86,10 +100,17 @@ const JsContainer: React.FC<Props> = () => {
 							style={{ display: 'none' }}
 						/>
 						<div className="pl-2 pr-2">
-							<Button onClick={onClickOpen} label="Öffnen" />
+							<Button
+								onClick={onClickOpen}
+								label={labels[locale].OPEN_BTN}
+							/>
 						</div>
 						{show.showBtn && (
-							<Button onClick={loadJs} label={'LOAD'} primary />
+							<Button
+								onClick={loadJs}
+								label={labels[locale].COMPILE_BTN}
+								primary
+							/>
 						)}
 					</div>
 				</div>

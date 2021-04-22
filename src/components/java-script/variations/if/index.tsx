@@ -37,7 +37,7 @@ const If: React.FC<Props> = ({ state, setState, index, type }) => {
 						name={'varLeft'}
 					/>
 					<select
-						className="text-center"
+						className="text-center rounded"
 						onChange={(e) =>
 							setLocalState({
 								...localState,

@@ -49,7 +49,7 @@ const LetArithmeticNumNum: React.FC<Props> = ({
 					name={'operandLeft'}
 				/>
 				<select
-					className="text-center"
+					className="text-center rounded"
 					onChange={(e) =>
 						setLocalState({
 							...localState,

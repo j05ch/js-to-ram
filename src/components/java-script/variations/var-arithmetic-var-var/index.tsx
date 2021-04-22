@@ -26,7 +26,7 @@ const VarArithmeticVarVar: React.FC<Props> = ({ index, state, setState }) => {
 					name={'operandLeft'}
 				/>
 				<select
-					className="text-center"
+					className="text-center rounded bg-blue-100"
 					onChange={(e) =>
 						setState({
 							...state,

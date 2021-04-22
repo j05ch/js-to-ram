@@ -18,5 +18,7 @@ export const labels: { [index: string]: any } = {
 		SLOWER: 'Langsamer',
 		LOAD_RAM: 'RAM laden',
 		CHOOSE: 'Bitte wähle:',
+		JS_HEADER: 'JavaScript',
+		COMPILE_BTN: 'Kompilieren',
 	},
 };

@@ -26,7 +26,7 @@ const VarArithmeticNumNum: React.FC<Props> = ({ index, state, setState }) => {
 					name={'operandLeft'}
 				/>
 				<select
-					className="text-center"
+					className="text-center rounded"
 					onChange={(e) =>
 						setState({
 							...state,

@@ -12,7 +12,7 @@ const InputText: React.FC<Props> = ({ state, setState, placeHolder, name }) => {
 	return (
 		<>
 			<input
-				className="bg-blue-100 text-center"
+				className="bg-blue-100 text-center rounded"
 				type="text"
 				size={5}
 				placeholder={placeHolder}
