@@ -1,13 +1,14 @@
 .grid-container {
 	display: grid;
-	grid-template-columns: 1fr 2fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	grid-template-areas:
-		'input input input'
-		'program cpu register'
-		'program program-counter register'
-		'program . register'
-		'output output output'
-		'control control control';
+		'input input input input input'
+		'program cpu cpu cpu register'
+		'program . program-counter . register'
+		'program . . . register'
+		'output output output output output'
+		'control control control control control';
+	gap: 0.25em;
 }
 
 .cpu {

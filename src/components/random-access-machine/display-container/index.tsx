@@ -15,8 +15,8 @@ const DisplayContainer: React.FC<Props> = ({
 	mark,
 }) => {
 	return (
-		<div className="flex justify-center items-center flex-col">
-			<div className="text-white">{headerLabel}</div>
+		<div className="flex items-center flex-col justify-items-start p-2 h-18">
+			<div className="text-white font-bold">{headerLabel}</div>
 			<div>
 				<Display
 					inputArray={inputArray}

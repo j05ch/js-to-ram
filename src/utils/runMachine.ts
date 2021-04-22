@@ -65,6 +65,7 @@ export function runMachine(
 					programMark = true;
 					pcMark = false;
 					step = Step.INPUT;
+					inputMark = false;
 					break;
 				}
 				if (step === Step.INPUT) {
@@ -78,6 +79,7 @@ export function runMachine(
 					register[argument] = input;
 					changedRegister = [...changedRegister, argument];
 					step = Step.PC;
+					inputMark = true;
 					console.log(
 						'Argument, changed register, acc, input',
 						argument,
@@ -142,12 +144,15 @@ export function runMachine(
 						output = register[argument];
 					}
 					step = Step.PC;
+					inputMark = false;
 					break;
 				}
 				if (step === Step.PC) {
 					programCounter++;
 					pcMark = true;
 					step = Step.CLEAR;
+					outputMark = true;
+					inputMark = false;
 					break;
 				}
 			}

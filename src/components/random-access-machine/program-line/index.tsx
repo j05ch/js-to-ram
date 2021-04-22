@@ -16,21 +16,20 @@ const ProgramLine: React.FC<Props> = ({
 	const lineNo = Number(programLine[0]);
 	const isCurrentLine =
 		programCounter !== undefined && programCounter === lineNo;
-	const colorMark = mark && isCurrentLine ? 'bg-red-700' : '';
+	const colorMark =
+		mark && isCurrentLine
+			? 'border-pink-500 bg-pink-500 text-white font-bold'
+			: 'border-gray-300 text-blue-800';
 
 	return (
-		<>
-			<div className={`text-blue-50 ${colorMark}`}>
-				<div>
-					<span>{programLine[0]}:</span>
-					<span>{programLine[1]}</span>
-					<span>{programLine[2]}</span>
-					{isCurrentLine && (
-						<FontAwesomeIcon icon={faArrowCircleLeft} />
-					)}
-				</div>
+		<div className={`border-2 ${colorMark}`}>
+			<div className="flex items-center gap-1">
+				<span>{programLine[0]}:</span>
+				<span>{programLine[1]}</span>
+				<span>{programLine[2]}</span>
+				{isCurrentLine && <FontAwesomeIcon icon={faArrowCircleLeft} />}
 			</div>
-		</>
+		</div>
 	);
 };
 

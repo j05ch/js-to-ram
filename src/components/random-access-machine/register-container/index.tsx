@@ -24,12 +24,13 @@ const RegisterContainer: React.FC<Props> = ({ register, changed }) => {
 	}
 
 	return (
-		<>
-			<div>
-				<h1> {labels[locale].REGISTER_HEADER};</h1>
-				<div>{getRegisters()}</div>
-			</div>
-		</>
+		<div className="p-1">
+			<h1 className="text-blue-800 font-bold">
+				{' '}
+				{labels[locale].REGISTER_HEADER}
+			</h1>
+			<div>{getRegisters()}</div>
+		</div>
 	);
 };
 

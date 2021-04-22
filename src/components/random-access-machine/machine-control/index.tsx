@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { labels } from '../../../models/labels';
+import Button from '../../common/button';
 
 interface Props {
 	doStep: () => void;
@@ -69,32 +70,27 @@ const MachineControl: React.FC<Props> = ({
 
 	return (
 		<>
-			<div>
-				<button
-					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
+			<div className="flex gap-1 items-center">
+				<Button
+					label={
+						isRunning ? labels[locale].PAUSE : labels[locale].PLAY
+					}
 					onClick={() => handleSpeed(labels[locale].PAUSE)}
-				>
-					{isRunning ? labels[locale].PAUSE : labels[locale].PLAY}
-				</button>
-				<button
-					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
+					primary
+				/>
+				<Button
+					label={labels[locale].STEP}
 					onClick={() => handleSpeed(labels[locale].STEP)}
-				>
-					{labels[locale].STEP}
-				</button>
-				<button
-					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
+				/>
+				<Button
+					label={labels[locale].SLOWER}
 					onClick={() => handleSpeed(labels[locale].SLOWER)}
-				>
-					{labels[locale].SLOWER}
-				</button>
-				<button
-					className="text-black bg-blue-50 p-1 m-1 rounded border-2"
+				/>
+				<Button
+					label={labels[locale].FASTER}
 					onClick={() => handleSpeed(labels[locale].FASTER)}
-				>
-					{labels[locale].FASTER}
-				</button>
-				<p className="text-black font-bold">{delay}</p>
+				/>
+				<p className="text-black font-bold">{delay} ms</p>
 			</div>
 		</>
 	);

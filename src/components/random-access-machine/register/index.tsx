@@ -7,11 +7,13 @@ interface Props {
 }
 
 const Register: React.FC<Props> = ({ register, index, mark }) => {
-	const colorMark = mark ? 'bg-red-700' : '';
+	const colorMark = mark
+		? 'bg-pink-500 text-white font-bold'
+		: 'text-blue-800';
 
 	return (
 		<>
-			<div className={`text-blue-50 ${colorMark}`}>
+			<div className={colorMark}>
 				<div>
 					<div>
 						{index}:{register}

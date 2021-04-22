@@ -30,12 +30,14 @@ const ProgramContainer: React.FC<Props> = ({
 	}
 
 	return (
-		<>
-			<div>
-				<h1>{labels[locale].PROGRAM_HEADER}</h1>
-				<div className="text-blue-50">{getProgramLines()}</div>
-			</div>
-		</>
+		<div className="p-1">
+			<h1 className="text-blue-800 font-bold">
+				{labels[locale].PROGRAM_HEADER}
+			</h1>
+			{programArray && programArray.length > 1 && (
+				<div className="text-blue-800">{getProgramLines()}</div>
+			)}
+		</div>
 	);
 };
 

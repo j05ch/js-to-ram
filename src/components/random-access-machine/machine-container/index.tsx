@@ -56,6 +56,7 @@ const MachineContainer: React.FC<Props> = ({
 	function clearMarks() {
 		setProgramMark(false);
 		setInputMark(false);
+		setOutputMark(false);
 		setChangedRegister([]);
 	}
 
@@ -110,54 +111,58 @@ const MachineContainer: React.FC<Props> = ({
 		}
 	}
 
+	const animate = isRamRunning ? 'animate-pulse' : '';
+
 	return (
-		<div className="text-blue-50 grid-container">
-			<div className="bg-red-800 input">
-				<DisplayContainer
-					inputArray={inputArray}
-					inputIndex={inputIndex}
-					headerLabel={labels[locale].INPUT_CONTAINER_HEADER}
-					mark={inputMark}
-				/>
-			</div>
-			<div className="bg-pink-500 cpu">
-				<CpuContainer />
-			</div>
-			<div className="bg-blue-700 program-counter">
-				<ProgramCounterContainer
-					programCounter={programCounter}
-					mark={programCounterMark}
-				/>
-			</div>
-			<div className="bg-green-700 program">
-				<ProgramContainer
-					programArray={programArray}
-					programCounter={programIndex}
-					mark={programMark}
-				/>
-			</div>
-			<div className="bg-gray-700 register">
-				<RegisterContainer
-					register={register}
-					changed={changedRegister}
-				/>
-			</div>
-			<div className="bg-red-800 output">
-				<DisplayContainer
-					inputArray={outputArray}
-					inputIndex={outputArray.length - 1}
-					headerLabel={labels[locale].OUTPUT_CONTAINER_HEADER}
-					mark={outputMark}
-				/>
-			</div>
-			<div className="bg-blue-400 control">
-				<MachineControl
-					delay={delay}
-					setDelay={setDelay}
-					isRunning={isRamRunning}
-					setIsRunning={setIsRamRunning}
-					doStep={machineStep}
-				/>
+		<div className="max-w-screen-md m-2 border-2 border-gray-200 rounded bg-white">
+			<div className="text-blue-50 grid-container rounded m-4 bg-gray-100">
+				<div className="bg-gray-500 input">
+					<DisplayContainer
+						inputArray={inputArray}
+						inputIndex={inputIndex}
+						headerLabel={labels[locale].INPUT_CONTAINER_HEADER}
+						mark={inputMark}
+					/>
+				</div>
+				<div className={`bg-pink-500 cpu ${animate}`}>
+					<CpuContainer />
+				</div>
+				<div className="bg-gray-300 program-counter">
+					<ProgramCounterContainer
+						programCounter={programCounter}
+						mark={programCounterMark}
+					/>
+				</div>
+				<div className="bg-gray-300 program">
+					<ProgramContainer
+						programArray={programArray}
+						programCounter={programIndex}
+						mark={programMark}
+					/>
+				</div>
+				<div className="bg-gray-300 register">
+					<RegisterContainer
+						register={register}
+						changed={changedRegister}
+					/>
+				</div>
+				<div className="bg-gray-500 output">
+					<DisplayContainer
+						inputArray={outputArray}
+						inputIndex={outputArray.length - 1}
+						headerLabel={labels[locale].OUTPUT_CONTAINER_HEADER}
+						mark={outputMark}
+					/>
+				</div>
+				<div className="bg-gray-100 control p-2">
+					<MachineControl
+						delay={delay}
+						setDelay={setDelay}
+						isRunning={isRamRunning}
+						setIsRunning={setIsRamRunning}
+						doStep={machineStep}
+					/>
+				</div>
 			</div>
 		</div>
 	);

@@ -114,18 +114,19 @@ const MachineAppContainer: React.FC<Props> = () => {
 				</div>
 			)}{' '}
 			{programArray.length > 0 && (
-				<MachineContainer
-					programArray={programArray}
-					inputArray={inputArray}
-					isRamRunning={isRamRunning}
-					setIsRamRunning={setIsRamRunning}
-					setIsJsRunning={setIsJsRunning}
-					pc={0}
-					breakPc={-1}
-				/>
+				<div className="flex flex-col justify-center items-center mt-4">
+					<MachineContainer
+						programArray={programArray}
+						inputArray={inputArray}
+						isRamRunning={isRamRunning}
+						setIsRamRunning={setIsRamRunning}
+						setIsJsRunning={setIsJsRunning}
+						pc={0}
+						breakPc={-1}
+					/>
+				</div>
 			)}
 		</>
 	);
 };
-
 export default MachineAppContainer;

@@ -9,7 +9,9 @@ const CpuContainer: React.FC = () => {
 
 	return (
 		<>
-			<div>{labels[locale].CPU_HEADER}</div>
+			<div className="p-4 flex justify-center text-white font-bold">
+				{labels[locale].CPU_HEADER}
+			</div>
 		</>
 	);
 };
