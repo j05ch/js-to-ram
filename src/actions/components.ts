@@ -14,9 +14,9 @@ export const Components = {
 	LET_VAR: 'let a = b',
 	VAR_VAR: 'a = b',
 	VARIATIONS_SELECTOR: 'Select',
-	IF: 'if',
+	IF: 'if ( ... ) { ... }',
 	END_IF: 'end if',
-	FOR: 'for',
+	FOR: 'for (let i=0; i < 6; i++) { ... }',
 	LOG: 'console.log(a)',
 } as const;
 
