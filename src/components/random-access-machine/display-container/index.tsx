@@ -15,7 +15,7 @@ const DisplayContainer: React.FC<Props> = ({
 	mark,
 }) => {
 	return (
-		<div className="flex items-center flex-col justify-items-start p-2 h-18">
+		<div className="flex items-center flex-col justify-items-start p-2 h-20">
 			<div className="text-white font-bold">{headerLabel}</div>
 			<div>
 				<Display
