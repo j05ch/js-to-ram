@@ -17,16 +17,17 @@ const IfOutput: React.FC<Props> = ({
 	mark2,
 	mark3,
 }) => {
-	const styles1 = mark1 ? 'text-red-500' : '';
-	const styles2 = mark2 ? 'text-red-500' : '';
-	const styles3 = mark3 ? 'text-red-500' : '';
+	const styles1 = mark1 ? 'bg-pink-500 text-white font-bold' : '';
+	const styles2 = mark2 ? 'bg-pink-500 text-white font-bold' : '';
+	const styles3 = mark3 ? 'bg-pink-500 text-white font-bold' : '';
 
 	return (
-		<div className="flex gap-1">
+		<div className="flex gap-2 mb-1 text-xl">
 			<div>if (</div>
 			<div className={`${styles1} ${styles3}`}>{varLeft}</div>
-			<div className={`${styles2} ${styles3}`}>{operator}</div>
-			<div className={`${styles2} ${styles3}`}>{varRight}</div>
+			<div className={`${styles2} ${styles3}`}>
+				{operator} {varRight}
+			</div>
 			<div>{') {'}</div>
 		</div>
 	);
