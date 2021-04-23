@@ -5,12 +5,17 @@ import { useEffect, useState } from 'react';
 import { labels } from '../../models/labels';
 import InfoPopup from '../common/info-popup/info-popup';
 import { machineSelectorInfo } from '../../models/info-texts';
+import { DE } from '../../models/locales';
 
+/**
+ * Component to select from available machine-workflows
+ * @returns {JSX.Element}
+ */
 const MachineSelector: React.FC = () => {
 	let history = useHistory();
-	const [locale, setLocale] = useState('DE');
 
-	useEffect(() => setLocale('DE'), []);
+	const [locale, setLocale] = useState(DE);
+	useEffect(() => setLocale(DE), [locale]);
 
 	const handleClick = (path: string) => {
 		history.push(path);
@@ -27,13 +32,13 @@ const MachineSelector: React.FC = () => {
 			</div>
 			<div className="m-4">
 				<Button
-					label={'Random Access Machine'}
+					label={labels[locale].RAM_HEADER}
 					onClick={() => handleClick('/ram')}
 				/>
 			</div>
 			<div className="m-4">
 				<Button
-					label={'JavaScript'}
+					label={labels[locale].JS_HEADER}
 					onClick={() => handleClick('/js')}
 				/>
 			</div>

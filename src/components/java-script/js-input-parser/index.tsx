@@ -8,6 +8,7 @@ import { labels } from '../../../models/labels';
 import { Components } from '../../../actions/components';
 import MachineControl from '../../random-access-machine/machine-control';
 import JsOutputCard from '../js-output/js-output-card';
+import { DE } from '../../../models/locales';
 
 type InputType = (
 	| {
@@ -66,8 +67,8 @@ const JSInputParser: React.FC<Props> = ({
 	const [lineNo, setLineNo] = useState(0);
 	const [preparedInput, setPreparedInput] = useState<InputType>([]);
 
-	const [locale, setLocale] = useState('DE');
-	useEffect(() => setLocale('DE'), [locale]);
+	const [locale, setLocale] = useState(DE);
+	useEffect(() => setLocale(DE), [locale]);
 
 	const [delay, setDelay] = useState(2000);
 	useInterval(jsStep, isJsRunning ? delay : null);

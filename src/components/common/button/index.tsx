@@ -8,6 +8,15 @@ interface Props {
 	disabled?: boolean;
 }
 
+/**
+ * Component that renders a enabled or disabled labeled primary, secondary, or tertiary button and sets its on-click function
+ * @param {() => void} onClick
+ * @param {boolean \ undefined} primary
+ * @param {boolean \ undefined} secondary
+ * @param {string} label
+ * @param {boolean \ undefined} disabled
+ * @returns {JSX.Element}
+ */
 const Button: React.FC<Props> = ({
 	onClick,
 	primary,

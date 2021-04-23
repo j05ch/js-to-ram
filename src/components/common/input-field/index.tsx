@@ -7,6 +7,13 @@ interface Props {
 	placeholder: string;
 }
 
+/**
+ * Component with text-area that triggers setState on change
+ * @param {Dispatch<SetStateAction<string>>} setState
+ * @param {string} value
+ * @param {string} placeholder
+ * @constructor
+ */
 const InputField: React.FC<Props> = ({ setState, value, placeholder }) => {
 	function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
 		setState(String(e.target.value));

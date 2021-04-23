@@ -2,6 +2,7 @@ import * as React from 'react';
 import { labels } from '../../../models/labels';
 import { useEffect, useState } from 'react';
 import Register from '../register';
+import { DE } from '../../../models/locales';
 
 interface Props {
 	register: number[];
@@ -9,9 +10,9 @@ interface Props {
 }
 
 const RegisterContainer: React.FC<Props> = ({ register, changed }) => {
-	const [locale, setLocale] = useState('DE');
+	const [locale, setLocale] = useState(DE);
 
-	useEffect(() => setLocale('DE'), []);
+	useEffect(() => setLocale(DE), []);
 
 	function getRegisters() {
 		return register.map((r, index) =>

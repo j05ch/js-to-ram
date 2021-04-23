@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { labels } from '../../../models/labels';
 import Button from '../../common/button';
+import { DE } from '../../../models/locales';
 
 interface Props {
 	doStep: () => void;
@@ -20,9 +21,9 @@ const MachineControl: React.FC<Props> = ({
 	setIsRunning,
 	disabled,
 }) => {
-	const [locale, setLocale] = useState('DE');
+	const [locale, setLocale] = useState(DE);
 
-	useEffect(() => setLocale('DE'), [locale]);
+	useEffect(() => setLocale(DE), [locale]);
 
 	function handleDelayChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setDelay(Number(e.target.value));

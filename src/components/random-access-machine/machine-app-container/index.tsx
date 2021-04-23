@@ -11,6 +11,7 @@ import InputFieldContainer from '../input-field-container';
 import Button from '../../common/button';
 import InfoPopup from '../../common/info-popup/info-popup';
 import { ramAppInfo } from '../../../models/info-texts';
+import { DE } from '../../../models/locales';
 
 interface Props {}
 
@@ -18,7 +19,7 @@ const MachineAppContainer: React.FC<Props> = () => {
 	const [programString, setProgramString] = useState('');
 	const [programArray, setProgramArray] = useState<string[][]>([]);
 	const inputFile = useRef<HTMLInputElement>(null);
-	const [locale, setLocale] = useState('DE');
+	const [locale, setLocale] = useState(DE);
 	const [inputString, setInputString] = useState<string>('');
 	const [inputArray, setInputArray] = useState<string[]>([]);
 	const [isRamRunning, setIsRamRunning] = useState(false);
@@ -27,7 +28,7 @@ const MachineAppContainer: React.FC<Props> = () => {
 	const [isJsControlDisabled, setIsJsControlDisabled] = useState(true);
 	const [isRamControlDisabled, setIsRamControlDisabled] = useState(false);
 
-	useEffect(() => setLocale('DE'), []);
+	useEffect(() => setLocale(DE), []);
 
 	function loadRAM() {
 		setInputArray(inputString.split('\n'));

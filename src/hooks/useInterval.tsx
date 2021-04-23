@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { useEffect, useRef } from 'react';
 
+/**
+ * Hook for a declarative setInterval
+ * @param {React.EffectCallback} callback
+ * @param {number | null} delay
+ */
 export function useInterval(
 	callback: React.EffectCallback,
 	delay: number | null

@@ -8,6 +8,13 @@ interface Props {
 	content: string;
 }
 
+/**
+ * Info component that shows a modal on click.
+ * @param {string} header
+ * @param {string} content
+ * @constructor
+ * @returns {JSX.Element}
+ */
 const InfoPopup: React.FC<Props> = ({ header, content }) => {
 	const [show, setShow] = useState(false);
 

@@ -1,4 +1,8 @@
-export const machineSelectorInfo: { [index: string]: any } = {
+interface InfoType {
+	[p: string]: { header: string; content: string };
+}
+
+export const machineSelectorInfo: InfoType = {
 	DE: {
 		header: 'Wähle einen Workflow',
 		content:
@@ -6,7 +10,7 @@ export const machineSelectorInfo: { [index: string]: any } = {
 	},
 };
 
-export const ramAppInfo: { [index: string]: any } = {
+export const ramAppInfo: InfoType = {
 	DE: {
 		header: 'Programm und Eingabe für die RAM',
 		content:
@@ -14,7 +18,7 @@ export const ramAppInfo: { [index: string]: any } = {
 	},
 };
 
-export const jsAppInfo: { [index: string]: any } = {
+export const jsAppInfo: InfoType = {
 	DE: {
 		header: 'JavaScript Programm',
 		content:

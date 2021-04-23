@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { labels } from '../../../models/labels';
 import { useEffect, useState } from 'react';
+import { DE } from '../../../models/locales';
 
 const CpuContainer: React.FC = () => {
-	const [locale, setLocale] = useState('DE');
+	const [locale, setLocale] = useState(DE);
 
-	useEffect(() => setLocale('DE'), []);
+	useEffect(() => setLocale(DE), []);
 
 	return (
 		<>

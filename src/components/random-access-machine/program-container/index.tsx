@@ -2,6 +2,7 @@ import * as React from 'react';
 import { labels } from '../../../models/labels';
 import ProgramLine from '../program-line';
 import { useEffect, useState } from 'react';
+import { DE } from '../../../models/locales';
 
 interface Props {
 	programArray: string[][];
@@ -14,9 +15,9 @@ const ProgramContainer: React.FC<Props> = ({
 	programCounter,
 	mark,
 }) => {
-	const [locale, setLocale] = useState('DE');
+	const [locale, setLocale] = useState(DE);
 
-	useEffect(() => setLocale('DE'), []);
+	useEffect(() => setLocale(DE), []);
 
 	function getProgramLines() {
 		return programArray.map((l) => (

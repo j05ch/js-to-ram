@@ -8,6 +8,7 @@ import { downloadProgramJson } from '../../../utils/programUtils';
 import { labels } from '../../../models/labels';
 import InfoPopup from '../../common/info-popup/info-popup';
 import { jsAppInfo, ramAppInfo } from '../../../models/info-texts';
+import { DE } from '../../../models/locales';
 
 interface Props {}
 
@@ -27,9 +28,9 @@ const JsContainer: React.FC<Props> = () => {
 	const [pc, setPc] = useState<number>();
 	const [breakPc, setBreakPc] = useState<number>();
 	const inputFile = useRef<HTMLInputElement>(null);
-	const [locale, setLocale] = useState('DE');
+	const [locale, setLocale] = useState(DE);
 
-	useEffect(() => setLocale('DE'), []);
+	useEffect(() => setLocale(DE), []);
 
 	const buildProgramArray = (arr: Array<string>) => {
 		const program = arr.map((s) => s.split(' '));
