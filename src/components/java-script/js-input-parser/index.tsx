@@ -38,8 +38,12 @@ interface Props {
 	isJsRunning: boolean;
 	setIsJsRunning: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsRamRunning: React.Dispatch<React.SetStateAction<boolean>>;
+	setIsRamControlDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+	setIsJsControlDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 	setPc: React.Dispatch<React.SetStateAction<number | undefined>>;
 	setBreakPc: React.Dispatch<React.SetStateAction<number | undefined>>;
+	isRamControlDisabled: boolean;
+	isJsControlDisabled: boolean;
 }
 
 const JSInputParser: React.FC<Props> = ({
@@ -48,6 +52,10 @@ const JSInputParser: React.FC<Props> = ({
 	isJsRunning,
 	setIsJsRunning,
 	setIsRamRunning,
+	isRamControlDisabled,
+	setIsRamControlDisabled,
+	isJsControlDisabled,
+	setIsJsControlDisabled,
 	setPc,
 	setBreakPc,
 }) => {
@@ -69,6 +77,7 @@ const JSInputParser: React.FC<Props> = ({
 		const reorderedInputArr = findAndReplaceJumpTargets(inputArr.parsedArr);
 		// @ts-ignore
 		setPreparedInput(prepareInput(reorderedInputArr));
+		setIsJsControlDisabled(false);
 	}, []);
 
 	function findAndReplaceJumpTargets(arr: any) {
@@ -114,6 +123,8 @@ const JSInputParser: React.FC<Props> = ({
 			setPc(lineNo);
 			setBreakPc(lineNo + 1);
 			setIsJsRunning(false);
+			setIsRamControlDisabled(false);
+			setIsJsControlDisabled(true);
 			setIsRamRunning(true);
 			return;
 		}
@@ -121,7 +132,8 @@ const JSInputParser: React.FC<Props> = ({
 		console.log('JS STEP PC, BREAK', step.pc, step.breakPc);
 		if (step.insideBlock) {
 			setCodeLines([]);
-			setCompleteDisplay([...completeDisplay, ...step.codeOutput]);
+			const outputCard = <JsOutputCard>{step.codeOutput}</JsOutputCard>;
+			setCompleteDisplay([...completeDisplay, outputCard]);
 			setRamProgram(
 				step.ramProgram
 					? [...ramProgram, ...step.ramProgram]
@@ -150,25 +162,19 @@ const JSInputParser: React.FC<Props> = ({
 			setPc(step.pc);
 			setBreakPc(step.breakPc);
 			setIsJsRunning(false);
+			setIsRamControlDisabled(false);
+			setIsJsControlDisabled(true);
 			setIsRamRunning(true);
 		} else {
 			setCodeLines(step.codeOutput);
+			setIsRamControlDisabled(true);
 		}
 		setStepCounter(stepCounter + 1);
 	}
 
 	return (
-		<>
-			<div className="flex justify-center p-2">
-				<Button
-					onClick={() => {
-						setIsJsRunning(true);
-					}}
-					label={labels[locale].PLAY}
-					primary
-				/>
-			</div>
-			<div className="flex flex-row gap-1 flex-wrap ml-2">
+		<div className="flex flex-col justify-center items-center mt-4 mb-4">
+			<div className="flex flex-row gap-1 flex-wrap ml-2 mb-3">
 				{completeDisplay}
 				{codeLines.length > 0 && (
 					<div>
@@ -182,8 +188,9 @@ const JSInputParser: React.FC<Props> = ({
 				setDelay={setDelay}
 				isRunning={isJsRunning}
 				setIsRunning={setIsJsRunning}
+				disabled={isJsControlDisabled}
 			/>
-		</>
+		</div>
 	);
 };
 

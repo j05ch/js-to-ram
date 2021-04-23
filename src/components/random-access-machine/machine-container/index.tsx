@@ -21,6 +21,10 @@ interface Props {
 	extended?: boolean;
 	pc: number;
 	breakPc: number;
+	setIsRamControlDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+	setIsJsControlDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+	isRamControlDisabled: boolean;
+	isJsControlDisabled: boolean;
 }
 
 const INITIAL_DELAY = 2000;
@@ -34,6 +38,10 @@ const MachineContainer: React.FC<Props> = ({
 	extended,
 	pc,
 	breakPc,
+	isRamControlDisabled,
+	setIsRamControlDisabled,
+	isJsControlDisabled,
+	setIsJsControlDisabled,
 }) => {
 	const [programCounter, setProgramCounter] = useState<number | undefined>();
 	const [programCounterMark, setProgramCounterMark] = useState(false);
@@ -61,7 +69,6 @@ const MachineContainer: React.FC<Props> = ({
 	}
 
 	function machineStep() {
-		console.log('PROGRAM IN RAM', programArray);
 		if (step === Step.INITIAL) {
 			setProgramCounter(pc);
 			setProgramIndex(pc);
@@ -75,6 +82,8 @@ const MachineContainer: React.FC<Props> = ({
 			if (programCounter === breakPc + 1) {
 				setIsRamRunning(false);
 				setIsJsRunning(true);
+				setIsRamControlDisabled(true);
+				setIsJsControlDisabled(false);
 			}
 			return;
 		}
@@ -107,6 +116,7 @@ const MachineContainer: React.FC<Props> = ({
 			setOutputArray([...outputArray, String(result.output)]);
 		}
 		if (result.isHalt) {
+			setIsRamControlDisabled(true);
 			setIsRamRunning(false);
 		}
 	}
@@ -114,7 +124,7 @@ const MachineContainer: React.FC<Props> = ({
 	const animate = isRamRunning ? 'animate-pulse' : '';
 
 	return (
-		<div className="max-w-screen-md m-2 border-2 border-gray-200 rounded bg-white">
+		<div className="max-w-screen-md m-2 rounded bg-white">
 			<div className="text-blue-50 grid-container rounded m-4 bg-gray-100">
 				<div className="bg-gray-500 input">
 					<DisplayContainer
@@ -161,6 +171,7 @@ const MachineContainer: React.FC<Props> = ({
 						isRunning={isRamRunning}
 						setIsRunning={setIsRamRunning}
 						doStep={machineStep}
+						disabled={isRamControlDisabled}
 					/>
 				</div>
 			</div>

@@ -24,6 +24,8 @@ const MachineAppContainer: React.FC<Props> = () => {
 	const [isRamRunning, setIsRamRunning] = useState(false);
 	const [isJsRunning, setIsJsRunning] = useState(false);
 	const [show, setShow] = useState(true);
+	const [isJsControlDisabled, setIsJsControlDisabled] = useState(true);
+	const [isRamControlDisabled, setIsRamControlDisabled] = useState(true);
 
 	useEffect(() => setLocale('DE'), []);
 
@@ -123,6 +125,10 @@ const MachineAppContainer: React.FC<Props> = () => {
 						setIsJsRunning={setIsJsRunning}
 						pc={0}
 						breakPc={-1}
+						isJsControlDisabled={true}
+						isRamControlDisabled={false}
+						setIsRamControlDisabled={setIsRamControlDisabled}
+						setIsJsControlDisabled={setIsJsControlDisabled}
 					/>
 				</div>
 			)}

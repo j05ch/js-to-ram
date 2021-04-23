@@ -9,6 +9,7 @@ interface Props {
 	setDelay: React.Dispatch<React.SetStateAction<number>>;
 	isRunning: boolean;
 	setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
+	disabled: boolean;
 }
 
 const MachineControl: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const MachineControl: React.FC<Props> = ({
 	setDelay,
 	isRunning,
 	setIsRunning,
+	disabled,
 }) => {
 	const [locale, setLocale] = useState('DE');
 
@@ -77,18 +79,22 @@ const MachineControl: React.FC<Props> = ({
 					}
 					onClick={() => handleSpeed(labels[locale].PAUSE)}
 					primary
+					disabled={disabled}
 				/>
 				<Button
 					label={labels[locale].STEP}
 					onClick={() => handleSpeed(labels[locale].STEP)}
+					disabled={disabled}
 				/>
 				<Button
 					label={labels[locale].SLOWER}
 					onClick={() => handleSpeed(labels[locale].SLOWER)}
+					disabled={disabled}
 				/>
 				<Button
 					label={labels[locale].FASTER}
 					onClick={() => handleSpeed(labels[locale].FASTER)}
+					disabled={disabled}
 				/>
 				<p className="text-black font-bold">{delay} ms</p>
 			</div>

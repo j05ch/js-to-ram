@@ -21,6 +21,8 @@ const JsContainer: React.FC<Props> = () => {
 	const [state, setState] = useState({});
 	const [programArray, setProgramArray] = useState<string[][]>([[]]);
 	const [isRamRunning, setIsRamRunning] = useState(false);
+	const [isJsControlDisabled, setIsJsControlDisabled] = useState(true);
+	const [isRamControlDisabled, setIsRamControlDisabled] = useState(true);
 	const [isJsRunning, setIsJsRunning] = useState(false);
 	const [pc, setPc] = useState<number>();
 	const [breakPc, setBreakPc] = useState<number>();
@@ -116,16 +118,22 @@ const JsContainer: React.FC<Props> = () => {
 				</div>
 			)}
 			{show.ram && programArray.length > 0 && (
-				<MachineContainer
-					programArray={programArray}
-					inputArray={[]}
-					isRamRunning={isRamRunning}
-					setIsRamRunning={setIsRamRunning}
-					setIsJsRunning={setIsJsRunning}
-					extended
-					pc={pc || 0}
-					breakPc={breakPc || -1}
-				/>
+				<div className="flex flex-col justify-center items-center mt-4">
+					<MachineContainer
+						programArray={programArray}
+						inputArray={[]}
+						isRamRunning={isRamRunning}
+						setIsRamRunning={setIsRamRunning}
+						setIsJsRunning={setIsJsRunning}
+						extended
+						pc={pc || 0}
+						breakPc={breakPc || -1}
+						isRamControlDisabled={isRamControlDisabled}
+						setIsRamControlDisabled={setIsRamControlDisabled}
+						isJsControlDisabled={isJsControlDisabled}
+						setIsJsControlDisabled={setIsJsControlDisabled}
+					/>
+				</div>
 			)}
 			{show.jsOutput && (
 				<JSInputParser
@@ -136,6 +144,10 @@ const JsContainer: React.FC<Props> = () => {
 					setIsRamRunning={setIsRamRunning}
 					setPc={setPc}
 					setBreakPc={setBreakPc}
+					isRamControlDisabled={isRamControlDisabled}
+					setIsRamControlDisabled={setIsRamControlDisabled}
+					isJsControlDisabled={isJsControlDisabled}
+					setIsJsControlDisabled={setIsJsControlDisabled}
 				/>
 			)}
 		</>
