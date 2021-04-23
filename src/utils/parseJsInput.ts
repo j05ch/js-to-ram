@@ -475,7 +475,7 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 				const step4 = {
 					...step3,
 					lineNo,
-					mark3: false,
+					mark2: false,
 					code3: `${lineNo++} LOAD =0`,
 					lastStep: !child,
 					insideBlock: child,
@@ -516,7 +516,7 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 				const step4 = {
 					...step3,
 					lineNo,
-					mark3: false,
+					mark2: false,
 					code3: `${lineNo++} LOAD =0`,
 					lastStep: !child,
 					insideBlock: child,
@@ -557,7 +557,7 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 				const step4 = {
 					...step3,
 					lineNo,
-					mark3: false,
+					mark2: false,
 					code3: `${lineNo++} LOAD =0`,
 					lastStep: !child,
 					insideBlock: child,
@@ -596,7 +596,7 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 				const step4 = {
 					...step3,
 					lineNo,
-					mark3: false,
+					mark2: false,
 					code3: `${lineNo++} LOAD =0`,
 					lastStep: !child,
 					insideBlock: child,
@@ -643,6 +643,13 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 						element.operator === '>'
 							? `${lineNo++} JGTZ LINE_NO`
 							: `${lineNo++} JZERO LINE_NO`,
+				};
+
+				const step5 = {
+					...step4,
+					lineNo,
+					mark2: false,
+					mark3: false,
 					insideBlock: true,
 				};
 
@@ -650,14 +657,14 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 				lineNo = children.lineNo;
 
 				const endIf = {
-					...step4,
+					...step5,
 					lineNo,
 					type: Components.END_IF,
 					insideBlock: false,
 					lastStep: true,
 				};
 
-				parsedArr.push(step1, step2, step3, step4);
+				parsedArr.push(step1, step2, step3, step4, step5);
 				parsedArr.push(...children.parsedArr, endIf);
 				break;
 			}
@@ -682,9 +689,6 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 					...step2,
 					lineNo,
 					mark1: false,
-					code2: `${lineNo++} STORE ${variables.indexOf(
-						element.varField
-					)}`,
 					lastStep: !child,
 					insideBlock: child,
 				};

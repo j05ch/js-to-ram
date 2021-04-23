@@ -85,7 +85,7 @@ const JSInputParser: React.FC<Props> = ({
 		let lineNolocal = 0;
 		reversed.forEach((r: any, index: number) => {
 			if (r.type === Components.END_IF) {
-				lineNolocal = reversed[index + 1].lineNo + 1;
+				lineNolocal = reversed[index + 2].lineNo + 1;
 			}
 			if (r.type === Components.IF && r['code3'] !== '') {
 				const jumpCode = r['code3'];
