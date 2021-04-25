@@ -16,6 +16,8 @@ export const Components = {
 	VARIATIONS_SELECTOR: 'Select',
 	IF: 'if ( ... ) { ... }',
 	END_IF: 'end if',
+	ELSE: 'else { ... }',
+	END_ELSE: 'end else',
 	FOR: 'for (let i=0; i < 6; i++) { ... }',
 	LOG: 'console.log(a)',
 } as const;

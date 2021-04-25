@@ -22,5 +22,6 @@ export const mapVariables = (object: any) => {
 		}
 	});
 	mappedVariables[HIGHEST_USED_REGISTER] = mappedVariables.length - 1;
+	console.log('mapped variable', mappedVariables);
 	return mappedVariables;
 };

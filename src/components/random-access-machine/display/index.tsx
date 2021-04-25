@@ -11,7 +11,7 @@ const Display: React.FC<Props> = ({ inputArray, inputIndex, mark }) => {
 		return inputArray.map((s, index) => {
 			return mark && index === inputIndex ? (
 				<div
-					key={String(index)}
+					key={`${String(index)}-Display`}
 					className="bg-pink-500 text-white font-bold p-1.5"
 				>
 					{s}

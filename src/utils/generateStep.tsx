@@ -7,6 +7,7 @@ import LetVarOutput from '../components/java-script/js-output/variations/let-var
 import VarVarOutput from '../components/java-script/js-output/variations/var-var-output';
 import IfOutput from '../components/java-script/js-output/variations/if-output';
 import ConsoleLogOutput from '../components/java-script/js-output/variations/console-log-output';
+import ElseOutput from '../components/java-script/js-output/variations/else-output';
 
 export const generateStep = (
 	element: any,
@@ -325,6 +326,28 @@ export const generateStep = (
 			});
 			break;
 		case Components.END_IF:
+			codeOutput.push(<div>{'}'}</div>);
+			// 6
+			pc = blockStart;
+			// 12
+			breakPc = jumpTarget;
+			// 13
+			lineNo = jumpTarget;
+			break;
+		case Components.ELSE:
+			codeOutput.push(<ElseOutput mark1={element.mark1} />);
+			['code1'].forEach((c) => {
+				if (element[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code1') breakPc = lineNo;
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.END_ELSE:
 			codeOutput.push(<div>{'}'}</div>);
 			// 6
 			pc = blockStart;

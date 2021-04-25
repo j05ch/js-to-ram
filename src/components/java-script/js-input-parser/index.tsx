@@ -76,6 +76,7 @@ const JSInputParser: React.FC<Props> = ({
 	useEffect(() => {
 		const inputArr = parseJsInput(inputModel, 0);
 		const reorderedInputArr = findAndReplaceJumpTargets(inputArr.parsedArr);
+		console.log('Reordered', reorderedInputArr);
 		// @ts-ignore
 		setPreparedInput(prepareInput(reorderedInputArr));
 		setIsJsControlDisabled(false);
@@ -84,6 +85,7 @@ const JSInputParser: React.FC<Props> = ({
 	function findAndReplaceJumpTargets(arr: any) {
 		const reversed = arr.reverse();
 		let lineNolocal = 0;
+		let elseSkipLineNo = 0;
 		reversed.forEach((r: any, index: number) => {
 			if (r.type === Components.END_IF) {
 				lineNolocal = reversed[index + 2].lineNo + 1;
@@ -91,8 +93,21 @@ const JSInputParser: React.FC<Props> = ({
 			if (r.type === Components.IF && r['code3'] !== '') {
 				const jumpCode = r['code3'];
 				const jcArr = jumpCode.split(' ');
-				jcArr[2] = lineNolocal.toString();
+				jcArr[2] =
+					elseSkipLineNo !== 0
+						? elseSkipLineNo.toString()
+						: lineNolocal.toString();
 				r['code3'] = jcArr.join(' ');
+			}
+			if (r.type === Components.END_ELSE) {
+				lineNolocal = reversed[index + 2].lineNo + 1;
+			}
+			if (r.type === Components.ELSE && r['code1'] !== '') {
+				const jumpCode = r['code1'];
+				const jcArr = jumpCode.split(' ');
+				jcArr[2] = lineNolocal.toString();
+				r['code1'] = jcArr.join(' ');
+				elseSkipLineNo = r.lineNo + 1;
 			}
 		});
 
@@ -105,11 +120,13 @@ const JSInputParser: React.FC<Props> = ({
 		let jumpTarget = 0;
 		const preparedInput = input.map((e) => {
 			blockStart =
-				e.type === Components.IF && e.code1 === ''
+				e.type === (Components.IF || Components.ELSE) && e.code1 === ''
 					? e.lineNo
 					: blockStart;
 			jumpTarget =
 				e.type === Components.END_IF ? e.lineNo - 1 : jumpTarget;
+			jumpTarget =
+				e.type === Components.END_ELSE ? e.lineNo - 1 : jumpTarget;
 			const step = generateStep(e, lineNoLocal, blockStart, jumpTarget);
 			lineNoLocal = step.lastStep ? step.lineNo : lineNoLocal;
 			return step;
@@ -133,7 +150,11 @@ const JSInputParser: React.FC<Props> = ({
 		console.log('JS STEP PC, BREAK', step.pc, step.breakPc);
 		if (step.insideBlock) {
 			setCodeLines([]);
-			const outputCard = <JsOutputCard>{step.codeOutput}</JsOutputCard>;
+			const outputCard = (
+				<JsOutputCard key={`card-${String(stepCounter)}`}>
+					{step.codeOutput}
+				</JsOutputCard>
+			);
 			setCompleteDisplay([...completeDisplay, outputCard]);
 			setRamProgram(
 				step.ramProgram
@@ -148,7 +169,11 @@ const JSInputParser: React.FC<Props> = ({
 		} else if (step.lastStep) {
 			// setLineNo(output.lineNo);
 			setCodeLines([]);
-			const codeCard = <JsOutputCard>{step.codeOutput}</JsOutputCard>;
+			const codeCard = (
+				<JsOutputCard key={`card-${String(stepCounter)}`}>
+					{step.codeOutput}
+				</JsOutputCard>
+			);
 			setCompleteDisplay([...completeDisplay, codeCard]);
 			setRamProgram(
 				step.ramProgram
@@ -179,7 +204,11 @@ const JSInputParser: React.FC<Props> = ({
 				{completeDisplay}
 				{codeLines.length > 0 && (
 					<div>
-						<JsOutputCard>{codeLines}</JsOutputCard>
+						<JsOutputCard
+							key={`card-return-${String(stepCounter)}`}
+						>
+							{codeLines}
+						</JsOutputCard>
 					</div>
 				)}
 			</div>

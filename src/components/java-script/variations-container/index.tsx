@@ -16,6 +16,7 @@ import LetArithmeticVarNum from '../variations/let-arithmetic-var-num';
 import LetArithmeticNumVar from '../variations/let-arithmetic-num-var';
 import VarNum from '../variations/var-num';
 import ConsoleLog from '../variations/console-log';
+import Else from '../variations/else';
 
 interface Props {
 	state: any;
@@ -195,6 +196,17 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 						);
 						break;
 					}
+					case Components.ELSE: {
+						variation = (
+							<Else
+								index={index}
+								state={state}
+								setState={setState}
+								type={Components.ELSE}
+							/>
+						);
+						break;
+					}
 					case Components.FOR: {
 						variation = (
 							<For
@@ -219,17 +231,17 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 					default:
 						return (
 							<AddVariation
-								key={index + v}
 								index={index}
 								handleClick={addVariationsSelector}
+								key={`Variations-${String(index)}`}
 							/>
 						);
 				}
 				return (
 					<VariationWrapper
-						key={index + v}
 						index={index}
 						removeVariation={removeVariation}
+						key={`Variations-${String(index)}`}
 					>
 						{variation}
 					</VariationWrapper>
@@ -284,7 +296,7 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 				const temp = tempState[i];
 				delete tempState[i];
 				calculatedState =
-					i > 2 && i != index
+					i > 2 && i !== index
 						? { ...calculatedState, [i - 2]: { ...temp } }
 						: { ...calculatedState };
 			}

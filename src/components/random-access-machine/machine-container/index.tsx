@@ -80,7 +80,7 @@ const MachineContainer: React.FC<Props> = ({
 		if (step === Step.CLEAR) {
 			clearMarks();
 			setStep(Step.NEXT);
-			if (programCounter === breakPc + 1) {
+			if (programCounter && programCounter >= breakPc + 1) {
 				setIsRamRunning(false);
 				setIsJsRunning(true);
 				setIsRamControlDisabled(true);

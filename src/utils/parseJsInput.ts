@@ -8,8 +8,13 @@ const operators: any = {
 	'/': 'DIV',
 };
 
-export const parseJsInput = (input: any, lineNo: number, child = false) => {
-	const variables = mapVariables(input);
+export const parseJsInput = (
+	input: any,
+	lineNo: number,
+	child = false,
+	parentVariables?: any
+) => {
+	const variables = child ? parentVariables : mapVariables(input);
 	const parsedArr: Array<any> = [];
 	const keys = Object.keys(input);
 	keys.forEach((k) => {
@@ -653,7 +658,12 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 					insideBlock: true,
 				};
 
-				const children = parseJsInput(element.children, lineNo, true);
+				const children = parseJsInput(
+					element.children,
+					lineNo,
+					true,
+					variables
+				);
 				lineNo = children.lineNo;
 
 				const endIf = {
@@ -666,6 +676,47 @@ export const parseJsInput = (input: any, lineNo: number, child = false) => {
 
 				parsedArr.push(step1, step2, step3, step4, step5);
 				parsedArr.push(...children.parsedArr, endIf);
+				break;
+			}
+			case Components.ELSE: {
+				const step1 = {
+					lineNo,
+					type: Components.ELSE,
+					mark1: false,
+					code1: '',
+					lastStep: false,
+					insideBlock: false,
+				};
+				const step2 = {
+					...step1,
+					mark1: true,
+					code1: `${lineNo++} JUMP LINE_NO`,
+				};
+				const step3 = {
+					...step2,
+					lineNo,
+					mark1: false,
+					insideBlock: true,
+				};
+
+				const children = parseJsInput(
+					element.children,
+					lineNo,
+					true,
+					variables
+				);
+				lineNo = children.lineNo;
+
+				const endElse = {
+					...step3,
+					lineNo,
+					type: Components.END_ELSE,
+					insideBlock: false,
+					lastStep: true,
+				};
+
+				parsedArr.push(step1, step2, step3);
+				parsedArr.push(...children.parsedArr, endElse);
 				break;
 			}
 			case Components.LOG: {

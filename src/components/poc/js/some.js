@@ -7,10 +7,11 @@ let c = a + b;
 // ADD 2, SUB 1, JGTZ <PC ELSE>, LOAD =0
 if (a > b) {
 }
+// JUMP 99, ..., LOAD =0, END_ELSE
 // STORE 4, ADD =n, STORE 5
 // Statement
 // LOAD 5, JGTZ <PC FOR>
-for (let i = 0; i < n; i++) {}
+else for (let i = 0; i < n; i++) {}
 
 // WRITE 1
 console.log(a);

@@ -226,7 +226,6 @@ const VariationsChildContainer: React.FC<Props> = ({
 					default:
 						return (
 							<AddVariation
-								key={i + v}
 								index={i}
 								handleClick={addVariationsSelector}
 							/>
