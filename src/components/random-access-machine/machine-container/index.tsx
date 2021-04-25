@@ -57,6 +57,7 @@ const MachineContainer: React.FC<Props> = ({
 	const [delay, setDelay] = useState(INITIAL_DELAY);
 	const [step, setStep] = useState(Step.INITIAL);
 	const [changedRegister, setChangedRegister] = useState<number[]>([]);
+	const isBreak = breakPc > -1;
 
 	useEffect(() => setLocale(DE), [locale]);
 
@@ -80,7 +81,7 @@ const MachineContainer: React.FC<Props> = ({
 		if (step === Step.CLEAR) {
 			clearMarks();
 			setStep(Step.NEXT);
-			if (programCounter && programCounter >= breakPc + 1) {
+			if (isBreak && programCounter && programCounter >= breakPc + 1) {
 				setIsRamRunning(false);
 				setIsJsRunning(true);
 				setIsRamControlDisabled(true);
