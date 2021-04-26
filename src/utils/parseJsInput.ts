@@ -719,6 +719,78 @@ export const parseJsInput = (
 				parsedArr.push(...children.parsedArr, endElse);
 				break;
 			}
+			case Components.WHILE: {
+				const step1 = {
+					lineNo,
+					type: Components.WHILE,
+					varLeft: element.varLeft,
+					varRight: element.varRight,
+					operator: element.operator,
+					mark1: false,
+					mark2: false,
+					code1: '',
+					code2: '',
+					code3: '',
+					lastStep: false,
+					insideBlock: false,
+				};
+				const step2 = {
+					...step1,
+					jumpTarget: lineNo,
+					mark1: true,
+					code1: `${lineNo++} LOAD ${variables.indexOf(
+						element.varRight
+					)}`,
+				};
+				const step3 = {
+					...step2,
+					lineNo,
+					mark1: false,
+					mark2: true,
+					code2: `${lineNo++} SUB ${variables.indexOf(
+						element.varLeft
+					)}`,
+				};
+				const step4 = {
+					...step3,
+					lineNo,
+					mark3: true,
+					code3:
+						element.operator === '>'
+							? `${lineNo++} JGTZ LINE_NO`
+							: `${lineNo++} JZERO LINE_NO`,
+				};
+
+				const step5 = {
+					...step4,
+					lineNo,
+					mark2: false,
+					mark3: false,
+					insideBlock: true,
+				};
+
+				const children = parseJsInput(
+					element.children,
+					lineNo,
+					true,
+					variables
+				);
+				lineNo = children.lineNo;
+
+				const endWhile = {
+					...step5,
+					lineNo,
+					type: Components.END_WHILE,
+					insideBlock: false,
+					lastStep: true,
+					mark4: true,
+					code4: `${lineNo++} JUMP ${step5.jumpTarget}`,
+				};
+
+				parsedArr.push(step1, step2, step3, step4, step5);
+				parsedArr.push(...children.parsedArr, endWhile);
+				break;
+			}
 			case Components.LOG: {
 				const step1 = {
 					lineNo,

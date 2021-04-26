@@ -8,6 +8,7 @@ import VarVarOutput from '../components/java-script/js-output/variations/var-var
 import IfOutput from '../components/java-script/js-output/variations/if-output';
 import ConsoleLogOutput from '../components/java-script/js-output/variations/console-log-output';
 import ElseOutput from '../components/java-script/js-output/variations/else-output';
+import WhileOutput from '../components/java-script/js-output/variations/while-output';
 
 export const generateStep = (
 	element: any,
@@ -355,6 +356,41 @@ export const generateStep = (
 			breakPc = jumpTarget;
 			// 13
 			lineNo = jumpTarget + 1;
+			break;
+		case Components.WHILE:
+			codeOutput.push(
+				<WhileOutput
+					varLeft={element.varLeft}
+					varRight={element.varRight}
+					operator={element.operator}
+					mark1={element.mark1}
+					mark2={element.mark2}
+					mark3={element.mark3}
+				/>
+			);
+			['code1', 'code2', 'code3'].forEach((c) => {
+				if (element[c] != '') {
+					if (c === 'code1') pc = lineNo;
+					if (c === 'code3') breakPc = lineNo;
+					ramProgram.push(element[c]);
+					pushAssemblerLine(c);
+					lineNo++;
+					lineComplete = true;
+				}
+			});
+			break;
+		case Components.END_WHILE:
+			const codeSplit = element['code4'].split(' ');
+			codeOutput.push(
+				<div className="flex flex-col">
+					<div>{'}'}</div>
+					<div>{`${codeSplit[1]} ${codeSplit[2]}`}</div>
+				</div>
+			);
+			ramProgram.push(element['code4']);
+			pc = blockStart;
+			breakPc = jumpTarget;
+			lineNo = jumpTarget + 2;
 			break;
 		case Components.LOG:
 			codeOutput.push(

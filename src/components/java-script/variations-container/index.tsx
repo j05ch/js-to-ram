@@ -17,6 +17,7 @@ import LetArithmeticNumVar from '../variations/let-arithmetic-num-var';
 import VarNum from '../variations/var-num';
 import ConsoleLog from '../variations/console-log';
 import Else from '../variations/else';
+import While from '../variations/while';
 
 interface Props {
 	state: any;
@@ -213,6 +214,17 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 								index={index}
 								state={state}
 								setState={setState}
+							/>
+						);
+						break;
+					}
+					case Components.WHILE: {
+						variation = (
+							<While
+								index={index}
+								state={state}
+								setState={setState}
+								type={Components.WHILE}
 							/>
 						);
 						break;

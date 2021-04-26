@@ -87,10 +87,10 @@ const JSInputParser: React.FC<Props> = ({
 		let lineNolocal = 0;
 		let elseSkipLineNo = 0;
 		reversed.forEach((r: any, index: number) => {
-			if (r.type === Components.END_IF) {
-				lineNolocal = reversed[index + 2].lineNo + 1;
-			}
-			if (r.type === Components.IF && r['code3'] !== '') {
+			if (
+				(r.type === Components.IF || r.type === Components.WHILE) &&
+				r['code3'] !== ''
+			) {
 				const jumpCode = r['code3'];
 				const jcArr = jumpCode.split(' ');
 				jcArr[2] =
@@ -99,7 +99,10 @@ const JSInputParser: React.FC<Props> = ({
 						: lineNolocal.toString();
 				r['code3'] = jcArr.join(' ');
 			}
-			if (r.type === Components.END_ELSE) {
+			if (
+				r.type === Components.END_ELSE ||
+				r.type === Components.END_IF
+			) {
 				lineNolocal = reversed[index + 2].lineNo + 1;
 			}
 			if (r.type === Components.ELSE && r['code1'] !== '') {
@@ -108,6 +111,9 @@ const JSInputParser: React.FC<Props> = ({
 				jcArr[2] = lineNolocal.toString();
 				r['code1'] = jcArr.join(' ');
 				elseSkipLineNo = r.lineNo + 1;
+			}
+			if (r.type === Components.END_WHILE) {
+				lineNolocal = reversed[index].lineNo + 1;
 			}
 		});
 
@@ -120,13 +126,17 @@ const JSInputParser: React.FC<Props> = ({
 		let jumpTarget = 0;
 		const preparedInput = input.map((e) => {
 			blockStart =
-				e.type === (Components.IF || Components.ELSE) && e.code1 === ''
+				e.type ===
+					(Components.IF || Components.ELSE || Components.WHILE) &&
+				e.code1 === ''
 					? e.lineNo
 					: blockStart;
 			jumpTarget =
 				e.type === Components.END_IF ? e.lineNo - 1 : jumpTarget;
 			jumpTarget =
 				e.type === Components.END_ELSE ? e.lineNo - 1 : jumpTarget;
+			jumpTarget =
+				e.type === Components.END_WHILE ? e.lineNo - 1 : jumpTarget;
 			const step = generateStep(e, lineNoLocal, blockStart, jumpTarget);
 			lineNoLocal = step.lastStep ? step.lineNo : lineNoLocal;
 			return step;
