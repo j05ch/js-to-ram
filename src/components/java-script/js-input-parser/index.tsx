@@ -76,7 +76,6 @@ const JSInputParser: React.FC<Props> = ({
 	useEffect(() => {
 		const inputArr = parseJsInput(inputModel, 0);
 		const reorderedInputArr = findAndReplaceJumpTargets(inputArr.parsedArr);
-		console.log('Reordered', reorderedInputArr);
 		// @ts-ignore
 		setPreparedInput(prepareInput(reorderedInputArr));
 		setIsJsControlDisabled(false);
@@ -157,7 +156,6 @@ const JSInputParser: React.FC<Props> = ({
 			return;
 		}
 		const step = preparedInput[stepCounter];
-		console.log('JS STEP PC, BREAK', step.pc, step.breakPc);
 		if (step.insideBlock) {
 			setCodeLines([]);
 			const outputCard = (
