@@ -208,16 +208,16 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 						);
 						break;
 					}
-					case Components.FOR: {
-						variation = (
-							<For
-								index={index}
-								state={state}
-								setState={setState}
-							/>
-						);
-						break;
-					}
+					// case Components.FOR: {
+					// 	variation = (
+					// 		<For
+					// 			index={index}
+					// 			state={state}
+					// 			setState={setState}
+					// 		/>
+					// 	);
+					// 	break;
+					// }
 					case Components.WHILE: {
 						variation = (
 							<While

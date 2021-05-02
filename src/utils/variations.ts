@@ -35,7 +35,7 @@ export const variations: Variations = [
 	{ variation: Components.VAR_VAR, group: [Groups.A, Groups.B] },
 	{ variation: Components.IF, group: [Groups.A] },
 	{ variation: Components.ELSE, group: [Groups.A] },
-	{ variation: Components.FOR, group: [Groups.A] },
+	// { variation: Components.FOR, group: [Groups.A] },
 	{ variation: Components.WHILE, group: [Groups.A] },
 	{ variation: Components.LOG, group: [Groups.A, Groups.B] },
 ];

@@ -18,7 +18,7 @@ export const Components = {
 	END_IF: 'end if',
 	ELSE: 'else { ... }',
 	END_ELSE: 'end else',
-	FOR: 'for (let i=0; i < 6; i++) { ... }',
+	// FOR: 'for (let i=0; i < 6; i++) { ... }',
 	WHILE: 'while (a > b) { ... }',
 	END_WHILE: 'end while',
 	LOG: 'console.log(a)',
