@@ -19,7 +19,7 @@ export const Components = {
 	ELSE: 'else { ... }',
 	END_ELSE: 'end else',
 	FOR: 'for (let i=0; i < 6; i++) { ... }',
-	WHILE: 'while (a > b) { ... }',
+	WHILE: 'while (a >= b) { ... }',
 	END_WHILE: 'end while',
 	LOG: 'console.log(a)',
 } as const;

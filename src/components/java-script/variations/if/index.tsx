@@ -51,8 +51,7 @@ const If: React.FC<Props> = ({ state, setState, index, type }) => {
 						}
 					>
 						<option value={'initial'}>...</option>
-						<option value={'=='}>==</option>
-						<option value={'>'}>{'>'}</option>
+						<option value={'!='}>==</option>
 						<option value={'>='}>{'>='}</option>
 					</select>
 					<InputText
