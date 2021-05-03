@@ -20,8 +20,8 @@ export const ramAppInfo: InfoType = {
 
 export const jsAppInfo: InfoType = {
 	DE: {
-		header: 'JavaScript Programm',
+		header: 'JavaScript (lite) Programm',
 		content:
-			'Schreibe ein Programm in JavaScript. Wähle hierfür Code-Komponenten aus und trage deine Werte ein. Du kannst das Programm speichern oder ein gespeichertes Programm öffnen. Bist du fertig, klicke auf Kompilieren.',
+			'Schreibe ein Programm in JavaScript (lite). Wähle hierfür Code-Komponenten aus und trage deine Werte ein. Du kannst das Programm speichern oder ein gespeichertes Programm öffnen. Bist du fertig, klicke auf Kompilieren.',
 	},
 };

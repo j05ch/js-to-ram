@@ -645,7 +645,7 @@ export const parseJsInput = (
 					lineNo,
 					mark3: true,
 					code3:
-						element.operator === '>'
+						element.operator === '>='
 							? `${lineNo++} JGTZ LINE_NO`
 							: `${lineNo++} JZERO LINE_NO`,
 				};
@@ -756,7 +756,7 @@ export const parseJsInput = (
 					lineNo,
 					mark3: true,
 					code3:
-						element.operator === '>'
+						element.operator === '>='
 							? `${lineNo++} JGTZ LINE_NO`
 							: `${lineNo++} JZERO LINE_NO`,
 				};
