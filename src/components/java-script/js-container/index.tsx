@@ -28,6 +28,8 @@ const JsContainer: React.FC<Props> = () => {
 	const [pc, setPc] = useState<number>();
 	const [breakPc, setBreakPc] = useState<number>();
 	const inputFile = useRef<HTMLInputElement>(null);
+	const [fileName, setFileName] = useState('');
+
 	const locale = useLanguage().language;
 
 	const buildProgramArray = (arr: Array<string>) => {
@@ -69,7 +71,7 @@ const JsContainer: React.FC<Props> = () => {
 					setState(json);
 				}
 			};
-
+			setFileName(file.name);
 			reader.readAsText(file);
 		}
 	}
@@ -114,6 +116,9 @@ const JsContainer: React.FC<Props> = () => {
 							/>
 						)}
 					</div>
+					{fileName !== '' && (
+						<div className="text-sm pt-1">{fileName}</div>
+					)}
 				</div>
 			)}
 			{show.ram && programArray.length > 0 && (

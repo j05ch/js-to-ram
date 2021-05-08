@@ -24,6 +24,7 @@ const MachineAppContainer: React.FC = () => {
 	const [show, setShow] = useState(true);
 	const [isJsControlDisabled, setIsJsControlDisabled] = useState(true);
 	const [isRamControlDisabled, setIsRamControlDisabled] = useState(false);
+	const [fileName, setFileName] = useState('');
 
 	const locale = useLanguage().language;
 
@@ -52,7 +53,7 @@ const MachineAppContainer: React.FC = () => {
 					setProgramString(e.target.result);
 				}
 			};
-
+			setFileName(file.name);
 			reader.readAsText(file);
 		}
 	}
@@ -82,7 +83,7 @@ const MachineAppContainer: React.FC = () => {
 						value={programString}
 						placeholder={labels[locale].PROGRAM_HEADER}
 					/>
-					<div className="p-2 mb-4 flex justify-evenly items-center">
+					<div className="p-2 mb-4 flex justify-evenly items-baseline">
 						<div className="pr-2">
 							<Button
 								onClick={() =>
@@ -97,6 +98,9 @@ const MachineAppContainer: React.FC = () => {
 								onClick={onClickOpen}
 								label={labels[locale].OPEN_BTN}
 							/>
+							{fileName !== '' && (
+								<div className="text-sm pt-1">{fileName}</div>
+							)}
 						</div>
 					</div>
 					<InputFieldContainer

@@ -824,7 +824,7 @@ export const parseJsInput = (
 				break;
 			}
 			default:
-				console.error('Component not found.');
+				console.error(`Component ${element} not found.`);
 		}
 	});
 

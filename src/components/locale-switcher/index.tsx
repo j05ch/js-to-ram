@@ -2,6 +2,10 @@ import * as React from 'react';
 import useLanguage from '../../hooks/useLanguageContext';
 import { LOCALES } from '../../models/locales';
 
+/**
+ * Language-Switcher component.
+ * @returns {JSX.Element}
+ */
 const LocaleSwitcher: React.FC = () => {
 	const languageContext = useLanguage();
 
