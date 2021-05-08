@@ -14,7 +14,6 @@ const VariationWrapper: React.FC<Props> = ({
 }) => {
 	return (
 		<div className="flex items-center ml-2">
-			{/*<div className="text-red-600">{index}</div>*/}
 			<>{children}</>
 			<div
 				className="cursor-pointer ml-1 mr-1"

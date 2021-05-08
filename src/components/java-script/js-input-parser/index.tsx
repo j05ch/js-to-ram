@@ -3,39 +3,25 @@ import { useEffect, useState } from 'react';
 import { parseJsInput } from '../../../utils/parseJsInput';
 import { useInterval } from '../../../hooks/useInterval';
 import { generateStep } from '../../../utils/generateStep';
-import Button from '../../common/button';
-import { labels } from '../../../models/labels';
 import { Components } from '../../../actions/components';
 import MachineControl from '../../random-access-machine/machine-control';
 import JsOutputCard from '../js-output/js-output-card';
 import { DE } from '../../../models/locales';
+import { StepInterface } from '../../../types/StepInterface';
 
-type InputType = (
-	| {
-			codeOutput: never[];
-			lineNo: number;
-			lastStep: boolean;
-			insideBlock: boolean;
-			ramProgram?: undefined;
-			lineComplete?: undefined;
-			pc?: undefined;
-			breakPc?: undefined;
-	  }
-	| {
-			codeOutput: JSX.Element[];
-			ramProgram: string[];
-			lineNo: number;
-			lastStep: any;
-			insideBlock: boolean;
-			lineComplete: boolean;
-			pc: number;
-			breakPc: number;
-	  }
-)[];
+interface InputInterface {
+	codeOutput: JSX.Element[];
+	ramProgram: string[];
+	lineNo: number;
+	lastStep: boolean;
+	insideBlock: boolean;
+	pc: number;
+	breakPc: number;
+}
 
 interface Props {
 	inputModel: any;
-	buildRamProgram: (arr: Array<string>) => void;
+	buildRamProgram: (arr: string[]) => void;
 	isJsRunning: boolean;
 	setIsJsRunning: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsRamRunning: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,7 +29,6 @@ interface Props {
 	setIsJsControlDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 	setPc: React.Dispatch<React.SetStateAction<number | undefined>>;
 	setBreakPc: React.Dispatch<React.SetStateAction<number | undefined>>;
-	isRamControlDisabled: boolean;
 	isJsControlDisabled: boolean;
 }
 
@@ -53,7 +38,6 @@ const JSInputParser: React.FC<Props> = ({
 	isJsRunning,
 	setIsJsRunning,
 	setIsRamRunning,
-	isRamControlDisabled,
 	setIsRamControlDisabled,
 	isJsControlDisabled,
 	setIsJsControlDisabled,
@@ -61,11 +45,11 @@ const JSInputParser: React.FC<Props> = ({
 	setBreakPc,
 }) => {
 	const [codeLines, setCodeLines] = useState<JSX.Element[]>([]);
-	const [completeDisplay, setCompleteDisplay] = useState<any>([]);
+	const [completeDisplay, setCompleteDisplay] = useState<JSX.Element[]>([]);
 	const [ramProgram, setRamProgram] = useState<Array<string>>([]);
 	const [stepCounter, setStepCounter] = useState(0);
 	const [lineNo, setLineNo] = useState(0);
-	const [preparedInput, setPreparedInput] = useState<InputType>([]);
+	const [preparedInput, setPreparedInput] = useState<InputInterface[]>([]);
 
 	const [locale, setLocale] = useState(DE);
 	useEffect(() => setLocale(DE), [locale]);
@@ -76,23 +60,21 @@ const JSInputParser: React.FC<Props> = ({
 	useEffect(() => {
 		const inputArr = parseJsInput(inputModel, 0);
 		const reorderedInputArr = findAndReplaceJumpTargets(inputArr.parsedArr);
-		console.log('Reordered', reorderedInputArr);
-		// @ts-ignore
 		setPreparedInput(prepareInput(reorderedInputArr));
 		setIsJsControlDisabled(false);
 	}, []);
 
-	function findAndReplaceJumpTargets(arr: any) {
+	function findAndReplaceJumpTargets(arr: StepInterface[]) {
 		const reversed = arr.reverse();
 		let lineNolocal = 0;
 		let elseSkipLineNo = 0;
-		reversed.forEach((r: any, index: number) => {
+		reversed.forEach((r: StepInterface, index: number) => {
 			if (
 				(r.type === Components.IF || r.type === Components.WHILE) &&
 				r['code3'] !== ''
 			) {
 				const jumpCode = r['code3'];
-				const jcArr = jumpCode.split(' ');
+				const jcArr = jumpCode!.split(' ');
 				jcArr[2] =
 					elseSkipLineNo !== 0
 						? elseSkipLineNo.toString()
@@ -107,7 +89,7 @@ const JSInputParser: React.FC<Props> = ({
 			}
 			if (r.type === Components.ELSE && r['code1'] !== '') {
 				const jumpCode = r['code1'];
-				const jcArr = jumpCode.split(' ');
+				const jcArr = jumpCode!.split(' ');
 				jcArr[2] = lineNolocal.toString();
 				r['code1'] = jcArr.join(' ');
 				elseSkipLineNo = r.lineNo + 1;
@@ -120,7 +102,7 @@ const JSInputParser: React.FC<Props> = ({
 		return reversed.reverse();
 	}
 
-	function prepareInput(input: any[]) {
+	function prepareInput(input: StepInterface[]) {
 		let lineNoLocal = 0;
 		let blockStart = 0;
 		let jumpTarget = 0;
@@ -157,7 +139,6 @@ const JSInputParser: React.FC<Props> = ({
 			return;
 		}
 		const step = preparedInput[stepCounter];
-		console.log('JS STEP PC, BREAK', step.pc, step.breakPc);
 		if (step.insideBlock) {
 			setCodeLines([]);
 			const outputCard = (
@@ -177,7 +158,6 @@ const JSInputParser: React.FC<Props> = ({
 					: ramProgram
 			);
 		} else if (step.lastStep) {
-			// setLineNo(output.lineNo);
 			setCodeLines([]);
 			const codeCard = (
 				<JsOutputCard key={`card-${String(stepCounter)}`}>

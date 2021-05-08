@@ -10,7 +10,6 @@ interface Props {
 const AddVariation: React.FC<Props> = ({ index, handleClick }) => {
 	return (
 		<div className="flex items-center">
-			{/*<div className="text-red-600">{index}</div>*/}
 			<div
 				className="cursor-pointer ml-2"
 				onClick={() => handleClick(index)}

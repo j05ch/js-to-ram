@@ -1,7 +1,7 @@
 const HIGHEST_USED_REGISTER = 0;
 
 export const mapVariables = (object: any) => {
-	const mappedVariables: any = [HIGHEST_USED_REGISTER];
+	const mappedVariables: string[] = [HIGHEST_USED_REGISTER.toString()];
 	Object.keys(object).forEach((k) => {
 		if (object[k].varField) {
 			const varField = object[k].varField;
@@ -21,7 +21,9 @@ export const mapVariables = (object: any) => {
 			});
 		}
 	});
-	mappedVariables[HIGHEST_USED_REGISTER] = mappedVariables.length - 1;
-	console.log('mapped variable', mappedVariables);
+	mappedVariables[HIGHEST_USED_REGISTER] = (
+		mappedVariables.length - 1
+	).toString();
+
 	return mappedVariables;
 };

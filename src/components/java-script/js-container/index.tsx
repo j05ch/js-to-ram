@@ -7,7 +7,7 @@ import Button from '../../common/button';
 import { downloadProgramJson } from '../../../utils/programUtils';
 import { labels } from '../../../models/labels';
 import InfoPopup from '../../common/info-popup/info-popup';
-import { jsAppInfo, ramAppInfo } from '../../../models/info-texts';
+import { jsAppInfo } from '../../../models/info-texts';
 import { DE } from '../../../models/locales';
 
 interface Props {}
@@ -30,7 +30,7 @@ const JsContainer: React.FC<Props> = () => {
 	const inputFile = useRef<HTMLInputElement>(null);
 	const [locale, setLocale] = useState(DE);
 
-	useEffect(() => setLocale(DE), []);
+	useEffect(() => setLocale(DE), [locale]);
 
 	const buildProgramArray = (arr: Array<string>) => {
 		const program = arr.map((s) => s.split(' '));
@@ -145,7 +145,6 @@ const JsContainer: React.FC<Props> = () => {
 					setIsRamRunning={setIsRamRunning}
 					setPc={setPc}
 					setBreakPc={setBreakPc}
-					isRamControlDisabled={isRamControlDisabled}
 					setIsRamControlDisabled={setIsRamControlDisabled}
 					isJsControlDisabled={isJsControlDisabled}
 					setIsJsControlDisabled={setIsJsControlDisabled}

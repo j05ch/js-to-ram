@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Dispatch, useEffect, useState } from 'react';
-import InputText from '../input-text';
 import VariationsChildContainer from '../../variations-child-container';
 import { ComponentsKey } from '../../../../actions/components';
 

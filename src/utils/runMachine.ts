@@ -25,8 +25,15 @@ function getArgument(mode: Mode, s: string) {
  * @param programCounter {number}
  * @param inputIndex {number}
  * @param commandLine {string[]}
- * @param input {number}
+ * @param inputArr
  * @param register {number[]}
+ * @param step
+ * @param changedRegister
+ * @param pcMark
+ * @param programMark
+ * @param inputMark
+ * @param outputMark
+ * @param programIndex
  * @returns {{number, number, number[], number}}
  */
 export function runMachine(
@@ -532,11 +539,9 @@ export function runMachine(
 				}
 			}
 			break;
-		default:
-			{
-				console.error('Program error');
-			}
-			break;
+		default: {
+			console.error('Program error');
+		}
 	}
 
 	register[0] = acc;

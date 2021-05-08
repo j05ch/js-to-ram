@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { variations } from '../../../utils/variations';
 import { Groups } from '../../../actions/groups';
-import { Components, ComponentsKey } from '../../../actions/components';
+import { ComponentsKey } from '../../../actions/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
