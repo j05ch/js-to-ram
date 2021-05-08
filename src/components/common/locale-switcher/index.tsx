@@ -1,6 +1,6 @@
 import * as React from 'react';
-import useLanguage from '../../hooks/useLanguageContext';
-import { LOCALES } from '../../models/locales';
+import useLanguage from '../../../hooks/useLanguageContext';
+import { LOCALES } from '../../../models/locales';
 
 /**
  * Language-Switcher component.
