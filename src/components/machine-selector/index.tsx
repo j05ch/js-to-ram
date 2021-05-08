@@ -1,11 +1,10 @@
 import * as React from 'react';
 import Button from '../common/button';
 import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { labels } from '../../models/labels';
 import InfoPopup from '../common/info-popup/info-popup';
 import { machineSelectorInfo } from '../../models/info-texts';
-import { DE } from '../../models/locales';
+import useLanguage from '../../hooks/useLanguageContext';
 
 /**
  * Component to select from available machine-workflows
@@ -14,8 +13,7 @@ import { DE } from '../../models/locales';
 const MachineSelector: React.FC = () => {
 	let history = useHistory();
 
-	const [locale, setLocale] = useState(DE);
-	useEffect(() => setLocale(DE), [locale]);
+	const locale = useLanguage().language;
 
 	const handleClick = (path: string) => {
 		history.push(path);

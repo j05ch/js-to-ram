@@ -6,8 +6,8 @@ import { generateStep } from '../../../utils/generateStep';
 import { Components } from '../../../actions/components';
 import MachineControl from '../../random-access-machine/machine-control';
 import JsOutputCard from '../js-output/js-output-card';
-import { DE } from '../../../models/locales';
 import { StepInterface } from '../../../types/StepInterface';
+import useLanguage from '../../../hooks/useLanguageContext';
 
 interface InputInterface {
 	codeOutput: JSX.Element[];
@@ -51,8 +51,7 @@ const JSInputParser: React.FC<Props> = ({
 	const [lineNo, setLineNo] = useState(0);
 	const [preparedInput, setPreparedInput] = useState<InputInterface[]>([]);
 
-	const [locale, setLocale] = useState(DE);
-	useEffect(() => setLocale(DE), [locale]);
+	const locale = useLanguage().language;
 
 	const [delay, setDelay] = useState(2000);
 	useInterval(jsStep, isJsRunning ? delay : null);

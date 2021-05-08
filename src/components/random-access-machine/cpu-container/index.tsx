@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { labels } from '../../../models/labels';
-import { useEffect, useState } from 'react';
-import { DE } from '../../../models/locales';
+import useLanguage from '../../../hooks/useLanguageContext';
 
 const CpuContainer: React.FC = () => {
-	const [locale, setLocale] = useState(DE);
-
-	useEffect(() => setLocale(DE), []);
+	const locale = useLanguage().language;
 
 	return (
 		<>

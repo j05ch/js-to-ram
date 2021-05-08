@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { labels } from '../../../models/labels';
-import { useEffect, useState } from 'react';
-import { DE } from '../../../models/locales';
+import useLanguage from '../../../hooks/useLanguageContext';
 
 interface Props {
 	programCounter: number | undefined;
@@ -9,9 +8,7 @@ interface Props {
 }
 
 const ProgramCounterContainer: React.FC<Props> = ({ programCounter, mark }) => {
-	const [locale, setLocale] = useState(DE);
-
-	useEffect(() => setLocale(DE), []);
+	const locale = useLanguage().language;
 
 	const colorMark = mark
 		? 'bg-pink-500 text-white font-bold'

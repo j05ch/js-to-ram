@@ -1,1 +1,4 @@
-export const DE = 'DE';
+export enum LOCALES {
+	DE = 'DE',
+	EN = 'EN',
+}

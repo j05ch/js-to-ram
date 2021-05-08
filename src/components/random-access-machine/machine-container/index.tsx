@@ -11,7 +11,7 @@ import DisplayContainer from '../display-container';
 import { labels } from '../../../models/labels';
 import MachineControl from '../machine-control';
 import { Step } from '../../../actions/step';
-import { DE } from '../../../models/locales';
+import useLanguage from '../../../hooks/useLanguageContext';
 
 interface Props {
 	programArray: string[][];
@@ -53,13 +53,12 @@ const MachineContainer: React.FC<Props> = ({
 	const [outputMark, setOutputMark] = useState(false);
 	const [register, setRegister] = useState<number[]>([0]);
 	const [outputArray, setOutputArray] = useState<string[]>([]);
-	const [locale, setLocale] = useState(DE);
 	const [delay, setDelay] = useState(INITIAL_DELAY);
 	const [step, setStep] = useState(Step.INITIAL);
 	const [changedRegister, setChangedRegister] = useState<number[]>([]);
 	const isBreak = breakPc > -1;
 
-	useEffect(() => setLocale(DE), [locale]);
+	const locale = useLanguage().language;
 
 	useInterval(machineStep, isRamRunning ? delay : null);
 
