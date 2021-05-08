@@ -1,7 +1,13 @@
 {
   "name": "js-to-ram",
   "version": "0.1.0",
+  "author": "Josch",
+  "license": "ISC",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j05ch/js-to-ram.git"
+  },
   "dependencies": {
     "@craco/craco": "^6.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
