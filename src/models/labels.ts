@@ -19,6 +19,6 @@ export const labels: { [index: string]: any } = {
 		LOAD_RAM: 'RAM laden',
 		CHOOSE: 'Bitte wähle:',
 		JS_HEADER: 'JavaScript (lite)',
-		COMPILE_BTN: 'Kompilieren',
+		COMPILE_BTN: 'Interpretieren',
 	},
 };
