@@ -250,10 +250,6 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 		);
 	}, [variations, state]);
 
-	useEffect(() => {
-		console.log('STATE', state);
-	}, [state]);
-
 	const cleanUpAddVariation = (tempArr: ComponentsKey[]) => {
 		for (let i = 0; i < tempArr.length; i++) {
 			if (tempArr[i] === Components.ADD_VARIATION) {

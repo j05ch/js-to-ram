@@ -47,10 +47,6 @@ const JsContainer: React.FC<Props> = () => {
 		});
 	};
 
-	useEffect(() => {
-		console.log('PC and Break', pc, breakPc);
-	}, [pc, breakPc]);
-
 	async function onClickOpen() {
 		if (inputFile.current) {
 			await inputFile.current.click();

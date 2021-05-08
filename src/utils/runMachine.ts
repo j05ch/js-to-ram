@@ -87,13 +87,6 @@ export function runMachine(
 					changedRegister = [...changedRegister, argument];
 					step = Step.PC;
 					inputMark = true;
-					console.log(
-						'Argument, changed register, acc, input',
-						argument,
-						changedRegister,
-						register[argument],
-						input
-					);
 					break;
 				}
 				if (step === Step.PC) {
