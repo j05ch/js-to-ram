@@ -232,7 +232,7 @@ export const generateStep = (
 			codeOutput.push(<div>{'}'}</div>);
 			pc = blockStart;
 			breakPc = jumpTarget;
-			lineNo = jumpTarget;
+			lineNo = jumpTarget + 1;
 			break;
 		case Components.ELSE:
 			codeOutput.push(<ElseOutput mark1={element.mark1!} />);
