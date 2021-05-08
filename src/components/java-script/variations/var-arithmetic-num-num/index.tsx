@@ -22,7 +22,7 @@ const VarArithmeticNumNum: React.FC<Props> = ({ index, state, setState }) => {
 				<InputText
 					state={state}
 					setState={setState}
-					placeHolder={'123'}
+					placeHolder={'42'}
 					name={'operandLeft'}
 				/>
 				<select
@@ -51,7 +51,7 @@ const VarArithmeticNumNum: React.FC<Props> = ({ index, state, setState }) => {
 				<InputText
 					state={state}
 					setState={setState}
-					placeHolder={'456'}
+					placeHolder={'23'}
 					name={'operandRight'}
 				/>
 				<div>;</div>

@@ -38,7 +38,7 @@ const Let: React.FC<Props> = ({ index, state, setState, type }) => {
 				<InputText
 					state={state[index]}
 					setState={setLocalState}
-					placeHolder={'5'}
+					placeHolder={'23'}
 					name={'value'}
 				/>
 				<div>;</div>

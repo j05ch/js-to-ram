@@ -8,7 +8,6 @@ import LetArithmeticVarVar from '../variations/let-arithmetic-var-var';
 import VariationWrapper from '../variation-wrapper';
 import LetArithmeticNumNum from '../variations/let-arithmetic-num-num';
 import If from '../variations/if';
-import For from '../variations/for';
 import Let from '../variations/let';
 import LetVar from '../variations/let-var';
 import VarVar from '../variations/var-var';
@@ -29,7 +28,6 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 		Components.ADD_VARIATION,
 	]);
 	const [components, setComponents] = useState<JSX.Element[]>([]);
-	// const [state, setState] = useState({});
 
 	useEffect(() => {
 		setComponents(
@@ -204,16 +202,6 @@ const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 								state={state}
 								setState={setState}
 								type={Components.ELSE}
-							/>
-						);
-						break;
-					}
-					case Components.FOR: {
-						variation = (
-							<For
-								index={index}
-								state={state}
-								setState={setState}
 							/>
 						);
 						break;

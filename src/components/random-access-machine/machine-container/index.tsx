@@ -122,10 +122,8 @@ const MachineContainer: React.FC<Props> = ({
 		}
 	}
 
-	const animate = isRamRunning ? 'animate-pulse' : '';
-
 	return (
-		<div className="max-w-screen-md m-2 rounded bg-white">
+		<div className="w-750 m-2 rounded bg-white">
 			<div className="text-blue-50 grid-container rounded m-4 bg-gray-100">
 				<div className="bg-gray-500 input">
 					<DisplayContainer
@@ -135,8 +133,8 @@ const MachineContainer: React.FC<Props> = ({
 						mark={inputMark}
 					/>
 				</div>
-				<div className={`bg-pink-500 cpu ${animate}`}>
-					<CpuContainer />
+				<div className="bg-pink-500 cpu">
+					<CpuContainer animate={isRamRunning} />
 				</div>
 				<div className="bg-gray-300 program-counter">
 					<ProgramCounterContainer

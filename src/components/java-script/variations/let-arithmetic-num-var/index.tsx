@@ -45,7 +45,7 @@ const LetArithmeticNumVar: React.FC<Props> = ({
 				<InputText
 					state={state[index]}
 					setState={setLocalState}
-					placeHolder={'4'}
+					placeHolder={'42'}
 					name={'numLeft'}
 				/>
 				<select
