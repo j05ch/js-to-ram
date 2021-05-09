@@ -1,6 +1,35 @@
-# Getting Started with Create React Index
+# JS-to-RAM
 
-This project was bootstrapped with [Create React Index](https://github.com/facebook/create-react-app).
+A web-app that simulates a subset of JavaScript on a model of a Random Access Machine.
+
+# Prerequisites
+
+Node >=10.16.0 
+
+Yarn or npm
+
+# Installation
+
+`yarn install` to install all dependencies.
+
+# Start
+
+`yarn start` will open the web-app in dev-mode on https://localhost:3000
+
+# Production build
+
+`yarn build` for an optimized production build (/build).
+
+# Issues, bugs, suggestions...
+
+Please use the GitHub issues feature on https://github.com/j05ch/js-to-ram/issues
+
+# More on Create React App below:
+
+
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 

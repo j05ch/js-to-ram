@@ -1,0 +1,40 @@
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-areas:
+		'input input input input input'
+		'program cpu cpu cpu register'
+		'program . program-counter . register'
+		'program . . . register'
+		'output output output output output'
+		'control control control control control';
+	gap: 0.25em;
+}
+
+.cpu {
+	grid-area: cpu;
+}
+
+.program {
+	grid-area: program;
+}
+
+.program-counter {
+	grid-area: program-counter;
+}
+
+.register {
+	grid-area: register;
+}
+
+.input {
+	grid-area: input;
+}
+
+.output {
+	grid-area: output;
+}
+
+.control {
+	grid-area: control;
+}
