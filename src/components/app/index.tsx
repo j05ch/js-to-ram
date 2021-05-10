@@ -11,27 +11,31 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 const App: React.FC = () => {
 	return (
 		<LanguageContextProvider>
-			<Router>
-				<div className="absolute top-0 left-0 flex">
-					<LocaleSwitcher />
-					<div className="p-2">
-						<Link to="/">
-							<FontAwesomeIcon icon={faHome} />
-						</Link>
-					</div>
+			<div className="flex justify-center">
+				<div className="min-w-800 max-w-1200 pt-4 relative">
+					<Router>
+						<div className="absolute top-0 left-0 flex">
+							<LocaleSwitcher />
+							<div className="p-2">
+								<Link to="/">
+									<FontAwesomeIcon icon={faHome} />
+								</Link>
+							</div>
+						</div>
+						<Switch>
+							<Route exact path={'/'}>
+								<MachineSelector />
+							</Route>
+							<Route path={'/ram'}>
+								<MachineAppContainer />
+							</Route>
+							<Route path={'/js'}>
+								<JsContainer />
+							</Route>
+						</Switch>
+					</Router>
 				</div>
-				<Switch>
-					<Route exact path={'/'}>
-						<MachineSelector />
-					</Route>
-					<Route path={'/ram'}>
-						<MachineAppContainer />
-					</Route>
-					<Route path={'/js'}>
-						<JsContainer />
-					</Route>
-				</Switch>
-			</Router>
+			</div>
 		</LanguageContextProvider>
 	);
 };
