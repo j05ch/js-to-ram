@@ -29,7 +29,7 @@ const InfoPopup: React.FC<Props> = ({ header, content }) => {
 				<FontAwesomeIcon icon={faInfoCircle} />
 			</div>
 			<div
-				className={`${display} absolute top-0 left-0 z-index-40 w-screen h-screen bg-blue-700 opacity-80`}
+				className={`${display} absolute top-0 left-0 z-index-40 w-100 h-screen bg-blue-700 opacity-80`}
 			/>
 			<div
 				className={`${display} absolute top-1/4 right-1/4 z-index-50 w-96 rounded p-4 bg-white`}
