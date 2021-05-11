@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ProgramContainer from '../program-container';
 import { useInterval } from '../../../hooks/useInterval';
 import { runMachine } from '../../../utils/runMachine';
@@ -19,29 +19,39 @@ interface Props {
 	isRamRunning: boolean;
 	setIsRamRunning: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsJsRunning: React.Dispatch<React.SetStateAction<boolean>>;
-	extended?: boolean;
 	pc: number;
 	breakPc: number;
 	setIsRamControlDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsJsControlDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 	isRamControlDisabled: boolean;
-	isJsControlDisabled: boolean;
 }
 
 const INITIAL_DELAY = 2000;
 
+/**
+ * Container-component for RAM.
+ * @param programArray
+ * @param inputArray
+ * @param isRamRunning
+ * @param setIsRamRunning
+ * @param setIsJsRunning
+ * @param pc
+ * @param breakPc
+ * @param isRamControlDisabled
+ * @param setIsRamControlDisabled
+ * @param setIsJsControlDisabled
+ * @returns {JSX.Element}
+ */
 const MachineContainer: React.FC<Props> = ({
 	programArray,
 	inputArray,
 	isRamRunning,
 	setIsRamRunning,
 	setIsJsRunning,
-	extended,
 	pc,
 	breakPc,
 	isRamControlDisabled,
 	setIsRamControlDisabled,
-	isJsControlDisabled,
 	setIsJsControlDisabled,
 }) => {
 	const [programCounter, setProgramCounter] = useState<number | undefined>();

@@ -5,6 +5,12 @@ interface Props {
 	lineNo: string;
 }
 
+/**
+ * Displays a line of assembly code.
+ * @param code
+ * @param lineNo
+ * @returns {JSX.Element}
+ */
 const AssemblerLine: React.FC<Props> = ({ code, lineNo }) => {
 	return (
 		<div className="flex gap-0.5 text-lg">

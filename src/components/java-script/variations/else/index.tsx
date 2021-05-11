@@ -10,6 +10,14 @@ interface Props {
 	type: ComponentsKey;
 }
 
+/**
+ * Input variation else
+ * @param state
+ * @param setState
+ * @param index
+ * @param type
+ * @returns {JSX.Element}
+ */
 const Else: React.FC<Props> = ({ state, setState, index, type }) => {
 	const [localState, setLocalState] = useState(state[index]);
 

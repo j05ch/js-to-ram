@@ -10,13 +10,13 @@ const operators: { [index: string]: string } = {
 };
 
 /**
- *
+ * Parses JS-Input and returns an object with output-content in array and line-no.
  * @param input
  * @param lineNo
  * @param child
  * @param parentVariables
+ * @returns {Object}
  */
-
 export const parseJsInput = (
 	input: any,
 	lineNo: number,

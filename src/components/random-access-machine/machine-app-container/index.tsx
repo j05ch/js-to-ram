@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { labels } from '../../../models/labels';
 import InputField from '../../common/input-field';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
 	downloadProgramFile,
 	programStringToArray,
@@ -13,6 +13,10 @@ import InfoPopup from '../../common/info-popup/info-popup';
 import { ramAppInfo } from '../../../models/info-texts';
 import useLanguage from '../../../hooks/useLanguageContext';
 
+/**
+ * Parent-component for RAM.
+ * @returns {JSX.Element}
+ */
 const MachineAppContainer: React.FC = () => {
 	const [programString, setProgramString] = useState('');
 	const [programArray, setProgramArray] = useState<string[][]>([]);
@@ -127,7 +131,6 @@ const MachineAppContainer: React.FC = () => {
 						setIsJsRunning={setIsJsRunning}
 						pc={0}
 						breakPc={-1}
-						isJsControlDisabled={isJsControlDisabled}
 						isRamControlDisabled={isRamControlDisabled}
 						setIsRamControlDisabled={setIsRamControlDisabled}
 						setIsJsControlDisabled={setIsJsControlDisabled}

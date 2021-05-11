@@ -7,6 +7,14 @@ interface Props {
 	mark2: boolean;
 }
 
+/**
+ * Displays var-var-output
+ * @param varField
+ * @param varValue
+ * @param mark1
+ * @param mark2
+ * @returns {JSX.Element}
+ */
 const VarVarOutput: React.FC<Props> = ({
 	varField,
 	varValue,

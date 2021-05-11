@@ -8,6 +8,13 @@ interface Props {
 	placeholder: string;
 }
 
+/**
+ * Wrapper for input-field-component.
+ * @param state
+ * @param setState
+ * @param placeholder
+ * @returns {JSX.Element}
+ */
 const InputFieldContainer: React.FC<Props> = ({
 	state,
 	setState,

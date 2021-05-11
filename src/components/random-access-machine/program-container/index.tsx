@@ -10,6 +10,13 @@ interface Props {
 	mark: boolean;
 }
 
+/**
+ * Container for program-lines.
+ * @param programArray
+ * @param programCounter
+ * @param mark
+ * @constructor
+ */
 const ProgramContainer: React.FC<Props> = ({
 	programArray,
 	programCounter,

@@ -4,6 +4,11 @@ interface Props {
 	mark1: boolean;
 }
 
+/**
+ * Displays else-output
+ * @param mark1
+ * @returns {JSX.Element}
+ */
 const ElseOutput: React.FC<Props> = ({ mark1 }) => {
 	const styles1 = mark1 ? 'bg-pink-500 text-white font-bold' : '';
 

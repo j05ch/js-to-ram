@@ -8,6 +8,10 @@ import LocaleSwitcher from '../common/locale-switcher';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 
+/**
+ * App component, containing routing.
+ * @returns {JSX.Element}
+ */
 const App: React.FC = () => {
 	return (
 		<LanguageContextProvider>

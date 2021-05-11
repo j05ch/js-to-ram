@@ -11,6 +11,15 @@ interface Props {
 	isLet: boolean;
 }
 
+/**
+ * Input variation LetArithmeticVarVar
+ * @param index
+ * @param state
+ * @param setState
+ * @param type
+ * @param isLet
+ * @returns {JSX.Element}
+ */
 const LetArithmeticVarVar: React.FC<Props> = ({
 	index,
 	state,

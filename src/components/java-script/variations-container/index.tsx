@@ -23,6 +23,12 @@ interface Props {
 	setState: Dispatch<React.SetStateAction<{}>>;
 }
 
+/**
+ * Container-Component for variations.
+ * @param state
+ * @param setState
+ * @returns {JSX.Element}
+ */
 const VariationsContainer: React.FC<Props> = ({ state, setState }) => {
 	const [variations, setVariations] = useState<ComponentsKey[]>([
 		Components.ADD_VARIATION,

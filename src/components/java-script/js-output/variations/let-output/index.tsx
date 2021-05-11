@@ -7,6 +7,14 @@ interface Props {
 	mark2: boolean;
 }
 
+/**
+ * Displays let-output
+ * @param varField
+ * @param value
+ * @param mark1
+ * @param mark2
+ * @returns {JSX.Element}
+ */
 const LetOutput: React.FC<Props> = ({ varField, value, mark1, mark2 }) => {
 	const styles1 = mark1 ? 'bg-pink-500 text-white font-bold' : '';
 	const styles2 = mark2 ? 'bg-pink-500 text-white font-bold' : '';

@@ -9,7 +9,7 @@ interface Props {
 
 /**
  * Component with text-area that triggers setState on change
- * @param etState
+ * @param setState
  * @param value
  * @param placeholder
  * @returns {JSX.Element}

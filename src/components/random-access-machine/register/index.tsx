@@ -6,6 +6,13 @@ interface Props {
 	mark: boolean;
 }
 
+/**
+ * Component that holds one register.
+ * @param register
+ * @param index
+ * @param mark
+ * @returns {JSX.Element}
+ */
 const Register: React.FC<Props> = ({ register, index, mark }) => {
 	const colorMark = mark
 		? 'bg-pink-500 text-white font-bold'

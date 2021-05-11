@@ -12,6 +12,13 @@ interface Props {
 	selectVariation: (variation: ComponentsKey, index: number) => void;
 }
 
+/**
+ * Component for variations-selector pull-down.
+ * @param index
+ * @param group
+ * @param selectVariation
+ * @returns {JSX.Element}
+ */
 const VariationsSelector: React.FC<Props> = ({
 	index,
 	group,

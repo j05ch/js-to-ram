@@ -8,6 +8,11 @@ interface Props {
 	animate: boolean;
 }
 
+/**
+ * CPU-Component.
+ * @param animate
+ * @returns {JSX.Element}
+ */
 const CpuContainer: React.FC<Props> = ({ animate }) => {
 	const locale = useLanguage().language;
 

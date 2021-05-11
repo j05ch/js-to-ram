@@ -11,6 +11,14 @@ interface Props {
 	type: ComponentsKey;
 }
 
+/**
+ * Input variation While
+ * @param state
+ * @param setState
+ * @param index
+ * @param type
+ * @returns {JSX.Element}
+ */
 const While: React.FC<Props> = ({ state, setState, index, type }) => {
 	const [localState, setLocalState] = useState(state[index]);
 

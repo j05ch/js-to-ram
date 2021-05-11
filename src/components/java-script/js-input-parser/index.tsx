@@ -32,6 +32,20 @@ interface Props {
 	isJsControlDisabled: boolean;
 }
 
+/**
+ * Parses and displays JS.
+ * @param inputModel
+ * @param buildRamProgram
+ * @param isJsRunning
+ * @param setIsJsRunning
+ * @param setIsRamRunning
+ * @param setIsRamControlDisabled
+ * @param isJsControlDisabled
+ * @param setIsJsControlDisabled
+ * @param setPc
+ * @param setBreakPc
+ * @returns {JSX.Element}
+ */
 const JSInputParser: React.FC<Props> = ({
 	inputModel,
 	buildRamProgram,

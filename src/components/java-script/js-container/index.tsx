@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import VariationsContainer from '../variations-container';
 import JSInputParser from '../js-input-parser';
 import MachineContainer from '../../random-access-machine/machine-container';
@@ -10,9 +10,11 @@ import InfoPopup from '../../common/info-popup/info-popup';
 import { jsAppInfo } from '../../../models/info-texts';
 import useLanguage from '../../../hooks/useLanguageContext';
 
-interface Props {}
-
-const JsContainer: React.FC<Props> = () => {
+/**
+ * Component that contains all main components for the JavaScript simulation
+ * @returns {JSX.Element}
+ */
+const JsContainer: React.FC = () => {
 	const [show, setShow] = useState({
 		jsInput: true,
 		jsOutput: false,
@@ -125,12 +127,10 @@ const JsContainer: React.FC<Props> = () => {
 						isRamRunning={isRamRunning}
 						setIsRamRunning={setIsRamRunning}
 						setIsJsRunning={setIsJsRunning}
-						extended
 						pc={pc || 0}
 						breakPc={breakPc || -1}
 						isRamControlDisabled={isRamControlDisabled}
 						setIsRamControlDisabled={setIsRamControlDisabled}
-						isJsControlDisabled={isJsControlDisabled}
 						setIsJsControlDisabled={setIsJsControlDisabled}
 					/>
 				</div>

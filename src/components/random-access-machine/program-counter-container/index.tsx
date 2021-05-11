@@ -7,6 +7,12 @@ interface Props {
 	mark: boolean;
 }
 
+/**
+ * PC-Component.
+ * @param programCounter
+ * @param mark
+ * @returns returns {JSX.Element}
+ */
 const ProgramCounterContainer: React.FC<Props> = ({ programCounter, mark }) => {
 	const locale = useLanguage().language;
 

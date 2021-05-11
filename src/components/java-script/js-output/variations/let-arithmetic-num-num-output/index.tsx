@@ -11,6 +11,18 @@ interface Props {
 	mark3: boolean;
 }
 
+/**
+ * Displays let-arithmetic-num-num-output
+ * @param isLet
+ * @param varField
+ * @param numLeft
+ * @param operator
+ * @param numRight
+ * @param mark1
+ * @param mark2
+ * @param mark3
+ * @returns {JSX.Element}
+ */
 const LetArithmeticNumNumOutput: React.FC<Props> = ({
 	isLet,
 	varField,

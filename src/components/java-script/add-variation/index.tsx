@@ -7,6 +7,12 @@ interface Props {
 	handleClick: (index: number) => void;
 }
 
+/**
+ * Component for adding a variation.
+ * @param index
+ * @param handleClick
+ * @returns {JSX.Element}
+ */
 const AddVariation: React.FC<Props> = ({ index, handleClick }) => {
 	return (
 		<div className="flex items-center">

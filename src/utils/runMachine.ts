@@ -21,12 +21,12 @@ function getArgument(mode: Mode, s: string) {
 }
 
 /**
- * Here goes the business logic of the random access machine
- * @param programCounter {number}
- * @param inputIndex {number}
- * @param commandLine {string[]}
+ * The business logic of the RAM.
+ * @param programCounter
+ * @param inputIndex
+ * @param commandLine
  * @param inputArr
- * @param register {number[]}
+ * @param register
  * @param step
  * @param changedRegister
  * @param pcMark
@@ -34,7 +34,7 @@ function getArgument(mode: Mode, s: string) {
  * @param inputMark
  * @param outputMark
  * @param programIndex
- * @returns {{number, number, number[], number}}
+ * @returns {Object}
  */
 export function runMachine(
 	programCounter: number,

@@ -7,6 +7,13 @@ interface Props {
 	removeVariation: (index: number) => void;
 }
 
+/**
+ * Wrapper-component for variations.
+ * @param index
+ * @param children
+ * @param removeVariation
+ * @returns {JSX.Element}
+ */
 const VariationWrapper: React.FC<Props> = ({
 	index,
 	children,

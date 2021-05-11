@@ -8,6 +8,14 @@ interface Props {
 	name: string;
 }
 
+/**
+ * Text-field component
+ * @param state
+ * @param setState
+ * @param placeHolder
+ * @param name
+ * @returns {JSX.Element}
+ */
 const InputText: React.FC<Props> = ({ state, setState, placeHolder, name }) => {
 	return (
 		<>

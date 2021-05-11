@@ -8,6 +8,12 @@ interface Props {
 	changed: number[];
 }
 
+/**
+ * Container for registers.
+ * @param register
+ * @param changed
+ * @returns {JSX.Element}
+ */
 const RegisterContainer: React.FC<Props> = ({ register, changed }) => {
 	const locale = useLanguage().language;
 

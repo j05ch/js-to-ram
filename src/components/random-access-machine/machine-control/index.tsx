@@ -12,6 +12,16 @@ interface Props {
 	disabled: boolean;
 }
 
+/**
+ * Control-component for machines.
+ * @param doStep
+ * @param delay
+ * @param setDelay
+ * @param isRunning
+ * @param setIsRunning
+ * @param disabled
+ * @returns {JSX.Element}
+ */
 const MachineControl: React.FC<Props> = ({
 	doStep,
 	delay,

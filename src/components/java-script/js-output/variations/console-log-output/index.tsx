@@ -5,6 +5,12 @@ interface Props {
 	mark1: boolean;
 }
 
+/**
+ * Displays console.log-output
+ * @param varField
+ * @param mark1
+ * @returns {JSX.Element}
+ */
 const ConsoleLogOutput: React.FC<Props> = ({ varField, mark1 }) => {
 	const styles1 = mark1 ? 'bg-pink-500 text-white font-bold' : '';
 

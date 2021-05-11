@@ -11,6 +11,13 @@ import ElseOutput from '../components/java-script/js-output/variations/else-outp
 import WhileOutput from '../components/java-script/js-output/variations/while-output';
 import { StepInterface } from '../types/StepInterface';
 
+/**
+ * Generates one step for JS-on-RAM-simulation.
+ * @param element
+ * @param lineNo
+ * @param blockStart
+ * @param jumpTarget
+ */
 export const generateStep = (
 	element: StepInterface,
 	lineNo: number,

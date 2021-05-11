@@ -10,6 +10,14 @@ interface Props {
 	type: ComponentsKey;
 }
 
+/**
+ * Input variation console.log
+ * @param index
+ * @param state
+ * @param setState
+ * @param type
+ * @returns {JSX.Element}
+ */
 const ConsoleLog: React.FC<Props> = ({ index, state, setState, type }) => {
 	const [localState, setLocalState] = useState(state[index]);
 

@@ -8,6 +8,13 @@ interface Props {
 	mark: boolean;
 }
 
+/**
+ * Component for a program-line.
+ * @param programLine
+ * @param programCounter
+ * @param mark
+ * @returns {JSX.Element}
+ */
 const ProgramLine: React.FC<Props> = ({
 	programLine,
 	programCounter,

@@ -11,6 +11,15 @@ interface Props {
 	isLet: boolean;
 }
 
+/**
+ * Input variation LetArithmeticNumNum
+ * @param index
+ * @param state
+ * @param setState
+ * @param type
+ * @param isLet
+ * @returns {JSX.Element}
+ */
 const LetArithmeticNumNum: React.FC<Props> = ({
 	index,
 	state,
@@ -61,11 +70,6 @@ const LetArithmeticNumNum: React.FC<Props> = ({
 							? state[index].operator
 							: 'initial'
 					}
-					// value={
-					// 	localState && localState.operator
-					// 		? localState.operator
-					// 		: 'initial'
-					// }
 				>
 					<option value={'initial'}>...</option>
 					<option value={'+'}>+</option>

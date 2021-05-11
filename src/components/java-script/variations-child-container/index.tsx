@@ -20,6 +20,13 @@ interface Props {
 	index: number;
 }
 
+/**
+ * Container-Component for variations on second level.
+ * @param state
+ * @param setState
+ * @param index
+ * @returns {JSX.Element}
+ */
 const VariationsChildContainer: React.FC<Props> = ({
 	state,
 	setState,

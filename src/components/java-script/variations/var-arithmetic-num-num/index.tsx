@@ -8,6 +8,13 @@ interface Props {
 	setState: Dispatch<React.SetStateAction<{}>>;
 }
 
+/**
+ * Input variation VarArithmeticNumNum
+ * @param index
+ * @param state
+ * @param setState
+ * @returns {JSX.Element}
+ */
 const VarArithmeticNumNum: React.FC<Props> = ({ index, state, setState }) => {
 	return (
 		<>

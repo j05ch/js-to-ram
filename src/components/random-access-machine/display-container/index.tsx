@@ -8,6 +8,14 @@ interface Props {
 	mark: boolean;
 }
 
+/**
+ * Wrapper for Display-component.
+ * @param inputArray
+ * @param inputIndex
+ * @param headerLabel
+ * @param mark
+ * @returns {JSX.Element}
+ */
 const DisplayContainer: React.FC<Props> = ({
 	inputArray,
 	inputIndex,

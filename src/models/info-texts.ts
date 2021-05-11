@@ -8,7 +8,6 @@ export const machineSelectorInfo: InfoType = {
 		content:
 			'Wähle Random Access Machine, um ein Programm auf einer RAM auszuführen. Wähle JavaScript, um ein JavaScript-Programm zu schreiben und dir die Transformation für eine RAM anzusehen.',
 	},
-
 	EN: {
 		header: 'Choose your workflow',
 		content:

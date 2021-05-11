@@ -6,6 +6,13 @@ interface Props {
 	mark: boolean;
 }
 
+/**
+ * Component that displays all strings in an array.
+ * @param inputArray
+ * @param inputIndex
+ * @param mark
+ * @returns {JSX.Element}
+ */
 const Display: React.FC<Props> = ({ inputArray, inputIndex, mark }) => {
 	function getDisplay() {
 		return inputArray.map((s, index) => {

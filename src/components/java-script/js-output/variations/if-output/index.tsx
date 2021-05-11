@@ -9,6 +9,16 @@ interface Props {
 	mark3: boolean;
 }
 
+/**
+ * Displays console.log-output
+ * @param varLeft
+ * @param varRight
+ * @param operator
+ * @param mark1
+ * @param mark2
+ * @param mark3
+ * @returns {JSX.Element}
+ */
 const IfOutput: React.FC<Props> = ({
 	varLeft,
 	varRight,

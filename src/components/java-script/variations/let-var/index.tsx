@@ -10,6 +10,14 @@ interface Props {
 	type: ComponentsKey;
 }
 
+/**
+ * Input variation LetVar
+ * @param index
+ * @param state
+ * @param setState
+ * @param type
+ * @returns {JSX.Element}
+ */
 const LetVar: React.FC<Props> = ({ index, state, setState, type }) => {
 	const [localState, setLocalState] = useState(state[index]);
 
